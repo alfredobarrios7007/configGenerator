@@ -20,11 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.koatchy.configGenerator.model.GeneralResponse;
 import com.koatchy.configGenerator.entity.UsuarioArea;
 import com.koatchy.configGenerator.service.UsuarioAreaService;
-import com.koatchy.configGenerator.service.UsuarioAreaServiceImpl;
 
 @RequestMapping("UsuarioArea")
 @RestController
-public class UsuarioAreaController {
+public class UsuarioAreaController implements ServiceController {
 	
 	@Autowired
 	private UsuarioAreaService usuarioAreaServ;
@@ -60,6 +59,7 @@ public class UsuarioAreaController {
 		return new GeneralResponse(200, "Success");		
 	}
 	
+	@Override
 	@ExceptionHandler
 	public GeneralResponse handlerException(Exception e) {
 		System.out.println(e.toString());

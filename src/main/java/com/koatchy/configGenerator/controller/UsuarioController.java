@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.koatchy.configGenerator.model.GeneralResponse;
 import com.koatchy.configGenerator.entity.Usuario;
 import com.koatchy.configGenerator.service.UsuarioService;
-import com.koatchy.configGenerator.service.UsuarioServiceImpl;
 
 @RequestMapping("Usuario")
 @RestController
-public class UsuarioController {
+public class UsuarioController implements ServiceController {
 	
 	@Autowired
 	private UsuarioService usuarioServ;
@@ -53,6 +52,7 @@ public class UsuarioController {
 		return new GeneralResponse(200, "Success");		
 	}
 	
+	@Override
 	@ExceptionHandler
 	public GeneralResponse handlerException(Exception e) {
 		System.out.println(e.toString());
