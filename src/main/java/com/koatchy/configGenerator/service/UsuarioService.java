@@ -1,9 +1,9 @@
 package com.koatchy.configGenerator.service;
 
+import com.koatchy.configGenerator.entity.*;
 import java.util.List;
 import java.util.Optional;
 
-import com.koatchy.configGenerator.entity.Usuario;
 
 /**
  * @author alfredo.barrios
@@ -11,14 +11,14 @@ import com.koatchy.configGenerator.entity.Usuario;
  */
 public interface UsuarioService {
 
-	Usuario saveUsuario(Usuario usuario);
+	Usuario save(Usuario param);
 	
-	Usuario updateUsuario(Usuario usuario);
+	Usuario update(Usuario param);
 	
-	List<Usuario> getAllUsuarios();
+	List<Usuario> getAllRows();
 	
-	Optional<Usuario> getUsuario(Long IdUsuario);
+	Optional<Usuario> getRow(Long param);
 	
-	void deleteUsuario(Long IdUsuario);
+	void deleteRow(Long param);
 	
 }

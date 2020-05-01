@@ -9,6 +9,17 @@ public class KeyValue {
 
 	private String Key;
 	private String Value;
+
+	public KeyValue() {
+		super();		
+	}
+	
+	public KeyValue(String key, String value) {
+		super();
+		Key = key;
+		Value = value;
+	}
+	
 	public String getKey() {
 		return Key;
 	}

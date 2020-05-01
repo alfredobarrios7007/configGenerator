@@ -21,13 +21,14 @@ public class Usuario {
 	
 	public Usuario() {}
 	
-	public Usuario(long idusuario, long idusuarioarea, String contrasena, String eliminar, String nombre, String email) {
-		this.Id = idusuario;
+	public Usuario(long id, long idusuarioarea, String contrasena, String eliminar, String nombre, String email, String superusuario) {
+		this.Id = id;
 		this.IdUsuarioArea = idusuarioarea;
 		this.Contrasena = contrasena;
 		this.Eliminar = eliminar;
 		this.Nombre = nombre;
 		this.Email = email;
+		this.Superusuario = superusuario;
 	}
 
 	@Id

@@ -11,44 +11,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koatchy.configGenerator.model.GeneralResponse;
-import com.koatchy.configGenerator.entity.Usuario;
-import com.koatchy.configGenerator.service.UsuarioService;
+import com.koatchy.configGenerator.entity.*;
+import com.koatchy.configGenerator.service.*;
 
 @RequestMapping("Usuario")
 @RestController
 public class UsuarioController implements ServiceController {
 	
 	@Autowired
-	private UsuarioService usuarioServ;
+	private UsuarioService serviceObj;
 	
 	@PostMapping("save")
-	public Usuario save(@RequestBody Usuario usuario) {
-		System.out.println("save: " + usuario.toString());
-		return usuarioServ.saveUsuario(usuario);
+	public Usuario save(@RequestBody Usuario param) {
+		System.out.println("save: " + param.toString());
+		return serviceObj.save(param);
 	}
 	
 	@PutMapping("/update")
-	public Usuario update(@RequestBody Usuario usuario) {
+	public Usuario update(@RequestBody Usuario param) {
 		System.out.println("update");
-		return usuarioServ.updateUsuario(usuario);
+		return serviceObj.update(param);
 	}
 	
 	@GetMapping("/all")
 	public GeneralResponse getAllUsuarios(){
 		System.out.println("all");
-		return new GeneralResponse(200, "Success", usuarioServ.getAllUsuarios());
+		return new GeneralResponse(200, "Success", serviceObj.getAllRows());
 	}
 	
-	@GetMapping("/by/{IdUsuario}")
-	public GeneralResponse getUsuario(@PathVariable(name = "IdUsuario") Long Id) {
+	@GetMapping("/by/{IdU}")
+	public GeneralResponse getUsuario(@PathVariable(name = "Id") Long Id) {
 		System.out.println("by");
-		return new GeneralResponse(200, "Success", usuarioServ.getUsuario(Id));
+		return new GeneralResponse(200, "Success", serviceObj.getRow(Id));
 	}
 
-	@GetMapping("/delete/{IdUsuario}")
-	public GeneralResponse deleteUsuario(@PathVariable(name = "IdUsuario") Long Id) {
+	@GetMapping("/delete/{Id}")
+	public GeneralResponse deleteUsuario(@PathVariable(name = "Id") Long Id) {
 		System.out.println("delete");
-		usuarioServ.deleteUsuario(Id);
+		serviceObj.deleteRow(Id);
 		return new GeneralResponse(200, "Success");		
 	}
 	

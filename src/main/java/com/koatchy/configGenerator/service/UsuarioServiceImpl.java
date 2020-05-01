@@ -1,43 +1,43 @@
 package com.koatchy.configGenerator.service;
 
+import com.koatchy.configGenerator.dao.*;
+import com.koatchy.configGenerator.entity.*;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.koatchy.configGenerator.dao.UsuarioDao;
-import com.koatchy.configGenerator.entity.Usuario;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired(required = true)
-	private UsuarioDao usuarioDao;	
+	private UsuarioDao objectDao;	
 	
 	@Override
-	public Usuario saveUsuario(Usuario usuario) {
-		return usuarioDao.save(usuario);
+	public Usuario save(Usuario param) {
+		return objectDao.save(param);
 	}
 
 	@Override
-	public Usuario updateUsuario(Usuario usuario) {
-		return usuarioDao.saveAndFlush(usuario);
+	public Usuario update(Usuario param) {
+		return objectDao.saveAndFlush(param);
 	}
 
 	@Override
-	public List<Usuario> getAllUsuarios() {
-		return usuarioDao.findAll();
+	public List<Usuario> getAllRows() {
+		return objectDao.findAll();
 	}
 
 	@Override
-	public Optional<Usuario> getUsuario(Long IdUsuario) {
-		return usuarioDao.findById(IdUsuario);
+	public Optional<Usuario> getRow(Long param) {
+		return objectDao.findById(param);
 	}
-
+	
 	@Override
-	public void deleteUsuario(Long IdUsuario) {
-		usuarioDao.deleteById(IdUsuario);
+	public void deleteRow(Long param) {
+		objectDao.deleteById(param);
 	}
 
 }

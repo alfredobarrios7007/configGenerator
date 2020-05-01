@@ -18,44 +18,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koatchy.configGenerator.model.GeneralResponse;
-import com.koatchy.configGenerator.entity.UsuarioArea;
-import com.koatchy.configGenerator.service.UsuarioAreaService;
+import com.koatchy.configGenerator.entity.*;
+import com.koatchy.configGenerator.service.*;
 
 @RequestMapping("UsuarioArea")
 @RestController
 public class UsuarioAreaController implements ServiceController {
 	
 	@Autowired
-	private UsuarioAreaService usuarioAreaServ;
+	private UsuarioAreasService serviceObj;
 	
 	@PostMapping("save")
-	public UsuarioArea save(@RequestBody UsuarioArea usuarioArea) {
+	public UsuarioAreas save(@RequestBody UsuarioAreas param) {
 		System.out.println("save");
-		return usuarioAreaServ.saveUsuarioArea(usuarioArea);
+		return serviceObj.save(param);
 	}
 	
 	@PutMapping("/update")
-	public UsuarioArea update(@RequestBody UsuarioArea usuarioArea) {
+	public UsuarioAreas update(@RequestBody UsuarioAreas param) {
 		System.out.println("update");
-		return usuarioAreaServ.updateUsuarioArea(usuarioArea);
+		return serviceObj.update(param);
 	}
 	
 	@GetMapping("/all")
-	public GeneralResponse getAllUsuarioAreas(){
+	public GeneralResponse getAllRows(){
 		System.out.println("all");
-		return new GeneralResponse(200, "Success", usuarioAreaServ.getAllUsuarioAreas());
+		return new GeneralResponse(200, "Success", serviceObj.getAllRows());
 	}
 	
-	@GetMapping("/by/{IdUsuarioArea}")
-	public GeneralResponse getUsuarioArea(@PathVariable(name = "IdUsuarioArea") Long Id) {
+	@GetMapping("/by/{Id}")
+	public GeneralResponse getRow(@PathVariable(name = "Id") Long Id) {
 		System.out.println("by");
-		return new GeneralResponse(200, "Success", usuarioAreaServ.getUsuarioArea(Id));
+		return new GeneralResponse(200, "Success", serviceObj.getRow(Id));
 	}
 
-	@GetMapping("/delete/{IdUsuarioArea}")
-	public GeneralResponse deleteUsuarioArea(@PathVariable(name = "IdUsuarioArea") Long Id) {
+	@GetMapping("/delete/{Id}")
+	public GeneralResponse deleteRow(@PathVariable(name = "Id") Long Id) {
 		System.out.println("delete");
-		usuarioAreaServ.deleteUsuarioArea(Id);
+		serviceObj.deleteRow(Id);
 		return new GeneralResponse(200, "Success");		
 	}
 	

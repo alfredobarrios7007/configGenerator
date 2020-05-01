@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+		<meta http-equiv="Access-Control-Allow-Headers" content="Content-Type" />
+		<meta http-equiv="Access-Control-Allow-Methods" content="*" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Telcel</title>
+        <!-- Bootstrap core CSS -->
+        <link href="./srcAssets/promoCards.css" rel="stylesheet">
+	</head>
+	<body>
+	
+        <main>
+            <section>
+				<div id="dvRow" class="row">
+				
+				</div>
+            </section>
+        </main>
+        
+        <table>
+        	<tr id="tableD"></tr>
+        </table>
+
+        <script src="srcAssets/jquery-1.11.1.min.js"></script>
+        <script src="srcAssets/restive.min.js"></script>
+        <script src="srcAssets/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="srcAssets/jquery.ui.touch-punch.min.js"></script>
+        <script src="srcAssets/external-vars.js"></script>
+        <script src="srcAssets/commonFunctions.js"></script>
+        <script src="srcAssets/communication.js"></script>
+
+
+        <script type="text/javascript">
+	        /*
+	        	Alfredo Barrios
+	        	2020-04-23
+	        */
+	        var baseImageUrl = "http://200.57.170.146";
+			var jsonUrl = "http://localhost/jsonPromo/promoPost{PAIS}.json";
+   			var telcelUrl = "http://telcel.multiplica.com";
+        	var Squares = {
+        		GetPais: function(){
+        			var pais = "MX";
+        			try{
+        				pais = _CommonFunctions.GetUrlParameter("pais");
+        			}catch(e){
+        				pais = "MX";	
+        			}
+        			return pais;
+        		},
+        		GetSquares: function(){
+					var squares = {};
+        			try{
+        				var pais= Squares.GetPais();
+        				jsonUrl = jsonUrl.replace("{PAIS}",pais);        				
+      					squares = _CommFuncts.GetRemoteDataGet(jsonUrl, null);        					
+        			}catch(err){
+        				alert("Error GetSquares: " + e);
+        			}        			
+        			return squares;
+        		},
+        		PopulateSquares: function(){
+        			try{
+            			var squares = Squares.GetSquares();        				
+            			var cards = "";
+            			var iItem = 0;
+        	            for (iItem = 0; iItem < squares.length; iItem++) {
+        	            	cards += cardStructureSMtd.replace("{HREF}", telcelUrl + squares[iItem].ParsedLinkDetails)
+        	            	.replace("{BCKGRND_IMG}", baseImageUrl + squares[iItem].fileReference)
+        	            	.replace("{FECHA_INI}", squares[iItem].startDate)
+        	            	.replace("{FECHA_FIN}", squares[iItem].endDate)
+        	            	.replace("{PROMO_TITLE}", squares[iItem].promoTitle)
+        	            	.replace("{DESCRIPTION}", squares[iItem].shortDescription)
+        	            	.replace("{PROMO_BTN}", squares[iItem].shortDescription)
+        	            	.replace("{LABEL}", squares[iItem].etiqueta);
+        	            }
+            			$("#tableD").html(cards);
+        			}catch(e){
+        				alert(e);
+        			}
+        		},
+        		vacio: function(){}
+        	};
+        	Squares.PopulateSquares();
+        </script>
+	</body>
+</html>

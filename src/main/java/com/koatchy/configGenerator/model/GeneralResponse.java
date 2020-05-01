@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class GeneralResponse {
 	Integer Code = 0;
 	String Message = "";
-	Object Response = "";
+	Object Data = "";
 	public Integer getCode() {
 		return Code;
 	}
@@ -21,20 +21,20 @@ public class GeneralResponse {
 	public void setMessage(String message) {
 		Message = message;
 	}
-	public Object getResponse() {
-		return Response;
+	public Object getData() {
+		return Data;
 	}
-	public void setResponse(Object response) {
-		Response = response;
+	public void setData(Object response) {
+		Data = response;
 	}
 	public GeneralResponse() {}
 	public GeneralResponse(Integer code, String message) {
 		this.Code = code;
 		this.Message = message;
 	}
-	public GeneralResponse(Integer code, String message, Object response) {
+	public GeneralResponse(Integer code, String message, Object data) {
 		this.Code = code;
 		this.Message = message;
-		this.Response = response;
+		this.Data = data;
 	}
 }

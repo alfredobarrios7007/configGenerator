@@ -16,11 +16,11 @@ import lombok.Getter;
 
 @Entity
 @Table(name="ctusuarioareas")
-public class UsuarioArea {
+public class UsuarioAreas {
 
-	public UsuarioArea() {}
+	public UsuarioAreas() {}
 	
-	public UsuarioArea(long id, String nombre, String notifica) {
+	public UsuarioAreas(long id, String nombre, String notifica) {
 		this.Id=id;
 		this.Nombre=nombre;
 		this.Notifica=notifica;

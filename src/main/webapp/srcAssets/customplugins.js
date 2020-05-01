@@ -1,0 +1,1 @@
+var url_comparador='../ajax/add-comparador.php';
