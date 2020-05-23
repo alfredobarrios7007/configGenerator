@@ -66,7 +66,7 @@
     });
   
     $("#lnkLogin").click(function(){
-      _Login.ShowLoginForm();
+      window.document.location.href="login.html";
     });
 
   })(jQuery); // End of use strict

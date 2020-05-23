@@ -18,10 +18,21 @@ var _Login = {
 			{
 				return false;
 			}
-			
+
+			var params = {"username": $("#inputEmailAddress").val().trim() , "password": $("#inputPassword").val().trim()};
+			var data = _Communication.GetRemoteDataPost(ulrLoginValidation, params);
+	
+			if(data.code!=200){
+				_MessageBox.Show("Error: " + data.code + "- " + data.message);
+				return false;
+			}
+
+			if($("#rememberPasswordCheck").prop("checked")==true){
+				_CommonFunctions.SetCookie("token", data.data.value);
+			}
+
 		} catch (error) {
-			alert('SubmitForm error: ' + error);
-			
+			alert('SubmitForm error: ' + error);			
 		}
 		return false;
 	},
@@ -39,14 +50,6 @@ var _Login = {
 			$("#inputPassword").focus();
 			return false;
 		}
-
-		var params = {"username":$("#inputEmailAddress").val().trim(), "password":$("#inputPassword").val().trim()};
-
-		var data = _CommFuncts.GetRemoteDataPost(ulrLoginValidation, params);
-
-		if($("#rememberPasswordCheck").prop("checked")==true){
-			//TO DO
-		}
 		return true;
 	},
 	Mock:function(){
@@ -57,3 +60,4 @@ var _Login = {
 $("#btnSubmit").click(function(){ 
 	return _Login.SubmitForm();
  });
+

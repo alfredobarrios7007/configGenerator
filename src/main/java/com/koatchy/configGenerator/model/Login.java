@@ -12,8 +12,8 @@ public class Login {
 	private String Username;
 	private String Password;
 	
-	private Login() {}
-	private Login(String username, String password) {
+	public Login() {}
+	public Login(String username, String password) {
 		this.Username = username;
 		this.Password = password;
 	}

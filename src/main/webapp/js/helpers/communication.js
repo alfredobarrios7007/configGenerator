@@ -5,12 +5,12 @@
  * 
  * Alfredo Barrios
  */
-var _CommFuncts = {
+var _Communication = {
 	GetRemoteDataPost: function (ActionUrl, Arguments) {
-	        return _CommFuncts.GetRemoteData(ActionUrl, Arguments, "POST");
+	        return _Communication.GetRemoteData(ActionUrl, Arguments, "POST");
     },
     GetRemoteDataGet: function (ActionUrl, Arguments) {
-        return _CommFuncts.GetRemoteData(ActionUrl, Arguments, "GET");
+        return _Communication.GetRemoteData(ActionUrl, Arguments, "GET");
     },
     GetRemoteData: function (ActionUrl, Arguments, PostGet) {
         var result;
@@ -19,8 +19,11 @@ var _CommFuncts = {
         		type:PostGet, 
         		url: ActionUrl, 
         		async: false, 
-        		contentType: "application/json", 
-        		data: Arguments, 
+                dataType: 'json', 
+                contentType: 'application/json; charset=utf-8',
+                mimeType: 'application/json',
+                headers: authenticationToken,
+        		data: JSON.stringify(Arguments), 
         		xhrFields: { withCredentials: true }, 
         		crossDomain: true, 
         		success: function (data) { 
@@ -32,16 +35,16 @@ var _CommFuncts = {
                     _CommonFunctions.MessageBox("Error on Remote call " + ActionUrl + " : " + xhr.status + " - " + thrownError);
     				} 
     			});        	        
-        	} catch (e) {
+        } catch (e) {
             _CommonFunctions.MessageBox("Error on GetRemoteData: " + e.message);
         }
         return result;
     },
     GetRemoteDataPostAsync: function (ActionUrl, Arguments) {
-        return _CommFuncts.GetRemoteData(ActionUrl, Arguments, "POST");
+        return _Communication.GetRemoteData(ActionUrl, Arguments, "POST");
     },
     GetRemoteDataGetAsync: function (ActionUrl, Arguments) {
-        return _CommFuncts.GetRemoteData(ActionUrl, Arguments, "GET");
+        return _Communication.GetRemoteData(ActionUrl, Arguments, "GET");
     },
     GetRemoteDataAsync: function (ActionUrl, Arguments, PostGet) {
         var result;

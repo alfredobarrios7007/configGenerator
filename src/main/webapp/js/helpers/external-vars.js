@@ -5,4 +5,5 @@
  * 
  */
 
-var ulrLoginValidation = "http://localhost/security/login";
+var ulrLoginValidation = "http://localhost:8080/security/login";
+var authenticationToken = {"authentication":"wDo3rXrE/"};

@@ -4,349 +4,359 @@
  * Alfredo Barrios
  */
 var _CommonFunctions = {
-		GetUrlParameter: function(name) {
-		    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-		    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-		    var results = regex.exec(location.search);
-		    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-		},
-	    SetDatePickerNavigationFuncsById: function (dateControlId) {
-	        $("#" + dateControlId).keydown(function () {
-	            //  LEFT: 37
-	            //    UP: 38
-	            // RIGHT: 39
-	            //  DOWN: 40
-	            //   TAB: 9
 
-	            var keyCode = event.which;
-	            if (keyCode != 9) // if tab was not pressed, use pressed key for calendar control
-	            {
-	                event.preventDefault();
-	                event.stopPropagation();
+	SetCookie:function(varName, value){
+		$.cookie(varName, value);		
+	},
 
-	                var parts = $("#" + dateControlId).val().split("/");
-	                var currentDate = new Date(parts[2], parts[0] - 1, parts[1]); // months are 0-based
+	GetCookie:function(varName){
+		return $.cookie(varName);		
+	},
 
-	                switch (keyCode) {
-	                    case 37: // LEFT, -1 day
-	                        currentDate.setDate(currentDate.getDate() - 1);
-	                        break;
-	                    case 38: // UP, -1 week
-	                        currentDate.setDate(currentDate.getDate() - 7);
-	                        break;
-	                    case 39: // RIGHT, +1 day
-	                        currentDate.setDate(currentDate.getDate() + 1);
-	                        break;
-	                    case 40: // DOWN, +1 week
-	                        currentDate.setDate(currentDate.getDate() + 7);
-	                        break;
-	                }
+	GetUrlParameter: function(name) {
+		name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+		var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+		var results = regex.exec(location.search);
+		return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+	},
+	
+	SetDatePickerNavigationFuncsById: function (dateControlId) {
+		$("#" + dateControlId).keydown(function () {
+			//  LEFT: 37
+			//    UP: 38
+			// RIGHT: 39
+			//  DOWN: 40
+			//   TAB: 9
 
-	                if (currentDate != null) {
-	                    $("#" + dateControlId).datepicker("setDate", currentDate);
-	                }
-	            }
+			var keyCode = event.which;
+			if (keyCode != 9) // if tab was not pressed, use pressed key for calendar control
+			{
+				event.preventDefault();
+				event.stopPropagation();
 
-	        });
-	        $("#" + dateControlId).datepicker("option", "showAnim", "fold");
-	    },
+				var parts = $("#" + dateControlId).val().split("/");
+				var currentDate = new Date(parts[2], parts[0] - 1, parts[1]); // months are 0-based
 
-	    SetDatePickerNavigationFuncsByClass: function (dateClass) {
-	        $("." + dateClass).keydown(function () {
-	            //  LEFT: 37
-	            //    UP: 38
-	            // RIGHT: 39
-	            //  DOWN: 40
-	            //   TAB: 9
+				switch (keyCode) {
+					case 37: // LEFT, -1 day
+						currentDate.setDate(currentDate.getDate() - 1);
+						break;
+					case 38: // UP, -1 week
+						currentDate.setDate(currentDate.getDate() - 7);
+						break;
+					case 39: // RIGHT, +1 day
+						currentDate.setDate(currentDate.getDate() + 1);
+						break;
+					case 40: // DOWN, +1 week
+						currentDate.setDate(currentDate.getDate() + 7);
+						break;
+				}
 
-	            var keyCode = event.which;
-	            if (keyCode != 9) // if tab was not pressed, use pressed key for calendar control
-	            {
-	                event.preventDefault();
-	                event.stopPropagation();
+				if (currentDate != null) {
+					$("#" + dateControlId).datepicker("setDate", currentDate);
+				}
+			}
 
-	                var parts = $("." + dateClass).val().split("/");
-	                var currentDate = new Date(parts[2], parts[0] - 1, parts[1]); // months are 0-based
+		});
+		$("#" + dateControlId).datepicker("option", "showAnim", "fold");
+	},
 
-	                switch (keyCode) {
-	                    case 37: // LEFT, -1 day
-	                        currentDate.setDate(currentDate.getDate() - 1);
-	                        break;
-	                    case 38: // UP, -1 week
-	                        currentDate.setDate(currentDate.getDate() - 7);
-	                        break;
-	                    case 39: // RIGHT, +1 day
-	                        currentDate.setDate(currentDate.getDate() + 1);
-	                        break;
-	                    case 40: // DOWN, +1 week
-	                        currentDate.setDate(currentDate.getDate() + 7);
-	                        break;
-	                }
+	SetDatePickerNavigationFuncsByClass: function (dateClass) {
+		$("." + dateClass).keydown(function () {
+			//  LEFT: 37
+			//    UP: 38
+			// RIGHT: 39
+			//  DOWN: 40
+			//   TAB: 9
 
-	                if (currentDate != null) {
-	                    $("." + dateClass).datepicker("setDate", currentDate);
-	                }
-	            }
+			var keyCode = event.which;
+			if (keyCode != 9) // if tab was not pressed, use pressed key for calendar control
+			{
+				event.preventDefault();
+				event.stopPropagation();
 
-	        });
-	        $("." + dateClass).datepicker("option", "showAnim", "fold");
-	    },
+				var parts = $("." + dateClass).val().split("/");
+				var currentDate = new Date(parts[2], parts[0] - 1, parts[1]); // months are 0-based
 
-	    TruncString: function (string, length) {
-	        return (string.length > length ? string.substring(0, length) + "..." : string);
-	    },
+				switch (keyCode) {
+					case 37: // LEFT, -1 day
+						currentDate.setDate(currentDate.getDate() - 1);
+						break;
+					case 38: // UP, -1 week
+						currentDate.setDate(currentDate.getDate() - 7);
+						break;
+					case 39: // RIGHT, +1 day
+						currentDate.setDate(currentDate.getDate() + 1);
+						break;
+					case 40: // DOWN, +1 week
+						currentDate.setDate(currentDate.getDate() + 7);
+						break;
+				}
 
-	    MessageBox: function (message) {
-	        alert(message);
-	    },
+				if (currentDate != null) {
+					$("." + dateClass).datepicker("setDate", currentDate);
+				}
+			}
 
-	    PopulateDropDownList: function (listId, data, idColumn, textColumn, selectOption) {
-	        $(listId).empty();
-	        var _select = $('<select>');
-	        if (data[0].length == 0) {
-	            _select.append(
-	                    $('<option></option>').val("-1").html(_GlobalModels.Labels[_GlobalModels.Values.Language].NoRowsToPopulateTheDropDownList)
-	                );
-	        } else {
-	            if (selectOption) {
-	                _select.append(
-	                        $('<option></option>').val("-1").html(_GlobalModels.Labels[_GlobalModels.Values.Language].DropDownListSelectOne)
-	                    );
-	            }
+		});
+		$("." + dateClass).datepicker("option", "showAnim", "fold");
+	},
 
-	            for (var iIdx = 0; iIdx < data.length; iIdx++) {
-	                _select.append(
-	                        $('<option></option>').val(data[iIdx][idColumn]).html(_CommonFunctions.TruncString(data[iIdx][textColumn], 40))
-	                    );
-	            }
-	        }
-	        $(listId).append(_select.html());
-	    },
+	TruncString: function (string, length) {
+		return (string.length > length ? string.substring(0, length) + "..." : string);
+	},
 
-	    PopulateDependedDropDownList: function (listId, data, idColumn, textColumn, selectorColumn, valueToCompare, selectOption) {
-	        var itemsAdded = 0;
-	        $(listId).empty();
-	        var _select = $('<select>');
-	        if (data.length == 0) {
-	            _select.append(
-	                    $('<option></option>').val("-1").html(_GlobalModels.Labels[_GlobalModels.Values.Language].NoRowsToPopulateTheDropDownList)
-	                );
-	        } else {
-	            if (selectOption) {
-	                _select.append(
-	                        $('<option></option>').val("-1").html(_GlobalModels.Labels[_GlobalModels.Values.Language].DropDownListSelectOne)
-	                    );
-	            }
-	            for (var iIdx = 0; iIdx < data.length; iIdx++) {
-	                //if (iIdx == 0 || iIdx == 10 || iIdx == 250)
-	                if (data[iIdx][selectorColumn] == '20270')
-	                    alert(valueToCompare + ' - ' + data[iIdx][selectorColumn]);
-	                if (data[iIdx][selectorColumn] == valueToCompare) {
-	                    _select.append(
-	                            $('<option></option>').val(data[iIdx][idColumn]).html(_CommonFunctions.TruncString(data[iIdx][textColumn], 40))
-	                        );
-	                    itemsAdded++;
-	                }
-	            }
-	        }
-	        $(listId).append(_select.html());
-	    },
+	MessageBox: function (message) {
+		alert(message);
+	},
 
-	    PopulateNestedDropDownList: function (listId, data, idColumn, textColumn, nullColumn, selectOption) {
-	        $(listId).empty();
-	        var selectHtml = "<select>";
-	        if (data[0].length == 0) {
-	            selectHtml += "<option value='-1'>" + _GlobalModels.Labels[_GlobalModels.Values.Language].NoRowsToPopulateTheDropDownList + "</option>";
-	        } else {
-	            if (selectOption) {
-	                selectHtml += "<option value='-1'>" + _GlobalModels.Labels[_GlobalModels.Values.Language].DropDownListSelectOne + "</option>";
-	            }
-	            for (var iItem = 0; iItem < data.length; iItem++) {
-	                if (data[iItem][nullColumn] == null) {
-	                    if (iItem > 0) {
-	                        selectHtml += "</optgroup>";
-	                    }
-	                    selectHtml += "<optgroup label='" + data[iItem][textColumn] + "'>";
-	                } else {
-	                    selectHtml += "<option value='" + data[iItem][idColumn] + "'>" + data[iItem][textColumn] + "</option>";
-	                }
-	                if (iItem == (data.length - 1)) {
-	                    selectHtml += "</optgroup>";
-	                }
-	            }
-	        }
-	        selectHtml += "</select>";
-	        var _select = $(selectHtml);
+	PopulateDropDownList: function (listId, data, idColumn, textColumn, selectOption) {
+		$(listId).empty();
+		var _select = $('<select>');
+		if (data[0].length == 0) {
+			_select.append(
+					$('<option></option>').val("-1").html(_GlobalModels.Labels[_GlobalModels.Values.Language].NoRowsToPopulateTheDropDownList)
+				);
+		} else {
+			if (selectOption) {
+				_select.append(
+						$('<option></option>').val("-1").html(_GlobalModels.Labels[_GlobalModels.Values.Language].DropDownListSelectOne)
+					);
+			}
 
-	        $(listId).append(_select.html());
-	    },
+			for (var iIdx = 0; iIdx < data.length; iIdx++) {
+				_select.append(
+						$('<option></option>').val(data[iIdx][idColumn]).html(_CommonFunctions.TruncString(data[iIdx][textColumn], 40))
+					);
+			}
+		}
+		$(listId).append(_select.html());
+	},
 
-	    OnKeyPressDecimalPatternReq: function (event) {
-	        var key = window.event ? event.keyCode : event.which;
-	        if (event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 37 || event.keyCode == 39) {
-	            return true;
-	        }
-	        else if (key < 48 || key > 57) {
-	            return false;
-	        }
-	        else
-	            return true;
-	    },
+	PopulateDependedDropDownList: function (listId, data, idColumn, textColumn, selectorColumn, valueToCompare, selectOption) {
+		var itemsAdded = 0;
+		$(listId).empty();
+		var _select = $('<select>');
+		if (data.length == 0) {
+			_select.append(
+					$('<option></option>').val("-1").html(_GlobalModels.Labels[_GlobalModels.Values.Language].NoRowsToPopulateTheDropDownList)
+				);
+		} else {
+			if (selectOption) {
+				_select.append(
+						$('<option></option>').val("-1").html(_GlobalModels.Labels[_GlobalModels.Values.Language].DropDownListSelectOne)
+					);
+			}
+			for (var iIdx = 0; iIdx < data.length; iIdx++) {
+				//if (iIdx == 0 || iIdx == 10 || iIdx == 250)
+				if (data[iIdx][selectorColumn] == '20270')
+					alert(valueToCompare + ' - ' + data[iIdx][selectorColumn]);
+				if (data[iIdx][selectorColumn] == valueToCompare) {
+					_select.append(
+							$('<option></option>').val(data[iIdx][idColumn]).html(_CommonFunctions.TruncString(data[iIdx][textColumn], 40))
+						);
+					itemsAdded++;
+				}
+			}
+		}
+		$(listId).append(_select.html());
+	},
 
-	    OnKeyPressIntegerPatternReq: function (event) {
-	        var key = window.event ? event.keyCode : event.which;
+	PopulateNestedDropDownList: function (listId, data, idColumn, textColumn, nullColumn, selectOption) {
+		$(listId).empty();
+		var selectHtml = "<select>";
+		if (data[0].length == 0) {
+			selectHtml += "<option value='-1'>" + _GlobalModels.Labels[_GlobalModels.Values.Language].NoRowsToPopulateTheDropDownList + "</option>";
+		} else {
+			if (selectOption) {
+				selectHtml += "<option value='-1'>" + _GlobalModels.Labels[_GlobalModels.Values.Language].DropDownListSelectOne + "</option>";
+			}
+			for (var iItem = 0; iItem < data.length; iItem++) {
+				if (data[iItem][nullColumn] == null) {
+					if (iItem > 0) {
+						selectHtml += "</optgroup>";
+					}
+					selectHtml += "<optgroup label='" + data[iItem][textColumn] + "'>";
+				} else {
+					selectHtml += "<option value='" + data[iItem][idColumn] + "'>" + data[iItem][textColumn] + "</option>";
+				}
+				if (iItem == (data.length - 1)) {
+					selectHtml += "</optgroup>";
+				}
+			}
+		}
+		selectHtml += "</select>";
+		var _select = $(selectHtml);
 
-	        if (event.keyCode == 8
-	         || event.keyCode == 37 || event.keyCode == 39) {
-	            return true;
-	        }
-	        else if (key < 48 || key > 57) {
-	            return false;
-	        }
-	        else
-	            return true;
-	    },
+		$(listId).append(_select.html());
+	},
 
-	    Back: function () {
-	        window.history.back(0);
-	    },
+	OnKeyPressDecimalPatternReq: function (event) {
+		var key = window.event ? event.keyCode : event.which;
+		if (event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 37 || event.keyCode == 39) {
+			return true;
+		}
+		else if (key < 48 || key > 57) {
+			return false;
+		}
+		else
+			return true;
+	},
 
-	    ShowLargeDescription: function () {
-	        event.preventDefault();
-	        x = event.x - this.offsetRight;
-	        y = event.y - this.offsetTop;
-	        // Make it hang below the cursor a bit.
-	        y += 20;
-	        style.innerHTML = '*[data-tooltip]::after { left: 20px; top: ' + y + 'px  }'
-	    },
+	OnKeyPressIntegerPatternReq: function (event) {
+		var key = window.event ? event.keyCode : event.which;
 
-	    GetToday_MMddyyy: function () {
-	        var d = new Date();
+		if (event.keyCode == 8
+			|| event.keyCode == 37 || event.keyCode == 39) {
+			return true;
+		}
+		else if (key < 48 || key > 57) {
+			return false;
+		}
+		else
+			return true;
+	},
 
-	        var month = d.getMonth() + 1;
-	        var day = d.getDate();
+	Back: function () {
+		window.history.back(0);
+	},
 
-	        var output = ((month < 10 ? '0' : '') + month) + '/' + ((day < 10 ? '0' : '') + day) + '/' + d.getFullYear();
-	        return output;
-	    },
+	ShowLargeDescription: function () {
+		event.preventDefault();
+		x = event.x - this.offsetRight;
+		y = event.y - this.offsetTop;
+		// Make it hang below the cursor a bit.
+		y += 20;
+		style.innerHTML = '*[data-tooltip]::after { left: 20px; top: ' + y + 'px  }'
+	},
 
-	    GetToday_ddMMyyy: function () {
-	        var d = new Date();
+	GetToday_MMddyyy: function () {
+		var d = new Date();
 
-	        var month = d.getMonth() + 1;
-	        var day = d.getDate();
+		var month = d.getMonth() + 1;
+		var day = d.getDate();
 
-	        var output = ((day < 10 ? '0' : '') + day) + '/' + ((month < 10 ? '0' : '') + month) + '/' + d.getFullYear();
-	        return output;
-	    },
+		var output = ((month < 10 ? '0' : '') + month) + '/' + ((day < 10 ? '0' : '') + day) + '/' + d.getFullYear();
+		return output;
+	},
 
-	    GetToday_yyyyMMdd: function () {
-	        var d = new Date();
+	GetToday_ddMMyyy: function () {
+		var d = new Date();
 
-	        var month = d.getMonth() + 1;
-	        var day = d.getDate();
+		var month = d.getMonth() + 1;
+		var day = d.getDate();
 
-	        var output = d.getFullYear() + '/' + ((month < 10 ? '0' : '') + month) + '/' + ((day < 10 ? '0' : '') + day);
-	        return output;
-	    },
+		var output = ((day < 10 ? '0' : '') + day) + '/' + ((month < 10 ? '0' : '') + month) + '/' + d.getFullYear();
+		return output;
+	},
 
-	    ConfirmBox: function (message, caption) {
-	        $("#hider").show();
-	        $("#ConfirmBox").fadeIn();
-	        $("#tdTitleConfirm").html("&nbsp;&nbsp;&nbsp;" + caption + " - Logistic");
-	        $("#tdMessageConfirm").text(message);
-	        $("#btnYesDialog").focus();
-	    },
+	GetToday_yyyyMMdd: function () {
+		var d = new Date();
 
-	    ClearFormatVal: function (value) {
-	        for (var iIdx = 0; iIdx < 99; iIdx++)
-	            value = value.replace(",", "").replace("$", "").replace("'", "");
-	        return value;
-	    },
+		var month = d.getMonth() + 1;
+		var day = d.getDate();
 
-	    ClearFormat: function (control) {
-	        for (var iIdx = 0; iIdx < 99; iIdx++)
-	            $(control).val($(control).val().replace(",", "").replace("$", ""));
-	    },
+		var output = d.getFullYear() + '/' + ((month < 10 ? '0' : '') + month) + '/' + ((day < 10 ? '0' : '') + day);
+		return output;
+	},
 
-	    IntegerFormatTextBox: function (control) {
-	        var vals = parseInt($(control).val());
-	        if (_CommonFunctions.valueIsNaN(vals))
-	            vals = 0;
-	        vals = vals.toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-	        $(control).val(vals.replace(".0", ""));
-	    },
+	ConfirmBox: function (message, caption) {
+		$("#hider").show();
+		$("#ConfirmBox").fadeIn();
+		$("#tdTitleConfirm").html("&nbsp;&nbsp;&nbsp;" + caption + " - Logistic");
+		$("#tdMessageConfirm").text(message);
+		$("#btnYesDialog").focus();
+	},
 
-	    DecimalFormatTextBox: function (control) {
-	        var vals = parseFloat($(control).val());
-	        if (_CommonFunctions.valueIsNaN(vals))
-	            vals = 0;
-	        vals = vals.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-	        $(control).val(vals);
-	    },
+	ClearFormatVal: function (value) {
+		for (var iIdx = 0; iIdx < 99; iIdx++)
+			value = value.replace(",", "").replace("$", "").replace("'", "");
+		return value;
+	},
 
-	    CurrencyFormatTextBoxfunction: function (control) {
-	        var vals = parseFloat($(control).val());
-	        if (_CommonFunctions.valueIsNaN(vals))
-	            vals = 0;
-	        vals = vals.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-	        $(control).val("$" + vals);
-	    },
+	ClearFormat: function (control) {
+		for (var iIdx = 0; iIdx < 99; iIdx++)
+			$(control).val($(control).val().replace(",", "").replace("$", ""));
+	},
 
-	    ValueIsNaN: function (v) {
-	        return v !== v;
-	    },
+	IntegerFormatTextBox: function (control) {
+		var vals = parseInt($(control).val());
+		if (_CommonFunctions.valueIsNaN(vals))
+			vals = 0;
+		vals = vals.toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+		$(control).val(vals.replace(".0", ""));
+	},
 
-	    IsValidDate: function (dateString) {
-	        // First check for the pattern
-	        var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
-	        if (!(date_regex.test(dateString))) {
-	            return false;
-	        }
+	DecimalFormatTextBox: function (control) {
+		var vals = parseFloat($(control).val());
+		if (_CommonFunctions.valueIsNaN(vals))
+			vals = 0;
+		vals = vals.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+		$(control).val(vals);
+	},
 
-	        // Parse the date parts to integers
-	        dateString = dateString.replace("/", "-").replace("/", "-");
-	        var parts = dateString.split("-");
-	        var month = parseInt(parts[0], 10);
-	        var day = parseInt(parts[1], 10);
-	        var year = parseInt(parts[2], 10);
+	CurrencyFormatTextBoxfunction: function (control) {
+		var vals = parseFloat($(control).val());
+		if (_CommonFunctions.valueIsNaN(vals))
+			vals = 0;
+		vals = vals.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+		$(control).val("$" + vals);
+	},
 
-	        // Check the ranges of month and year
-	        if (year < 1000 || year > 3000 || month == 0 || month > 12) {
-	            return false;
-	        }
+	ValueIsNaN: function (v) {
+		return v !== v;
+	},
 
-	        var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+	IsValidDate: function (dateString) {
+		// First check for the pattern
+		var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+		if (!(date_regex.test(dateString))) {
+			return false;
+		}
 
-	        // Adjust for leap years
-	        if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)) {
-	            monthLength[1] = 29;
-	        }
+		// Parse the date parts to integers
+		dateString = dateString.replace("/", "-").replace("/", "-");
+		var parts = dateString.split("-");
+		var month = parseInt(parts[0], 10);
+		var day = parseInt(parts[1], 10);
+		var year = parseInt(parts[2], 10);
 
-	        // Check the range of the day
-	        return day > 0 && day <= monthLength[month - 1];
-	    },
+		// Check the ranges of month and year
+		if (year < 1000 || year > 3000 || month == 0 || month > 12) {
+			return false;
+		}
 
-	    VerifyDate: function (control, needed) {
-	        if ($.trim($(control).val()) == "" && needed) {
-	            _MessageBox($(control).attr("data-message"), "Wrong Date");
-	            return false;
-	        }
+		var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-	        if ($.trim($(control).val()) != "")
-	            if (!isValidDate($.trim($(control).val()))) {
-	                _MessageBox($(control).attr("data-message"), "Wrong Date");
-	                return false;
-	            }
-	    },
+		// Adjust for leap years
+		if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)) {
+			monthLength[1] = 29;
+		}
 
-	    Pad: function (input, PadLength, PadCharacter, PadDirection) {//string/number,length=2,char=0,0/false=Left-1/true=Right
-	        return input = (input || PadCharacter || 0), PadCharacter = new Array(PadLength || 2).join(PadCharacter || 0), PadDirection ? (input + PadCharacter).slice(0, PadLength) : (PadCharacter + input).slice(-PadLength)
-	    },
+		// Check the range of the day
+		return day > 0 && day <= monthLength[month - 1];
+	},
 
-	    // getElementById
-	    $id: function (id) {
-	        return document.getElementById(id);
-	    }
+	VerifyDate: function (control, needed) {
+		if ($.trim($(control).val()) == "" && needed) {
+			_MessageBox($(control).attr("data-message"), "Wrong Date");
+			return false;
+		}
 
-	};
+		if ($.trim($(control).val()) != "")
+			if (!isValidDate($.trim($(control).val()))) {
+				_MessageBox($(control).attr("data-message"), "Wrong Date");
+				return false;
+			}
+	},
+
+	Pad: function (input, PadLength, PadCharacter, PadDirection) {//string/number,length=2,char=0,0/false=Left-1/true=Right
+		return input = (input || PadCharacter || 0), PadCharacter = new Array(PadLength || 2).join(PadCharacter || 0), PadDirection ? (input + PadCharacter).slice(0, PadLength) : (PadCharacter + input).slice(-PadLength)
+	},
+
+	// getElementById
+	$id: function (id) {
+		return document.getElementById(id);
+	}
+
+};

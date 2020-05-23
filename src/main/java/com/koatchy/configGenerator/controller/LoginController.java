@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koatchy.configGenerator.model.GeneralResponse;
@@ -19,9 +20,10 @@ public class LoginController implements ServiceController {
 
 	@Autowired
 	SecurityService securitySrv;
+
 	
-	@PostMapping("login")
-	public GeneralResponse login(@RequestHeader("authentication") String authentication, @RequestBody Login param) throws Exception {
+	@RequestMapping(path = "login", method = RequestMethod.POST, produces = "application/JSON")
+	public GeneralResponse login(@RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {
 		validateAuthorization(authentication);
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
@@ -39,7 +41,7 @@ public class LoginController implements ServiceController {
 	@Override
 	@ExceptionHandler
 	public GeneralResponse handlerException(Exception e) {
-		System.out.println(e.toString());
+		System.out.println("handlerException: " + e.toString());
 		return new GeneralResponse(-200, "Error: " + e.toString());
 	}
 	
