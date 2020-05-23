@@ -1,5 +1,7 @@
 package com.koatchy.configGenerator.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +19,13 @@ import lombok.Getter;
 
 @Entity
 @Table(name="ctversiones")
-public class Versiones {
+public class Versiones implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Versiones() {}
 	
 	public Versiones(long id, long idaplicacion, String versionBase, String eliminar, String mostrar, String nombre) {

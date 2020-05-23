@@ -1,5 +1,6 @@
 package com.koatchy.configGenerator.entity;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -16,7 +17,12 @@ import lombok.Getter;
 
 @Entity
 @Table(name="ctusuarioareas")
-public class UsuarioAreas {
+public class UsuarioAreas implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public UsuarioAreas() {}
 	

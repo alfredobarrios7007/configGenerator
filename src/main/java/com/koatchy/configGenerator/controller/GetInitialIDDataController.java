@@ -43,5 +43,11 @@ public class GetInitialIDDataController implements ServiceController {
 		System.out.println(e.toString());
 		return new GeneralResponse(-200, "Error: " + e.toString());
 	}
+
+	@Override
+	public void validateAuthorization(String authentication) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

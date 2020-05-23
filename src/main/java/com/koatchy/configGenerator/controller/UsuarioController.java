@@ -51,6 +51,13 @@ public class UsuarioController implements ServiceController {
 		serviceObj.deleteRow(Id);
 		return new GeneralResponse(200, "Success");		
 	}
+
+	
+	@Override
+	public void validateAuthorization(String authentication) throws Exception  {
+		if(!authentication.equals("wDo3rXrE/")) 
+			throw new Exception("No está autorizado a usar este servicio");
+	}
 	
 	@Override
 	@ExceptionHandler

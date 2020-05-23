@@ -1,50 +1,46 @@
 package com.koatchy.configGenerator.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.koatchy.configGenerator.model.GeneralResponse;
 import com.koatchy.configGenerator.model.KeyValue;
+import com.koatchy.configGenerator.model.Login;
+import com.koatchy.configGenerator.service.SecurityService;
 
-@Controller
-public class LoginController implements PageController {
+@RequestMapping("/security")
+@RestController
+public class LoginController implements ServiceController {
 
 	@Autowired
-	private Environment env;
-
+	SecurityService securitySrv;
 	
-	@RequestMapping("login")
-	public ModelAndView home(KeyValue request) 
-	{
-		ModelAndView model = new ModelAndView("login");
-		
-		List<KeyValue> arr = new ArrayList<>();
-		arr.add(request);
-		
-		KeyValue kvRequest = new KeyValue();
-		kvRequest.setKey("XXX");
-		kvRequest.setValue("chale, chale, chale!!!");
-		arr.add(kvRequest);
-		
-		model.addObject("objs", arr);
-		
-		System.out.println("home method: " + request.toString());
-		
-		
-		return model;
-	}	
+	@PostMapping("login")
+	public GeneralResponse login(@RequestHeader("authentication") String authentication, @RequestBody Login param) throws Exception {
+		validateAuthorization(authentication);
+		GeneralResponse response = new GeneralResponse();
+		response.setCode(200);
+		response.setMessage("OK");
+		response.setData(new KeyValue("token", securitySrv.validateCredentials(param)));		
+		return response;
+	}
 	
 	@Override
-	public ModelAndView Error(Exception e) {
-		ModelAndView model = new ModelAndView("Error");
-		model.addObject("ErrorMessage", new GeneralResponse(-200, "En Login", e.toString()));
-		return model;
+	public void validateAuthorization(String authentication) throws Exception  {
+		if(!authentication.equals("wDo3rXrE/")) 
+			throw new Exception("No está autorizado a usar este servicio");
+	}
+	
+	@Override
+	@ExceptionHandler
+	public GeneralResponse handlerException(Exception e) {
+		System.out.println(e.toString());
+		return new GeneralResponse(-200, "Error: " + e.toString());
 	}
 	
 }

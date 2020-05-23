@@ -1,25 +1,40 @@
 package com.koatchy.configGenerator.entity;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CascadeType;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import lombok.Setter;
-import lombok.Getter;
 
 @Entity
 @Table(name="ctpaises")
-public class Paises {
+public class Paises  implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	
 	public Paises() {}
+/*	
+	public Paises(long id, String codigo, String eliminar, String nombre, Set<Perfiles> perfiles) {
+		this.Id = id;
+		this.Codigo = codigo;
+		this.Eliminar = eliminar;
+		this.Nombre = nombre;
+		this.perfiles = perfiles;
+	}
+*/	
 	
 	public Paises(long id, String codigo, String eliminar, String nombre) {
 		this.Id = id;
@@ -41,12 +56,10 @@ public class Paises {
 	
 	@Column(name="nombre")
 	private String Nombre;
-
-	@Override
-	public String toString() {
-		return "Paises [Id=" + Id + ", Codigo=" + Codigo + ", Eliminar=" + Eliminar + ", Nombre=" + Nombre + "]";
-	}
-
+	
+//	@OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
+//	private Set<Perfiles> perfiles;
+	
 	public long getId() {
 		return Id;
 	}
@@ -78,5 +91,33 @@ public class Paises {
 	public void setNombre(String nombre) {
 		Nombre = nombre;
 	}
+
+	 /*
+    public Set<Perfiles> getPerfiles() {
+        return this.perfiles;
+    }
+	
+    public void setPerfiles(Set<Perfiles> perfiles) {
+        this.perfiles = perfiles;
+    }
+    @Override
+    public String toString() {
+    	String result = String.format(
+                "Paises [Id=%i, Codigo='%c', Eliminar='%e', Nombre='%n', Perfiles=%p]\n",
+                this.Id, this.Codigo, this.Eliminar, this.Nombre, this.perfiles != null ? this.perfiles.size() : 0 );
+        if (this.perfiles != null) {
+            for(Perfiles perfil : this.perfiles) {
+                result += perfil.toString() + "\n";
+            }
+        }
+        return result;
+    }	
+*/
+
+    @Override
+    public String toString() {
+    	return String.format("Paises [Id=%i, Codigo='%c', Eliminar='%e', Nombre='%n']", this.Id, this.Codigo, this.Eliminar, this.Nombre);
+    }	
+
 	
 }

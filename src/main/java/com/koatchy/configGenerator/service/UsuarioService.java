@@ -1,6 +1,8 @@
 package com.koatchy.configGenerator.service;
 
 import com.koatchy.configGenerator.entity.*;
+import com.koatchy.configGenerator.model.Login;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +20,8 @@ public interface UsuarioService {
 	List<Usuario> getAllRows();
 	
 	Optional<Usuario> getRow(Long param);
+	
+	Optional<Usuario> getRowByUsernameAndPassword(Login param);
 	
 	void deleteRow(Long param);
 	

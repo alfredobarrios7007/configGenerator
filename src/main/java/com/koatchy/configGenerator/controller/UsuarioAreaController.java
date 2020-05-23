@@ -60,6 +60,12 @@ public class UsuarioAreaController implements ServiceController {
 	}
 	
 	@Override
+	public void validateAuthorization(String authentication) throws Exception  {
+		if(!authentication.equals("wDo3rXrE/")) 
+			throw new Exception("No está autorizado a usar este servicio");
+	}
+	
+	@Override
 	@ExceptionHandler
 	public GeneralResponse handlerException(Exception e) {
 		System.out.println(e.toString());

@@ -6,6 +6,8 @@ import com.koatchy.configGenerator.model.GeneralResponse;
 
 public interface ServiceController {
 
+	void validateAuthorization(String authentication) throws Exception;
+	
 	@ExceptionHandler
 	GeneralResponse handlerException(Exception e);
 }
