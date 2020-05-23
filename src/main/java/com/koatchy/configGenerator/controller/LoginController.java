@@ -1,5 +1,9 @@
 package com.koatchy.configGenerator.controller;
 
+import java.net.URI;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,11 +24,12 @@ public class LoginController implements ServiceController {
 
 	@Autowired
 	SecurityService securitySrv;
-
 	
 	@RequestMapping(path = "login", method = RequestMethod.POST, produces = "application/JSON")
-	public GeneralResponse login(@RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {
-		validateAuthorization(authentication);
+	public GeneralResponse login(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {
+	    String origin = URI.create(request.getRequestURL().toString()).getHost();
+	    System.out.println(" Origin:" + origin);
+	    validateAuthorization(authentication);
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
