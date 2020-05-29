@@ -28,9 +28,18 @@ var recoveryPassword = {
 		$("#lnkGotoLogin").html(lg_form.lnkGotoLogin);
 		$("#lblGotoRegister").html(lg_form.lblGotoRegister);
 		$("#btnSubmit").val(lg_form.btnSubmit);
+		$("#emailDoesNotExistMsg").html(lg_form.emailDoesNotExistMsg);
+		$("#successMsg").html(lg_form.successMsg);
+		$("#fillTheEmailMsg").html(lg_form.fillTheEmailMsg);
+		$("#unexpectedErrorMsg").html(lg_form.unexpectedErrorMsg);
 		$("#btnSubmit").click(function(){ 
 			return recoveryPassword.SubmitForm();
 		 });
+		$("#inputEmailAddress").focusin(function() {
+			$("#fillTheEmailMsg").hide();
+			$("#unexpectedErrorMsg").hide();
+			$("#emailDoesNotExistMsg").hide();
+		});
 	},
 	SubmitForm:function(){
 		try {
@@ -39,18 +48,24 @@ var recoveryPassword = {
 				return false;
 			}
 
-			var params = {"username": $("#inputEmailAddress").val().trim()};
+			var params = {"username": $("#inputEmailAddress").val().trim() };
 			var data = _Communication.GetRemoteDataPost(ulrRecoveryPassword, params);
 	
 			if(data.code!=200){
-				_MessageBox.Show("Error: " + data.code + "- " + data.message);
+				$("#emailDoesNotExistMsg").show();
 				return false;
 			}
+			if(data.data==true){
+				$("#btnSubmit").hide();
+				$("#successMsg").show();
+			}else{
+				$("#emailDoesNotExistMsg").show();
+			}
 
-			
 
 		} catch (error) {
 			alert('SubmitForm error: ' + error);			
+			$("#unexpectedErrorMsg").show();
 		}
 		return false;
 	},
@@ -60,19 +75,13 @@ var recoveryPassword = {
 	},
 	Validation: function(){
 		if($("#inputEmailAddress").val().trim()==""){
-			_MessageBox.Show("Por favor proporcione su cuenta de e-mail");
-			$("#inputEmailAddress").focus();
-			return false;
-		}
-		if($("#inputPassword").val().trim()==""){
-			_MessageBox.Show("Por favor proporcione su contraseña.");
-			$("#inputPassword").focus();
+			$("#fillTheEmailMsg").show();
 			return false;
 		}
 		return true;
 	},
 	Mock:function(){
-		alert('_Login Mock');
+		alert('recoveryPassword Mock');
 	}
 
 }

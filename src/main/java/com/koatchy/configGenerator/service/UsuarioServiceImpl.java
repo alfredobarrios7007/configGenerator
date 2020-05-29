@@ -3,7 +3,10 @@ package com.koatchy.configGenerator.service;
 import com.koatchy.configGenerator.dao.*;
 import com.koatchy.configGenerator.entity.*;
 import com.koatchy.configGenerator.exception.RecoveryPasswordException;
+import com.koatchy.configGenerator.model.EmailTemplate;
 import com.koatchy.configGenerator.model.Login;
+import com.koatchy.configGenerator.tools.EmailHelper;
+import com.koatchy.configGenerator.tools.Token;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,21 +47,31 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 	
 	@Override
-	public String recoveryPassword(String email) throws RecoveryPasswordException {
-		String result = "";
+	public Boolean recoveryPassword(Login param) throws RecoveryPasswordException {
+		Boolean result = false;
 		
-		if(email.trim()=="") {
+		if(param.getUsername().trim()=="") {
 			throw new RecoveryPasswordException("Proporcione la cuenta de e-mail.");
 		}
 		try {				
-			Optional<Usuario> usuario = objectDao.findUserByEmail(email);
+			Optional<Usuario> usuario = objectDao.findUserByEmail(param.getUsername());
 			if (usuario.isPresent()) {
-				result = "Te envié un e-mail para que cambies tu contraseña.";
-				//TO DO
+				result = true;
 				//Send e-mail
-				//EmailHelper emailH = new EmailHelper();
-			}else
-				result = "No se encontró la cuenta de e-mail en nuestra base de datos ¡regístrate ya!";
+				EmailTemplate emailTemp = new EmailTemplate();
+				emailTemp.setTo(param.getUsername());
+				String msg = emailTemp.getMessage();
+				Token tokn = new Token("~KöAtcHy¬");
+				msg += tokn.getRecoveryPasswordToken(param.getUsername());
+				emailTemp.setMessage(msg);
+				System.out.print(msg);
+				EmailHelper emailH = new EmailHelper();
+				emailH.sendmail(emailTemp);
+				System.out.print("Si lo encontré - " + param.getUsername());
+			}else {
+				result = false;
+				System.out.print("No lo encontré - " + param.getUsername());
+			}
 		} catch (Exception e) {
 			throw new RecoveryPasswordException(e.getMessage());
 		}

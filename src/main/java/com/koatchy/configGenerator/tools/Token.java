@@ -9,6 +9,16 @@ public class Token {
 	
 	private String product;
 	
+	public String getRecoveryPasswordToken(String email) throws Exception {
+		String result = "";
+		try {
+			result = EncryptUtil.encode("~KöAtcHy¬", email + "|" + getCurrentDate());
+		} catch (Exception e) {
+			throw new Exception("Not possible generate a token in this moment.");
+		}
+		return result;
+	}
+		
 	public Token(String product) {
 		this.product = product;
 	}

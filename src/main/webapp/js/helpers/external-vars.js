@@ -48,6 +48,10 @@ var splg_registry = {
 	,"btnSubmit":"Enviar"
 	,"lnkGotoLogin":"Regresar a Acceder"
 	,"lblGotoRegister":"¿Necesitas una cuenta? Reg&iacute;strate!"
+	,"emailDoesNotExistMsg":"El correo electrónico que proporcionaste no se encuentra en nuestra base de datos."
+	,"successMsg":"Te enviamos un correo electrónico para que puedas recuperar tu contraseña."
+	,"fillTheEmailMsg":"Por favor escribe tu cuenta de  correo electrónico con que te registrasté."
+	,"unexpectedErrorMsg":"Ocurrio un error inesperado, por favor, vuelve a intentar más tarde."
 };
 var enlg_registry = {
 	"lblFormTitle":"Password Recovery"
@@ -56,4 +60,8 @@ var enlg_registry = {
 	,"btnSubmit":"Reset Password"
 	,"lnkGotoLogin":"Return to login"
 	,"lblGotoRegister":"Need an account? Sign up!"
+	,"emailDoesNotExistMsg":"The e-mail doesn't exist in our database."
+	,"successMsg":"You are going to receive an e-mail with the instructions to recover your password."
+	,"fillTheEmailMsg":"Please, type the e-mail account that you used to register."
+	,"unexpectedErrorMsg":"Ups! we are very sorry, an unexpected error happens, please, try again later."
 };

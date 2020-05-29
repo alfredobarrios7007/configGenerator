@@ -24,7 +24,7 @@ public interface UsuarioService {
 	
 	Optional<Usuario> getRowByUsernameAndPassword(Login param);
 	
-	String recoveryPassword(String email) throws RecoveryPasswordException; 
+	Boolean recoveryPassword(Login param) throws RecoveryPasswordException; 
 	
 	void deleteRow(Long param);
 	
