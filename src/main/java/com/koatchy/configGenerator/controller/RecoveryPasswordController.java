@@ -14,7 +14,7 @@ import com.koatchy.configGenerator.service.UsuarioService;
 
 @RequestMapping("/security")
 @RestController
-public class RecoveryPasswordController implements ServiceController {
+public class RecoveryPasswordController extends ApiController {
 	
 	@Autowired
 	UsuarioService serviceSrv;
@@ -32,16 +32,4 @@ public class RecoveryPasswordController implements ServiceController {
 		return response;
 	}
 	
-	@Override
-	public void validateAuthorization(String authentication) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public GeneralResponse handlerException(Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

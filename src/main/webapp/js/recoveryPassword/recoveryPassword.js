@@ -39,17 +39,15 @@ var recoveryPassword = {
 				return false;
 			}
 
-			var params = {"username": $("#inputEmailAddress").val().trim() , "password": $("#inputPassword").val().trim()};
-			var data = _Communication.GetRemoteDataPost(ulrLoginValidation, params);
+			var params = {"username": $("#inputEmailAddress").val().trim()};
+			var data = _Communication.GetRemoteDataPost(ulrRecoveryPassword, params);
 	
 			if(data.code!=200){
 				_MessageBox.Show("Error: " + data.code + "- " + data.message);
 				return false;
 			}
 
-			if($("#rememberPasswordCheck").prop("checked")==true){
-				_CommonFunctions.SetCookie("token", data.data.value);
-			}
+			
 
 		} catch (error) {
 			alert('SubmitForm error: ' + error);			

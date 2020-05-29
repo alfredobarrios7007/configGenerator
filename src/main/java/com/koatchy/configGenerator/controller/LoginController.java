@@ -4,7 +4,6 @@ package com.koatchy.configGenerator.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,7 @@ import com.koatchy.configGenerator.service.SecurityService;
 
 @RequestMapping("/security")
 @RestController
-public class LoginController implements ServiceController {
+public class LoginController extends ApiController {
 
 	@Autowired
 	SecurityService securitySrv;
@@ -35,18 +34,6 @@ public class LoginController implements ServiceController {
 		response.setData(new KeyValue("token", securitySrv.validateCredentials(param)));		
 		return response;
 	}
-	
-	@Override
-	public void validateAuthorization(String authentication) throws Exception  {
-		if(!authentication.equals("wDo3rXrE/")) 
-			throw new Exception("No está autorizado a usar este servicio");
-	}
-	
-	@Override
-	@ExceptionHandler
-	public GeneralResponse handlerException(Exception e) {
-		System.out.println("handlerException: " + e.toString());
-		return new GeneralResponse(-200, "Error: " + e.toString());
-	}
+
 	
 }

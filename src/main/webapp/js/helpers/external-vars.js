@@ -6,6 +6,7 @@
  */
 
 var ulrLoginValidation = "http://localhost:8080/security/login";
+var ulrRecoveryPassword = "http://localhost:8080/security/recoveryPassword";
 var authenticationToken = {"authentication":"wDo3rXrE/"};
 // Global labels
 var splg_global = {

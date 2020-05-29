@@ -8,7 +8,6 @@ package com.koatchy.configGenerator.controller;
  *
  */
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +22,7 @@ import com.koatchy.configGenerator.service.*;
 
 @RequestMapping("UsuarioArea")
 @RestController
-public class UsuarioAreaController implements ServiceController {
+public class UsuarioAreaController extends ApiController {
 	
 	@Autowired
 	private UsuarioAreasService serviceObj;
@@ -57,19 +56,6 @@ public class UsuarioAreaController implements ServiceController {
 		System.out.println("delete");
 		serviceObj.deleteRow(Id);
 		return new GeneralResponse(200, "Success");		
-	}
-	
-	@Override
-	public void validateAuthorization(String authentication) throws Exception  {
-		if(!authentication.equals("wDo3rXrE/")) 
-			throw new Exception("No está autorizado a usar este servicio");
-	}
-	
-	@Override
-	@ExceptionHandler
-	public GeneralResponse handlerException(Exception e) {
-		System.out.println(e.toString());
-		return new GeneralResponse(-200, "Error: " + e.toString());
 	}
 
 }
