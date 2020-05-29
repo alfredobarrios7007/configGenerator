@@ -2,6 +2,7 @@ package com.koatchy.configGenerator.service;
 
 import com.koatchy.configGenerator.dao.*;
 import com.koatchy.configGenerator.entity.*;
+import com.koatchy.configGenerator.exception.RecoveryPasswordException;
 import com.koatchy.configGenerator.model.Login;
 
 import java.util.List;
@@ -42,6 +43,27 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return objectDao.findUserByNameAndPassword(param.getUsername(), param.getPassword());		
 	}
 	
+	@Override
+	public String recoveryPassword(String email) throws RecoveryPasswordException {
+		String result = "";
+		
+		if(email.trim()=="") {
+			throw new RecoveryPasswordException("Proporcione la cuenta de e-mail.");
+		}
+		try {				
+			Optional<Usuario> usuario = objectDao.findUserByEmail(email);
+			if (usuario.isPresent()) {
+				result = "Te envié un e-mail para que cambies tu contraseña.";
+				//TO DO
+				//Send e-mail
+				//EmailHelper emailH = new EmailHelper();
+			}else
+				result = "No se encontró la cuenta de e-mail en nuestra base de datos ¡regístrate ya!";
+		} catch (Exception e) {
+			throw new RecoveryPasswordException(e.getMessage());
+		}
+		return result;
+	}
 	@Override
 	public void deleteRow(Long param) {
 		objectDao.deleteById(param);

@@ -1,41 +1,40 @@
-/**
- * CommFuncts
- * 
- * Communication Functions
- * 
- * Alfredo Barrios
- */
-var _Login = {
+/*
+* Communication Functions
+* 
+* Alfredo Barrios
+*/
+var recoveryPassword = {
 	ShowForm:function(){
 		var lang = _CommonFunctions.SetCookie("language");
 		var lg_global = null;
-		var lg_login = null;
+		var lg_form = null;
 		if(lang===undefined) lang="sp";
 		if(lang=="sp"){
 			lg_global = splg_global;
-			lg_login = splg_login;
+			lg_form = splg_registry;
 		}else{
 			lg_global = enlg_global;
-			lg_login = enlg_login;
+			lg_form = enlg_registry;
 		}
 		$("#lblTitle").html(lg_global.lblTitle);
 		$("#lblGotoPrivacyPol").html(lg_global.lblGotoPrivacyPol);
 		$("#lblCopyright").html(lg_global.lblCopyright);
 		$("#lblGotoTermsCondit").html(lg_global.lblGotoTermsCondit);
-		$("#lblFormTitle").html(lg_login.lblFormTitle);
-		$("#lblinputEmailAddress").html(lg_login.lblinputEmailAddress);
-		$("#lblinputPassword").html(lg_login.lblinputPassword);
-		$("#lblrememberPasswordCheck").html(lg_login.lblrememberPasswordCheck);
-		$("#lnkGoRecoveryPassword").html(lg_login.lnkGoRecoveryPassword);
-		$("#lblGotoRegister").html(lg_login.lblGotoRegister);
-		$("#btnSubmit").val(lg_login.btnSubmit);
+		$("#lblFormTitle").html(lg_form.lblFormTitle);
+		$("#lblEnterEmail").html(lg_form.lblEnterEmail);
+		$("#lblinputEmailAddress").html(lg_form.lblinputEmailAddress);
+		$("#lblinputPassword").html(lg_form.lblinputPassword);
+		$("#lblrememberPasswordCheck").html(lg_form.lblrememberPasswordCheck);
+		$("#lnkGotoLogin").html(lg_form.lnkGotoLogin);
+		$("#lblGotoRegister").html(lg_form.lblGotoRegister);
+		$("#btnSubmit").val(lg_form.btnSubmit);
 		$("#btnSubmit").click(function(){ 
-			return _Login.SubmitForm();
-		});
+			return recoveryPassword.SubmitForm();
+		 });
 	},
 	SubmitForm:function(){
 		try {
-			if(!_Login.Validation())
+			if(!recoveryPassword.Validation())
 			{
 				return false;
 			}
@@ -77,7 +76,7 @@ var _Login = {
 	Mock:function(){
 		alert('_Login Mock');
 	}
+
 }
 
-
- _Login.ShowForm();
+recoveryPassword.ShowForm();

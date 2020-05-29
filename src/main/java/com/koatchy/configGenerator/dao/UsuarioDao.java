@@ -16,4 +16,10 @@ public interface UsuarioDao extends JpaRepository<Usuario, Long>{
 			value = "SELECT Idusuario, IdUsuarioArea, Eliminar, Contrasena, Nombre, Email, Superusuario FROM ctusuarios  WHERE Eliminar='N' AND Email = :username and Contrasena = :password", 
 			nativeQuery = true)
 	Optional<Usuario> findUserByNameAndPassword(@Param("username")String username, @Param("password") String password);
+
+	@Query(
+			value = "SELECT Idusuario, IdUsuarioArea, Eliminar, Contrasena, Nombre, Email, Superusuario FROM ctusuarios  WHERE Eliminar='N' AND Email = :email", 
+			nativeQuery = true)
+	Optional<Usuario> findUserByEmail(@Param("email")String email);
+	
 }

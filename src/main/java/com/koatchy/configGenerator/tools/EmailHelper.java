@@ -16,6 +16,10 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+/**
+ * @author alfredo.barrios
+ *
+ */
 public class EmailHelper {
 	public void sendmail() throws AddressException, MessagingException, IOException {
 		   Properties props = new Properties();
