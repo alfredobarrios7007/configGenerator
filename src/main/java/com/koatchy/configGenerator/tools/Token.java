@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import com.koatchy.configGenerator.model.Login;
+import com.koatchy.configGenerator.model.VerifyCode;
 
 public class Token {
 	
@@ -18,7 +19,18 @@ public class Token {
 		}
 		return result;
 	}
-		
+
+	public String getRecoveryPasswordTokenDecrypt(VerifyCode code) throws Exception {
+		String result = "";
+		try {
+			result = EncryptUtil.decode("~KöAtcHy¬", code.getCode());
+		} catch (Exception e) {
+			throw new Exception("Not possible generate a token in this moment.");
+		}
+		return result;
+	}
+	
+	
 	public Token(String product) {
 		this.product = product;
 	}

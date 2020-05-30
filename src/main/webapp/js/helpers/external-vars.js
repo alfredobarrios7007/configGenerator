@@ -24,6 +24,7 @@ var enlg_global = {
 // Login form labels
 var splg_login = {
 	"lblFormTitle":"Acceder"
+	,"htmlTitle":"Log in - Alfredo \"Köatchy\" Barrios"
 	,"lblinputEmailAddress":"Correo electr&oacute;nico"
 	,"lblinputPassword":"Contraseña"
 	,"lblrememberPasswordCheck":"Recordar tu contrase&ntilde;a"
@@ -33,6 +34,7 @@ var splg_login = {
 };
 var enlg_login = {
 	"lblFormTitle":"Login"
+	,"htmlTitle":"Log in - Alfredo \"Köatchy\" Barrios"
 	,"lblinputEmailAddress":"Email"
 	,"lblinputPassword":"Password"
 	,"lblrememberPasswordCheck":"Remember your password"
@@ -40,9 +42,10 @@ var enlg_login = {
 	,"btnSubmit":"Submit"
 	,"lblGotoRegister":"Need an account? Sign up!"
 };
-// Registry form labels
-var splg_registry = {
+// Recovery Password form labels
+var splg_recovPwd = {
 	"lblFormTitle":"Recuperar contrase&ntilde;a"
+	,"htmlTitle":"Recuperar contraseña - Alfredo \"Köatchy\" Barrios"
 	,"lblinputEmailAddress":"Correo electr&oacute;nico"
 	,"lblEnterEmail":"Escribe tu correo electr&oacute;nico y te enviaremos una liga para reestablecer tu contrase&ntilde;a."
 	,"btnSubmit":"Enviar"
@@ -53,15 +56,43 @@ var splg_registry = {
 	,"fillTheEmailMsg":"Por favor escribe tu cuenta de  correo electrónico con que te registrasté."
 	,"unexpectedErrorMsg":"Ocurrio un error inesperado, por favor, vuelve a intentar más tarde."
 };
-var enlg_registry = {
-	"lblFormTitle":"Password Recovery"
+var enlg_recovPwd = {
+	"lblFormTitle":"Rocover Password"
+	,"htmlTitle":"Recover your password - Alfredo \"Köatchy\" Barrios"
 	,"lblinputEmailAddress":"E-mail"
 	,"lblEnterEmail":"Enter your email address and we will send you a link to reset your password."
-	,"btnSubmit":"Reset Password"
+	,"btnSubmit":"Send"
 	,"lnkGotoLogin":"Return to login"
 	,"lblGotoRegister":"Need an account? Sign up!"
 	,"emailDoesNotExistMsg":"The e-mail doesn't exist in our database."
 	,"successMsg":"You are going to receive an e-mail with the instructions to recover your password."
 	,"fillTheEmailMsg":"Please, type the e-mail account that you used to register."
 	,"unexpectedErrorMsg":"Ups! we are very sorry, an unexpected error happens, please, try again later."
+};
+// Set New Password form labels
+var splg_SetPwd = {
+	"htmlTitle":"Establece tu nueva contraseña - Alfredo \"Köatchy\" Barrios"
+	,"lblFormTitle":"Establecer contrase&ntilde;a"
+	,"lblEnterPassword":"Escribe y confirma tu nueva contrase&ntilde;a"
+	,"lblinputPassword":"Nueva Contrase&ntilde;a"
+	,"lblinputConfirmPassword":"Confirma tu Nueva Contrase&ntilde;a"
+	,"btnSubmit":"Restablecer contraseña"
+	,"codeDoesNotExistMsg":"El c&oacute;digo no existe."
+	,"fiilPasswordAndConfirmMsg":"Por favor llena el campo Nueva Contrase&ntilde;a y confirma la contrase&ntilde;a."
+	,"confirmDoesNotMatchMsg":"La contrase&ntilde;a y la confirmación no coinciden."
+	,"unexpectedErrorMsg":"Ocurrio un error inesperado, por favor, vuelve a intentar más tarde."
+	,"successMsg":"La contraseña se estableci&oacute; con &eacute;xito, por favor proporcione sus credenciales."
+};
+var enlg_SetPwd = {
+	"htmlTitle":"Set Your New Password - Alfredo \"Köatchy\" Barrios"
+	,"lblFormTitle":"Set Your New Password"
+	,"lblEnterPassword":"Type and confirm your new password"
+	,"lblinputPassword":"New Password"
+	,"lblinputConfirmPassword":"Confirm your New Password"
+	,"btnSubmit":"Reset Password"
+	,"codeDoesNotExistMsg":"The code does not exist."
+	,"fiilPasswordAndConfirmMsg":"Please set the field New Password and Confirm New Password."
+	,"confirmDoesNotMatchMsg":"The password and the confirmation do not match."
+	,"unexpectedErrorMsg":"Ups! we are very sorry, an unexpected error happens, please, try again later."
+	,"successMsg":"The password was settled successfuly, please, set your credentials."
 };

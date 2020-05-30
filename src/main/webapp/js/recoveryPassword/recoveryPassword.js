@@ -11,11 +11,12 @@ var recoveryPassword = {
 		if(lang===undefined) lang="sp";
 		if(lang=="sp"){
 			lg_global = splg_global;
-			lg_form = splg_registry;
+			lg_form = splg_recovPwd;
 		}else{
 			lg_global = enlg_global;
-			lg_form = enlg_registry;
+			lg_form = enlg_recovPwd;
 		}
+		document.title = lg_form.htmlTitle;
 		$("#lblTitle").html(lg_global.lblTitle);
 		$("#lblGotoPrivacyPol").html(lg_global.lblGotoPrivacyPol);
 		$("#lblCopyright").html(lg_global.lblCopyright);

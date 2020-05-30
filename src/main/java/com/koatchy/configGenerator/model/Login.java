@@ -3,10 +3,15 @@
  */
 package com.koatchy.configGenerator.model;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 /**
  * @author alfredo.barrios
  * @date April 16, 2016
  */
+@Component
+@Scope(value="prototype")
 public class Login {
 
 	private String Username;
