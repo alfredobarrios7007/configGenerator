@@ -22,21 +22,20 @@ import com.koatchy.configGenerator.service.SecurityService;
  */
 @RequestMapping("/security")
 @RestController
-public class CodeSetPassword extends ApiController {
+public class VerifyChangePasswordCode extends ApiController {
 	
 	@Autowired
 	SecurityService serviceSrv;
 	
 	@RequestMapping(path = "VerifyChangePasswordCode", method = RequestMethod.POST, produces = "application/JSON")
-	public GeneralResponse VerifyChangePasswordCode(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final VerifyCode code) throws Exception {
+	public GeneralResponse Verify(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final VerifyCode code) throws Exception {
 	    /* The lines, below, get the origin of the called */
 		//String origin = URI.create(request.getRequestURL().toString()).getHost();
-	    //System.out.println(" Origin:" + origin);
 	    validateAuthorization(authentication);
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
-		response.setData(serviceSrv.VerifyChangePasswordCode(code));
+		response.setData(serviceSrv.verifyChangePasswordCode(code));
 		return response;
 	}
 

@@ -37,18 +37,18 @@ var setPassword = {
 			return setPassword.SubmitForm();
 		});
 		$("#inputPassword").focusin(function() {
-			$("#codeDoesNotExistMsg").hide();
-			$("#fiilPasswordAndConfirmMsg").hide();
-			$("#confirmDoesNotMatchMsg").hide();
-			$("#unexpectedErrorMsg").hide();
+			setPassword.CleanMsg();
 		});
 		$("#lblinputConfirmPassword").focusin(function() {
-			$("#codeDoesNotExistMsg").hide();
-			$("#fiilPasswordAndConfirmMsg").hide();
-			$("#confirmDoesNotMatchMsg").hide();
-			$("#unexpectedErrorMsg").hide();
+			setPassword.CleanMsg();
 		});
 		setPassword.CheckCode();
+	},
+	CleanMsg:function(){
+		$("#codeDoesNotExistMsg").hide();
+		$("#fiilPasswordAndConfirmMsg").hide();
+		$("#confirmDoesNotMatchMsg").hide();
+		$("#unexpectedErrorMsg").hide();
 	},
 	CheckCode:function(){
 		var code = _CommonFunctions.GetUrlParameter("code");
@@ -57,7 +57,14 @@ var setPassword = {
 			$("#codeDoesNotExistMsg").show();
 			return false;
 		}
+		var params = {"code": code};
+		var data = _Communication.GetRemoteDataPost(urlVerifyChangePasswordCode, params);
 
+		if(data.code!=200){
+			$("#formSetPassword").hide();
+			$("#codeDoesNotExistMsg").show();
+			return false;
+		}
 	},
 	SubmitForm:function(){
 		try {

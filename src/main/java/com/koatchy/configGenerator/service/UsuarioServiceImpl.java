@@ -5,7 +5,6 @@ import com.koatchy.configGenerator.entity.*;
 import com.koatchy.configGenerator.exception.RecoveryPasswordException;
 import com.koatchy.configGenerator.model.EmailTemplate;
 import com.koatchy.configGenerator.model.Login;
-import com.koatchy.configGenerator.tools.EmailHelper;
 import com.koatchy.configGenerator.tools.Token;
 
 import java.util.List;
@@ -47,6 +46,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 	
 	@Override
+	public Optional<Usuario> findUserByEmail(String email){
+		return objectDao.findUserByEmail(email);		
+	}
+	
+	@Override
 	public Boolean recoveryPassword(Login param) throws RecoveryPasswordException {
 		Boolean result = false;
 		
@@ -65,18 +69,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 				msg += tokn.getRecoveryPasswordToken(param.getUsername());
 				emailTemp.setMessage(msg);
 				System.out.print(msg);
-				EmailHelper emailH = new EmailHelper();
-				emailH.sendmail(emailTemp);
-				System.out.print("Si lo encontré - " + param.getUsername());
+				//EmailHelper emailH = new EmailHelper();
+				//emailH.sendmail(emailTemp);
 			}else {
 				result = false;
-				System.out.print("No lo encontré - " + param.getUsername());
 			}
 		} catch (Exception e) {
 			throw new RecoveryPasswordException(e.getMessage());
 		}
 		return result;
 	}
+
 	@Override
 	public void deleteRow(Long param) {
 		objectDao.deleteById(param);

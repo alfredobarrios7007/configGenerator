@@ -13,17 +13,17 @@ public class Token {
 	public String getRecoveryPasswordToken(String email) throws Exception {
 		String result = "";
 		try {
-			result = EncryptUtil.encode("~KöAtcHy¬", email + "|" + getCurrentDate());
+			result = EncryptUtil.encode("~KöAtcHy¬", email + "|" + getCurrentDate()).replace("+", "¬");
 		} catch (Exception e) {
 			throw new Exception("Not possible generate a token in this moment.");
 		}
 		return result;
 	}
 
-	public String getRecoveryPasswordTokenDecrypt(VerifyCode code) throws Exception {
+	public String verifyChangePasswordCode(VerifyCode code) throws Exception {
 		String result = "";
 		try {
-			result = EncryptUtil.decode("~KöAtcHy¬", code.getCode());
+			result = EncryptUtil.decode("~KöAtcHy¬", code.getCode().replace("¬","+"));
 		} catch (Exception e) {
 			throw new Exception("Not possible generate a token in this moment.");
 		}

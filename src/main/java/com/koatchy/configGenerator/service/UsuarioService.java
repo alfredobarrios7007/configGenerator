@@ -22,6 +22,8 @@ public interface UsuarioService {
 	
 	Optional<Usuario> getRow(Long param);
 	
+	Optional<Usuario> findUserByEmail(String email);
+	
 	Optional<Usuario> getRowByUsernameAndPassword(Login param);
 	
 	Boolean recoveryPassword(Login param) throws RecoveryPasswordException; 

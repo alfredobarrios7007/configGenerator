@@ -3,11 +3,13 @@
  * 
  * April 29, 2020
  * 
- */
+*/
 
+var authenticationToken = {"authentication":"wDo3rXrE/"};
 var ulrLoginValidation = "http://localhost:8080/security/login";
 var ulrRecoveryPassword = "http://localhost:8080/security/recoveryPassword";
-var authenticationToken = {"authentication":"wDo3rXrE/"};
+var ulrSetPassword = "http://localhost:8080/security/setPassword";
+var urlVerifyChangePasswordCode ="http://localhost:8080/security/VerifyChangePasswordCode";
 // Global labels
 var splg_global = {
 	"lblTitle":"K&ouml;atchy"

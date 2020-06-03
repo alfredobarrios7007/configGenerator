@@ -37,10 +37,13 @@ var recoveryPassword = {
 			return recoveryPassword.SubmitForm();
 		 });
 		$("#inputEmailAddress").focusin(function() {
-			$("#fillTheEmailMsg").hide();
-			$("#unexpectedErrorMsg").hide();
-			$("#emailDoesNotExistMsg").hide();
+			recoveryPassword.CleanMsg();
 		});
+	},
+	CleanMsg:function(){
+		$("#fillTheEmailMsg").hide();
+		$("#unexpectedErrorMsg").hide();
+		$("#emailDoesNotExistMsg").hide();
 	},
 	SubmitForm:function(){
 		try {

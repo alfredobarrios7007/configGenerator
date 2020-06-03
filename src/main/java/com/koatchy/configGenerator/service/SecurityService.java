@@ -16,6 +16,6 @@ public interface SecurityService {
 	
 	String validateCredentials(Login param) throws SecurityException;
 
-	VerifyChangePasswordCodeResult VerifyChangePasswordCode(VerifyCode code) throws SecurityException; 
+	VerifyChangePasswordCodeResult verifyChangePasswordCode(VerifyCode code) throws SecurityException; 
 	
 }
