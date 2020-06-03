@@ -30,6 +30,7 @@ var setPassword = {
 		$("#codeDoesNotExistMsg").html(lg_form.codeDoesNotExistMsg);
 		$("#fiilPasswordAndConfirmMsg").html(lg_form.fiilPasswordAndConfirmMsg);
 		$("#confirmDoesNotMatchMsg").html(lg_form.confirmDoesNotMatchMsg);
+		$("#lengthWronghMsg").html(lg_form.lengthWronghMsg);		
 		$("#unexpectedErrorMsg").html(lg_form.unexpectedErrorMsg);
 		$("#successMsg").html(lg_form.successMsg);
 		$("#btnSubmit").val(lg_form.btnSubmit);
@@ -39,7 +40,7 @@ var setPassword = {
 		$("#inputPassword").focusin(function() {
 			setPassword.CleanMsg();
 		});
-		$("#lblinputConfirmPassword").focusin(function() {
+		$("#inputConfirmPassword").focusin(function() {
 			setPassword.CleanMsg();
 		});
 		setPassword.CheckCode();
@@ -91,14 +92,16 @@ var setPassword = {
 		alert('ResetForm');
 	},
 	Validation: function(){
-		if($("#inputEmailAddress").val().trim()==""){
-			_MessageBox.Show("Por favor proporcione su cuenta de e-mail");
-			$("#inputEmailAddress").focus();
+		if($("#inputPassword").val().trim()==""||$("#inputConfirmPassword").val().trim()==""){
+			$("#fiilPasswordAndConfirmMsg").show();
 			return false;
 		}
-		if($("#inputPassword").val().trim()==""){
-			_MessageBox.Show("Por favor proporcione su contraseña.");
-			$("#inputPassword").focus();
+		if($("#inputPassword").val().trim().length<7){
+			$("#lengthWronghMsg").show();
+			return false;
+		}
+		if($("#inputPassword").val().trim()==$("#inputConfirmPassword").val().trim()){
+			$("#confirmDoesNotMatchMsg").show();
 			return false;
 		}
 		return true;

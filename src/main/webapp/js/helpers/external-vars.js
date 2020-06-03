@@ -83,6 +83,7 @@ var splg_SetPwd = {
 	,"fiilPasswordAndConfirmMsg":"Por favor llena el campo Nueva Contrase&ntilde;a y confirma la contrase&ntilde;a."
 	,"confirmDoesNotMatchMsg":"La contrase&ntilde;a y la confirmación no coinciden."
 	,"unexpectedErrorMsg":"Ocurrio un error inesperado, por favor, vuelve a intentar más tarde."
+	,"lengthWronghMsg":"La contraseña por lo menos debe tener al menos 7 carateres"
 	,"successMsg":"La contraseña se estableci&oacute; con &eacute;xito, por favor proporcione sus credenciales."
 };
 var enlg_SetPwd = {
@@ -96,5 +97,6 @@ var enlg_SetPwd = {
 	,"fiilPasswordAndConfirmMsg":"Please set the field New Password and Confirm New Password."
 	,"confirmDoesNotMatchMsg":"The password and the confirmation do not match."
 	,"unexpectedErrorMsg":"Ups! we are very sorry, an unexpected error happens, please, try again later."
+	,"lengthWronghMsg":"The password must to have 7 characters at least."
 	,"successMsg":"The password was settled successfuly, please, set your credentials."
 };
