@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope(value="prototype")
-public class VerifyChangePasswordCodeResult {
+public class SecurityResult {
 	public Boolean result;
 	public String message;
 	/**

@@ -43,12 +43,27 @@
                                                 </div>
                                                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                                     <a id="lnkGoRecoveryPassword" class="small" href="password.html">¿Olvídaste tu contraseña?</a>
-                                                    <input type="submit" class="btn btn-primary" id="btnSubmit" value="Login" />
+                                                    <input type="button" class="btn btn-primary" id="btnSubmit" value="Login" />
                                                 </div>
                                             </form>
                                         </div>
                                         <div class="card-footer text-center">
                                             <div class="small"><a id="lblGotoRegister" href="register.html">¿Necesitas una cuenta? Reg&iacute;strate!</a></div>
+                                        </div>
+                                        <div class="alert alert-danger collapse" role="alert" id="emailEmptyMsg">
+                                            <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+                                        </div>
+                                        <div class="alert alert-danger collapse" role="alert" id="passwordEmptyMsg">
+                                            <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+                                        </div>
+                                        <div class="alert alert-danger collapse" role="alert" id="worngCredentialsMsg">
+                                            <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+                                        </div>
+                                        <div class="alert alert-danger collapse" role="alert" id="unExpectedErrorMsg">
+                                            <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+                                        </div>
+                                        <div class="alert alert-success collapse" role="alert" id="successMsg">
+                                            <strong>Success!</strong> It needs a URL to redirect, modify login.js, SubmitForm method.
                                         </div>
                                     </div>
                                 </div>

@@ -18,6 +18,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Scope(value="prototype")
 public class GetInitialDataRequest implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@JsonProperty("app")
 	String App;
 	@JsonProperty("dateTime")

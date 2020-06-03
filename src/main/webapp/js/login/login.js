@@ -7,32 +7,53 @@
  */
 var _Login = {
 	ShowForm:function(){
-		var lang = _CommonFunctions.SetCookie("language");
-		var lg_global = null;
-		var lg_login = null;
-		if(lang===undefined) lang="sp";
-		if(lang=="sp"){
-			lg_global = splg_global;
-			lg_form = splg_login;
-		}else{
-			lg_global = enlg_global;
-			lg_form = enlg_login;
+		try {
+			var lang = _CommonFunctions.SetCookie("language");
+			var lg_global = null;
+			var lg_login = null;
+			if(lang===undefined) lang="sp";
+			if(lang=="sp"){
+				lg_global = splg_global;
+				lg_form = splg_login;
+			}else{
+				lg_global = enlg_global;
+				lg_form = enlg_login;
+			}
+			document.title = lg_form.htmlTitle;
+			$("#lblTitle").html(lg_global.lblTitle);
+			$("#lblGotoPrivacyPol").html(lg_global.lblGotoPrivacyPol);
+			$("#lblCopyright").html(lg_global.lblCopyright);
+			$("#lblGotoTermsCondit").html(lg_global.lblGotoTermsCondit);
+			$("#lblFormTitle").html(lg_form.lblFormTitle);
+			$("#lblinputEmailAddress").html(lg_form.lblinputEmailAddress);
+			$("#lblinputPassword").html(lg_form.lblinputPassword);
+			$("#lblrememberPasswordCheck").html(lg_form.lblrememberPasswordCheck);
+			$("#lnkGoRecoveryPassword").html(lg_form.lnkGoRecoveryPassword);
+			$("#lblGotoRegister").html(lg_form.lblGotoRegister);
+			$("#worngCredentialsMsg").html(lg_form.worngCredentialsMsg);
+			$("#unExpectedErrorMsg").html(lg_form.unExpectedErrorMsg);
+			$("#emailEmptyMsg").html(lg_form.emailEmptyMsg);
+			$("#passwordEmptyMsg").html(lg_form.passwordEmptyMsg);
+			$("#btnSubmit").val(lg_form.btnSubmit);
+			$("#btnSubmit").click(function(){ 
+				_Login.CleanMsg();
+				return _Login.SubmitForm();
+			});
+			$("#inputEmailAddress").focusin(function() {
+				_Login.CleanMsg();
+			});
+			$("#inputPassword").focusin(function() {
+				_Login.CleanMsg();
+			});
+			} catch (error) {
+			alert(error);
 		}
-		document.title = lg_form.htmlTitle;
-		$("#lblTitle").html(lg_global.lblTitle);
-		$("#lblGotoPrivacyPol").html(lg_global.lblGotoPrivacyPol);
-		$("#lblCopyright").html(lg_global.lblCopyright);
-		$("#lblGotoTermsCondit").html(lg_global.lblGotoTermsCondit);
-		$("#lblFormTitle").html(lg_form.lblFormTitle);
-		$("#lblinputEmailAddress").html(lg_login.lblinputEmailAddress);
-		$("#lblinputPassword").html(lg_form.lblinputPassword);
-		$("#lblrememberPasswordCheck").html(lg_form.lblrememberPasswordCheck);
-		$("#lnkGoRecoveryPassword").html(lg_form.lnkGoRecoveryPassword);
-		$("#lblGotoRegister").html(lg_form.lblGotoRegister);
-		$("#btnSubmit").val(lg_form.btnSubmit);
-		$("#btnSubmit").click(function(){ 
-			return _Login.SubmitForm();
-		});
+	},
+	CleanMsg:function(){
+		$("#worngCredentialsMsg").hide();
+		$("#unExpectedErrorMsg").hide();
+		$("#emailEmptyMsg").hide();
+		$("#passwordEmptyMsg").hide();
 	},
 	SubmitForm:function(){
 		try {
@@ -45,16 +66,20 @@ var _Login = {
 			var data = _Communication.GetRemoteDataPost(ulrLoginValidation, params);
 	
 			if(data.code!=200){
-				_MessageBox.Show("Error: " + data.code + "- " + data.message);
+				if(data.message=="WRONG_CREDENTIALS"){
+					$("#worngCredentialsMsg").show();
+				}
+				else{
+					$("#unExpectedErrorMsg").show();
+				}
 				return false;
 			}
-
+			$("#successMsg").show();
 			if($("#rememberPasswordCheck").prop("checked")==true){
 				_CommonFunctions.SetCookie("token", data.data.value);
 			}
-
 		} catch (error) {
-			alert('SubmitForm error: ' + error);			
+			$("#unExpectedErrorMsg").show();
 		}
 		return false;
 	},
@@ -64,13 +89,11 @@ var _Login = {
 	},
 	Validation: function(){
 		if($("#inputEmailAddress").val().trim()==""){
-			_MessageBox.Show("Por favor proporcione su cuenta de e-mail");
-			$("#inputEmailAddress").focus();
+			$("#emailEmptyMsg").show();
 			return false;
 		}
 		if($("#inputPassword").val().trim()==""){
-			_MessageBox.Show("Por favor proporcione su contraseña.");
-			$("#inputPassword").focus();
+			$("#passwordEmptyMsg").show();
 			return false;
 		}
 		return true;

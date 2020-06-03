@@ -22,8 +22,8 @@ public class ApiController implements ServiceController {
 	@Override
 	@ExceptionHandler
 	public GeneralResponse handlerException(Exception e) {
-		System.out.println("handlerException: " + e.toString());
-		return new GeneralResponse(-200, "Error: " + e.toString());
+		System.out.println("handlerException: " + e.getMessage());
+		return new GeneralResponse(-200, e.getMessage());
 	}
 
 }

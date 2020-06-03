@@ -2,7 +2,9 @@ package com.koatchy.configGenerator.service;
 
 import com.koatchy.configGenerator.entity.*;
 import com.koatchy.configGenerator.exception.RecoveryPasswordException;
+import com.koatchy.configGenerator.exception.SetNewPasswordException;
 import com.koatchy.configGenerator.model.Login;
+import com.koatchy.configGenerator.model.SetNewPassword;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +19,8 @@ public interface UsuarioService {
 	Usuario save(Usuario param);
 	
 	Usuario update(Usuario param);
+	
+	Boolean setNewPassword(SetNewPassword param) throws SetNewPasswordException; 
 	
 	List<Usuario> getAllRows();
 	

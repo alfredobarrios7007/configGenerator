@@ -10,6 +10,7 @@ var ulrLoginValidation = "http://localhost:8080/security/login";
 var ulrRecoveryPassword = "http://localhost:8080/security/recoveryPassword";
 var ulrSetPassword = "http://localhost:8080/security/setPassword";
 var urlVerifyChangePasswordCode ="http://localhost:8080/security/VerifyChangePasswordCode";
+var urlSetNewPassword ="http://localhost:8080/security/SetNewPassword";
 // Global labels
 var splg_global = {
 	"lblTitle":"K&ouml;atchy"
@@ -33,6 +34,10 @@ var splg_login = {
 	,"lnkGoRecoveryPassword":"Olvidaste tu contrase&ntilde;a"
 	,"btnSubmit":"Enviar"
 	,"lblGotoRegister":"¿Necesitas una cuenta? Reg&iacute;strate!"
+	,"worngCredentialsMsg":"El usuario o la contrase&ntilde;a son incorrectos"
+	,"unExpectedErrorMsg":"Hubo un error inesperado :( Por favor intente más tarde"
+	,"emailEmptyMsg":"Por favor proporcione su cuenta de e-mail"
+	,"passwordEmptyMsg":"Por favor proporcione su contraseña"
 };
 var enlg_login = {
 	"lblFormTitle":"Login"
@@ -43,6 +48,10 @@ var enlg_login = {
 	,"lnkGoRecoveryPassword":"Forgot password?"
 	,"btnSubmit":"Submit"
 	,"lblGotoRegister":"Need an account? Sign up!"
+	,"worngCredentialsMsg":"The credentials are wrong"
+	,"unExpectedErrorMsg":"There was an un expected error :( Please try again later"
+	,"emailEmptyMsg":"Please type your e-mail account"
+	,"passwordEmptyMsg":"Please type your password"
 };
 // Recovery Password form labels
 var splg_recovPwd = {
@@ -84,7 +93,7 @@ var splg_SetPwd = {
 	,"confirmDoesNotMatchMsg":"La contrase&ntilde;a y la confirmación no coinciden."
 	,"unexpectedErrorMsg":"Ocurrio un error inesperado, por favor, vuelve a intentar más tarde."
 	,"lengthWronghMsg":"La contraseña por lo menos debe tener al menos 7 carateres"
-	,"successMsg":"La contraseña se estableci&oacute; con &eacute;xito, por favor proporcione sus credenciales."
+	,"successMsg":"La contraseña se estableci&oacute; con &eacute;xito, por favor <a href='login.html'>proporcione sus credenciales</a>."
 };
 var enlg_SetPwd = {
 	"htmlTitle":"Set Your New Password - Alfredo \"Köatchy\" Barrios"
@@ -98,5 +107,5 @@ var enlg_SetPwd = {
 	,"confirmDoesNotMatchMsg":"The password and the confirmation do not match."
 	,"unexpectedErrorMsg":"Ups! we are very sorry, an unexpected error happens, please, try again later."
 	,"lengthWronghMsg":"The password must to have 7 characters at least."
-	,"successMsg":"The password was settled successfuly, please, set your credentials."
+	,"successMsg":"The password was settled successfuly, please, <a href='login.html'>set your credentials</a>."
 };

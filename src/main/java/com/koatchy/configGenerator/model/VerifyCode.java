@@ -14,6 +14,14 @@ import org.springframework.stereotype.Component;
 @Scope(value="prototype")
 public class VerifyCode {
 
+	public VerifyCode(String code) {
+		super();
+		this.code = code;
+	}
+
+	public VerifyCode() {
+	}
+
 	private String code;
 
 	/**

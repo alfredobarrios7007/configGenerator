@@ -35,6 +35,7 @@ var setPassword = {
 		$("#successMsg").html(lg_form.successMsg);
 		$("#btnSubmit").val(lg_form.btnSubmit);
 		$("#btnSubmit").click(function(){ 
+			setPassword.CleanMsg();
 			return setPassword.SubmitForm();
 		});
 		$("#inputPassword").focusin(function() {
@@ -50,6 +51,7 @@ var setPassword = {
 		$("#fiilPasswordAndConfirmMsg").hide();
 		$("#confirmDoesNotMatchMsg").hide();
 		$("#unexpectedErrorMsg").hide();
+		$("#lengthWronghMsg").hide();
 	},
 	CheckCode:function(){
 		var code = _CommonFunctions.GetUrlParameter("code");
@@ -74,12 +76,19 @@ var setPassword = {
 				return false;
 			}
 
-			var params = {"username": $("#inputEmailAddress").val().trim() , "password": $("#inputPassword").val().trim()};
-			var data = _Communication.GetRemoteDataPost(ulrLoginValidation, params);
+			var code = _CommonFunctions.GetUrlParameter("code");
+			var params = {"code": code , "newpassword": $("#inputPassword").val().trim(), "confirmpassword": $("#inputConfirmPassword").val().trim()};
+			var data = _Communication.GetRemoteDataPost(urlSetNewPassword, params);
 	
 			if(data.code!=200){
 				_MessageBox.Show("Error: " + data.code + "- " + data.message);
 				return false;
+			}
+			if(data.data.result==true){
+				$("#btnSubmit").hide();
+				$("#successMsg").show();
+			}else{
+				$("#emailDoesNotExistMsg").show();
 			}
 
 		} catch (error) {
@@ -100,7 +109,7 @@ var setPassword = {
 			$("#lengthWronghMsg").show();
 			return false;
 		}
-		if($("#inputPassword").val().trim()==$("#inputConfirmPassword").val().trim()){
+		if($("#inputPassword").val().trim()!=$("#inputConfirmPassword").val().trim()){
 			$("#confirmDoesNotMatchMsg").show();
 			return false;
 		}

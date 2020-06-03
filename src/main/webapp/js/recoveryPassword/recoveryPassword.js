@@ -34,6 +34,7 @@ var recoveryPassword = {
 		$("#fillTheEmailMsg").html(lg_form.fillTheEmailMsg);
 		$("#unexpectedErrorMsg").html(lg_form.unexpectedErrorMsg);
 		$("#btnSubmit").click(function(){ 
+			recoveryPassword.CleanMsg();
 			return recoveryPassword.SubmitForm();
 		 });
 		$("#inputEmailAddress").focusin(function() {

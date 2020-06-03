@@ -3,8 +3,11 @@ package com.koatchy.configGenerator.service;
 import com.koatchy.configGenerator.dao.*;
 import com.koatchy.configGenerator.entity.*;
 import com.koatchy.configGenerator.exception.RecoveryPasswordException;
+import com.koatchy.configGenerator.exception.SetNewPasswordException;
 import com.koatchy.configGenerator.model.EmailTemplate;
 import com.koatchy.configGenerator.model.Login;
+import com.koatchy.configGenerator.model.SetNewPassword;
+import com.koatchy.configGenerator.tools.EncryptUtil;
 import com.koatchy.configGenerator.tools.Token;
 
 import java.util.List;
@@ -42,7 +45,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Override
 	public Optional<Usuario> getRowByUsernameAndPassword(Login param){
-		return objectDao.findUserByNameAndPassword(param.getUsername(), param.getPassword());		
+		return objectDao.findUserByNameAndPassword(param.getUsername(), EncryptUtil.encode("~KöAtcHy¬" + param.getUsername(), param.getPassword()));		
 	}
 	
 	@Override
@@ -55,7 +58,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Boolean result = false;
 		
 		if(param.getUsername().trim()=="") {
-			throw new RecoveryPasswordException("Proporcione la cuenta de e-mail.");
+			throw new RecoveryPasswordException("EMPTY_EMAIL");
 		}
 		try {				
 			Optional<Usuario> usuario = objectDao.findUserByEmail(param.getUsername());
@@ -69,6 +72,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 				msg += tokn.getRecoveryPasswordToken(param.getUsername());
 				emailTemp.setMessage(msg);
 				System.out.print(msg);
+				/* NEED UNCOMMENT THE FOLLOW LINES */
 				//EmailHelper emailH = new EmailHelper();
 				//emailH.sendmail(emailTemp);
 			}else {
@@ -76,6 +80,27 @@ public class UsuarioServiceImpl implements UsuarioService {
 			}
 		} catch (Exception e) {
 			throw new RecoveryPasswordException(e.getMessage());
+		}
+		return result;
+	}
+	
+	@Override
+	public Boolean setNewPassword(SetNewPassword param) throws SetNewPasswordException {
+		Boolean result = true;
+		
+		try {
+			if(param.getEmail().trim()=="") {
+				throw new Exception("EMPTY_EMAIL");
+			}
+			
+			if(param.getNewPassword().trim()=="") {
+				throw new Exception("EMPTY_PASSWORD");
+			}
+			String ePwd = EncryptUtil.encode("~KöAtcHy¬" + param.getEmail(), param.getNewPassword());
+			int count = objectDao.setNewPassword(param.getEmail(), ePwd);
+			System.out.print("ePwd: " + ePwd + ", count: " + count);
+		} catch (Exception e) {
+			throw new SetNewPasswordException(e.getMessage());
 		}
 		return result;
 	}

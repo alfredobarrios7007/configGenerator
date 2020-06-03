@@ -1,5 +1,5 @@
 <html>
-<body>
+<body style="font-size:18px;">
 <pre>
 <b>GIT</b>
 Merge:
@@ -10,6 +10,37 @@ git push origin master
 
 Create Branch:
 git checkout -b &lt;branch&gt;
+
+<b>Comandos para Servidores Triara</b>
+Agregar acceso a internet
+
+ - sudo route add -net 0.0.0.0 gw 172.26.126.126 dev ens192
+
+Instalar JAVA
+
+ - sudo yum -y update
+ - sudo yum install -y java-11-openjdk
+ - sudo yum install -y java-11-openjdk-devel
+
+
+Instalar VIM
+
+ - sudo yum install vim
+
+
+Instalar nmap(escaneo de puertos)
+
+ - sudo yum install nmap
+
+
+Apagado de Firewall 
+
+ - systemctl disable firewalld (deshabilita el firewall)
+
+ - systemctl stop firewalld (apaga temporalmente el firewall)
+
+ - systemctl status firewalld (verifica el estatus del firewall)
+
 
 
 <b>Triara</b>
