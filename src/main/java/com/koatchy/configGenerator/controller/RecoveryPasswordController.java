@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.koatchy.configGenerator.model.GeneralResponse;
 import com.koatchy.configGenerator.model.Login;
-import com.koatchy.configGenerator.service.UsuarioService;
+import com.koatchy.configGenerator.service.UserService;
 
 /**
  * @author alfredo.barrios
@@ -22,7 +22,7 @@ import com.koatchy.configGenerator.service.UsuarioService;
 public class RecoveryPasswordController extends ApiController {
 	
 	@Autowired
-	UsuarioService serviceSrv;
+	UserService serviceSrv;
 	
 	@RequestMapping(path = "recoveryPassword", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse recoveryPassword(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {

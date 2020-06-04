@@ -22,6 +22,88 @@ CREATE SCHEMA IF NOT EXISTS `bds_consola_universal` DEFAULT CHARACTER SET utf8 C
 USE `bds_consola_universal` ;
 
 -- -----------------------------------------------------
+-- Table `bds_consola_universal`.`cfConfigurations`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`cfConfigurations` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`cfConfigurations` (
+  `IdConfiguration` INT(11) NOT NULL AUTO_INCREMENT,
+  `Description` VARCHAR(25) NULL DEFAULT NULL,
+  `Value` VARCHAR(500) NULL DEFAULT NULL,
+  PRIMARY KEY (`IdConfiguration`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 8
+DEFAULT CHARACTER SET = latin1;
+
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) VALUES ('CompanyEncryptCode', '~KöAtcHy¬');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) VALUES ('CompanyName', 'Köatchy');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) VALUES ('EmailHost', 'smtp.gmail.com');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) VALUES ('EmailPort', '587');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) VALUES ('EmailFromAccout', 'abarrios7007@gmail.com');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) VALUES ('AutorizationRequest', 'wDo3rXrE/');
+
+
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`ctUserAreas`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`ctUserAreas` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctUserAreas` (
+  `IdUserArea` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(50) NOT NULL,
+  `Notify` CHAR(1) NOT NULL,
+  PRIMARY KEY (`IdUserArea`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('Infraestructura', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('Negocio', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('Desarrollo BE', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('Desarrollo Apps', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('QA', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('Soporte', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('Líder', 'Y');
+
+
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`ctUsers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`ctUsers` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctUsers` (
+  `IdUser` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdUserArea` INT(11) NOT NULL,
+  `Password` VARCHAR(150) NOT NULL,
+  `Name` VARCHAR(50) NOT NULL,
+  `Email` VARCHAR(150) NOT NULL,
+  `Superuser` CHAR(1) NOT NULL,
+  `Unavaibled` CHAR(1) NOT NULL,
+  PRIMARY KEY (`IdUser`),
+  CONSTRAINT `FK_User_Area`
+    FOREIGN KEY (`IdUserArea`)
+    REFERENCES `bds_consola_universal`.`ctUserAreas` (`IdUserArea`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (1, 'admin', 'N', 'Alfredo Barrios', 'alfredo.barrios@speedymovil.com', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (1, 'chicharron', 'N', 'Javier Hernández', 'javier.hernandez@speedymovil.com', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (2, '12345', 'N', 'Ana Karen Suárez', 'ana.suarez@speedymovil.com', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (3, '12345', 'N', 'Magdalena Rodríguez', 'magdalena.rodriguez@speedymovil.com', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (4, '12345', 'N', 'Luis Regalado', 'luis.regalado@speedymovil.com', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (5, '12345', 'N', 'Karen López', 'qasupervision@speedymovil.com', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (6, '12345', 'N', 'Soporte', 'soporte@speedymovil.com', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (7, '12345', 'N', 'Diego Mota', 'diego.mota@speedymovil.com', 'Y');
+
+
+-- ***************************************************************************************************************************************************************************************
+-- ***************************************************************************************************************************************************************************************
+
+
+-- -----------------------------------------------------
 -- Table `bds_consola_universal`.`cfConfiguraciones`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `bds_consola_universal`.`cfConfiguraciones` ;
