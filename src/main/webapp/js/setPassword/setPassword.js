@@ -90,7 +90,7 @@ var setPassword = {
 			}else{
 				$("#emailDoesNotExistMsg").show();
 			}
-
+			
 		} catch (error) {
 			alert('SubmitForm error: ' + error);			
 		}
