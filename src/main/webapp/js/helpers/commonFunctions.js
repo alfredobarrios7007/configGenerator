@@ -13,6 +13,11 @@ var _CommonFunctions = {
 		return $.cookie(varName);		
 	},
 
+	GetLanguage:function(){
+		lang = _CommonFunctions.SetCookie("language");
+		if(lang===undefined) lang="es";
+	},
+
 	GetUrlParameter: function(name) {
 		name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
 		var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -360,3 +365,4 @@ var _CommonFunctions = {
 	}
 
 };
+_CommonFunctions.GetLanguage();

@@ -5,11 +5,9 @@
 */
 var recoveryPassword = {
 	ShowForm:function(){
-		var lang = _CommonFunctions.SetCookie("language");
 		var lg_global = null;
 		var lg_form = null;
-		if(lang===undefined) lang="sp";
-		if(lang=="sp"){
+		if(lang=="es"){
 			lg_global = splg_global;
 			lg_form = splg_recovPwd;
 		}else{

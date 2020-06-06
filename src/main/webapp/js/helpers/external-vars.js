@@ -4,7 +4,7 @@
  * April 29, 2020
  * 
 */
-
+var lang = "es"; //default spanish
 var authenticationToken = {"authentication":"wDo3rXrE/"};
 var companyName = "Alfredo \"Köatchy\" Barrios";
 var ulrDomain = "http://localhost:8080/";
@@ -14,6 +14,7 @@ var ulrSetPassword = ulrDomain + "security/setPassword";
 var urlVerifyChangePasswordCode = ulrDomain + "security/VerifyChangePasswordCode";
 var urlSetNewPassword = ulrDomain + "security/SetNewPassword";
 var urlRegister = ulrDomain + "security/regiter";
+var urlGetAllAreas = ulrDomain + "catlogs/getAllAreas";
 // Global labels
 var splg_global = {
 	"lblTitle":"K&ouml;atchy"

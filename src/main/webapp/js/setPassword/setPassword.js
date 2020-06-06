@@ -7,11 +7,9 @@
  */
 var setPassword = {
 	ShowForm:function(){
-		var lang = _CommonFunctions.SetCookie("language");
 		var lg_global = null;
 		var lg_login = null;
-		if(lang===undefined) lang="sp";
-		if(lang=="sp"){
+		if(lang=="es"){
 			lg_global = splg_global;
 			lg_form = splg_SetPwd;
 		}else{

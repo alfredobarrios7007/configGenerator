@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koatchy.configGenerator.model.GeneralResponse;
-import com.koatchy.configGenerator.model.Login;
-import com.koatchy.configGenerator.service.SecurityService;
+import com.koatchy.configGenerator.service.UserAreasService;
 
 /**
  * @author alfredo.barrios
@@ -24,10 +23,10 @@ import com.koatchy.configGenerator.service.SecurityService;
 public class UserAreasController extends ApiController {
 
 	@Autowired
-	SecurityService securitySrv;
+	UserAreasService securitySrv;
 	
-	@RequestMapping(path = "userareasByName", method = RequestMethod.POST, produces = "application/JSON")
-	public GeneralResponse getByName(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {
+	@RequestMapping(path = "getAllAreas", method = RequestMethod.POST, produces = "application/JSON")
+	public GeneralResponse getAllAreas(HttpServletRequest request, @RequestHeader("authentication") String authentication) throws Exception {
 	    /* The lines, below, get the origin of the called */
 		//String origin = URI.create(request.getRequestURL().toString()).getHost();
 	    //System.out.println(" Origin:" + origin);
@@ -35,7 +34,7 @@ public class UserAreasController extends ApiController {
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
-		//TO DO response.setData(new KeyValue("token", securitySrv.validateCredentials(param)));		
+		response.setData(securitySrv.getAllRows());		
 		return response;
 	}
 

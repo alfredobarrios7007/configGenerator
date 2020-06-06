@@ -7,11 +7,7 @@
 var registerUser = {
 	ShowForm:function(){
 		try {
-			var lang = _CommonFunctions.SetCookie("language");
-			var lg_global = null;
-			var lg_login = null;
-			if(lang===undefined) lang="sp";
-			if(lang=="sp"){
+			if(lang=="es"){
 				lg_global = splg_global;
 				lg_form = splg_RegUser;
 			}else{
@@ -65,13 +61,17 @@ var registerUser = {
 			$("#inputArea").focusin(function() {
 				registerUser.CleanMsg();
 			});
+			$("#inputArea").on("keyup",function(event) {
+				//console.log("asd");
+				//$("#inputArea").off("keyup");
+			});
 			$("#inputPassword").focusin(function() {
 				registerUser.CleanMsg();
 			});
 			$("#inputConfirmPassword").focusin(function() {
 				registerUser.CleanMsg();
 			});
-			 registerUser.CheckCode();
+			registerUser.GetAreaList();
 		} catch (error) {
 			alert(error);			
 		}
@@ -84,20 +84,24 @@ var registerUser = {
 		$("#unexpectedErrorMsg").hide();
 		$("#successMsg").hide();
 	},
-	CheckCode:function(){
-		var code = _CommonFunctions.GetUrlParameter("code");
-		if($.trim(code)=="") {
-			$("#formSetPassword").hide();
-			$("#codeDoesNotExistMsg").show();
-			return false;
-		}
-		var params = {"code": code};
-		var data = _Communication.GetRemoteDataPost(urlVerifyChangePasswordCode, params);
+	GetAreaList:function(){
+		var params = {};
+		var data = _Communication.GetRemoteDataPost(urlGetAllAreas, params);
 
-		if(data.code!=200){
-			$("#formSetPassword").hide();
-			$("#codeDoesNotExistMsg").show();
-			return false;
+		if(data.code=200){
+			var areaList = data.data;
+			var areaArray = [];
+			for(var iIdx=0;iIdx<data.data.length;iIdx++){
+				areaArray.push(data.data[iIdx].name);
+			}
+			areaArray.sort();
+			$("#inputArea").select2({
+				data: areaArray
+			  });
+		  return false;
+		}else{
+			$("#unexpectedErrorMsg").show();
+			$("#btnSubmit").hide();
 		}
 	},
 	SubmitForm:function(){
