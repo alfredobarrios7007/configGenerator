@@ -20,7 +20,7 @@ import com.koatchy.configGenerator.service.SecurityService;
 public class LoginController extends ApiController {
 
 	@Autowired
-	SecurityService securitySrv;
+	SecurityService objectSrv;
 	
 	@RequestMapping(path = "login", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse login(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {
@@ -31,7 +31,7 @@ public class LoginController extends ApiController {
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
-		response.setData(new KeyValue("token", securitySrv.validateCredentials(param)));		
+		response.setData(new KeyValue("token", objectSrv.validateCredentials(param)));		
 		return response;
 	}
 

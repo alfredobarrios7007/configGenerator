@@ -18,93 +18,41 @@ public class Register implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private long id;
-	private long idUserArea;
-	private long idCompany;
-	private String companyName; //In case of a new company
-	private String userAreaName; //In case of a new user area
-	private String password;
-	private String name;
-	private String email;
-	private String superuser;
-	private String unavaibled;
-	private String createdDatetime;
-	private String createdPlatform;
-	private String updatedDatetime;
-	private String updatedPlatform;
 	
+	private long id;
+	private String platform;
+	private String name;
+	private String lastname;
+	private String organization;
+	private String area;
+	private String email;
+	private String password;
+
 	/**
 	 * @return the id
 	 */
 	public long getId() {
 		return id;
 	}
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	/**
-	 * @return the idUserArea
+	 * @return the platform
 	 */
-	public long getIdUserArea() {
-		return idUserArea;
+	public String getPlatform() {
+		return platform;
 	}
 	/**
-	 * @param idUserArea the idUserArea to set
+	 * @param platform the platform to set
 	 */
-	public void setIdUserArea(long idUserArea) {
-		this.idUserArea = idUserArea;
-	}
-	/**
-	 * @return the idCompany
-	 */
-	public long getIdCompany() {
-		return idCompany;
-	}
-	/**
-	 * @param idCompany the idCompany to set
-	 */
-	public void setIdCompany(long idCompany) {
-		this.idCompany = idCompany;
-	}
-	/**
-	 * @return the companyName
-	 */
-	public String getCompanyName() {
-		return companyName;
-	}
-	/**
-	 * @param companyName the companyName to set
-	 */
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-	/**
-	 * @return the userAreaName
-	 */
-	public String getUserAreaName() {
-		return userAreaName;
-	}
-	/**
-	 * @param userAreaName the userAreaName to set
-	 */
-	public void setUserAreaName(String userAreaName) {
-		this.userAreaName = userAreaName;
-	}
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPlatform(String platform) {
+		this.platform = platform;
 	}
 	/**
 	 * @return the name
@@ -119,6 +67,42 @@ public class Register implements Serializable {
 		this.name = name;
 	}
 	/**
+	 * @return the lastname
+	 */
+	public String getLastname() {
+		return lastname;
+	}
+	/**
+	 * @param lastname the lastname to set
+	 */
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+	/**
+	 * @return the organization
+	 */
+	public String getOrganization() {
+		return organization;
+	}
+	/**
+	 * @param organization the organization to set
+	 */
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
+	/**
+	 * @return the area
+	 */
+	public String getArea() {
+		return area;
+	}
+	/**
+	 * @param area the area to set
+	 */
+	public void setArea(String area) {
+		this.area = area;
+	}
+	/**
 	 * @return the email
 	 */
 	public String getEmail() {
@@ -131,120 +115,43 @@ public class Register implements Serializable {
 		this.email = email;
 	}
 	/**
-	 * @return the superuser
+	 * @return the password
 	 */
-	public String getSuperuser() {
-		return superuser;
+	public String getPassword() {
+		return password;
 	}
 	/**
-	 * @param superuser the superuser to set
+	 * @param password the password to set
 	 */
-	public void setSuperuser(String superuser) {
-		this.superuser = superuser;
-	}
-	/**
-	 * @return the unavaibled
-	 */
-	public String getUnavaibled() {
-		return unavaibled;
-	}
-	/**
-	 * @param unavaibled the unavaibled to set
-	 */
-	public void setUnavaibled(String unavaibled) {
-		this.unavaibled = unavaibled;
-	}
-	/**
-	 * @return the createdDatetime
-	 */
-	public String getCreatedDatetime() {
-		return createdDatetime;
-	}
-	/**
-	 * @param createdDatetime the createdDatetime to set
-	 */
-	public void setCreatedDatetime(String createdDatetime) {
-		this.createdDatetime = createdDatetime;
-	}
-	/**
-	 * @return the createdPlatform
-	 */
-	public String getCreatedPlatform() {
-		return createdPlatform;
-	}
-	/**
-	 * @param createdPlatform the createdPlatform to set
-	 */
-	public void setCreatedPlatform(String createdPlatform) {
-		this.createdPlatform = createdPlatform;
-	}
-	/**
-	 * @return the updatedDatetime
-	 */
-	public String getUpdatedDatetime() {
-		return updatedDatetime;
-	}
-	/**
-	 * @param updatedDatetime the updatedDatetime to set
-	 */
-	public void setUpdatedDatetime(String updatedDatetime) {
-		this.updatedDatetime = updatedDatetime;
-	}
-	/**
-	 * @return the updatedPlatform
-	 */
-	public String getUpdatedPlatform() {
-		return updatedPlatform;
-	}
-	/**
-	 * @param updatedPlatform the updatedPlatform to set
-	 */
-	public void setUpdatedPlatform(String updatedPlatform) {
-		this.updatedPlatform = updatedPlatform;
-	}
-	
-	/**
-	 * @param id
-	 * @param idUserArea
-	 * @param idCompany
-	 * @param companyName
-	 * @param userAreaName
-	 * @param password
-	 * @param name
-	 * @param email
-	 * @param superuser
-	 * @param unavaibled
-	 * @param createdDatetime
-	 * @param createdPlatform
-	 * @param updatedDatetime
-	 * @param updatedPlatform
-	 */
-	public Register(long id, long idUserArea, long idCompany, String companyName, String userAreaName, String password,
-			String name, String email, String superuser, String unavaibled, String createdDatetime,
-			String createdPlatform, String updatedDatetime, String updatedPlatform) {
-		this.id = id;
-		this.idUserArea = idUserArea;
-		this.idCompany = idCompany;
-		this.companyName = companyName;
-		this.userAreaName = userAreaName;
+	public void setPassword(String password) {
 		this.password = password;
-		this.name = name;
-		this.email = email;
-		this.superuser = superuser;
-		this.unavaibled = unavaibled;
-		this.createdDatetime = createdDatetime;
-		this.createdPlatform = createdPlatform;
-		this.updatedDatetime = updatedDatetime;
-		this.updatedPlatform = updatedPlatform;
 	}
-	
+	/**
+	 * @param platform
+	 * @param name
+	 * @param lastname
+	 * @param organization
+	 * @param area
+	 * @param email
+	 * @param password
+	 */
+	public Register(long id, String platform, String name, String lastname, String organization, String area, String email,
+			String password) {
+		this.id = id;
+		this.platform = platform;
+		this.name = name;
+		this.lastname = lastname;
+		this.organization = organization;
+		this.area = area;
+		this.email = email;
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
-		return "Register [id=" + id + ", idUserArea=" + idUserArea + ", idCompany=" + idCompany + ", companyName="
-				+ companyName + ", userAreaName=" + userAreaName + ", password=" + password + ", name=" + name
-				+ ", email=" + email + ", superuser=" + superuser + ", unavaibled=" + unavaibled + ", createdDatetime="
-				+ createdDatetime + ", createdPlatform=" + createdPlatform + ", updatedDatetime=" + updatedDatetime
-				+ ", updatedPlatform=" + updatedPlatform + "]";
+		return "Register [id=" + id + ", platform=" + platform + ", name=" + name + ", lastname=" + lastname
+				+ ", organization=" + organization + ", area=" + area + ", email=" + email + ", password=" + password
+				+ "]";
 	}	
-	
+
 }

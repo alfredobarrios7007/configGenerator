@@ -25,7 +25,7 @@ import com.koatchy.configGenerator.service.SecurityService;
 public class SetPassword extends ApiController {
 	
 	@Autowired
-	SecurityService serviceSrv;
+	SecurityService objectSrv;
 
 	@RequestMapping(path = "SetNewPassword", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse SetNewPassword(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final SetNewPasswordRequest newPassword) throws Exception {
@@ -35,7 +35,7 @@ public class SetPassword extends ApiController {
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
-		response.setData(serviceSrv.setNewPassword(newPassword));
+		response.setData(objectSrv.setNewPassword(newPassword));
 		return response;
 	}
 

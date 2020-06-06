@@ -25,7 +25,7 @@ import com.koatchy.configGenerator.service.SecurityService;
 public class VerifyChangePasswordCode extends ApiController {
 	
 	@Autowired
-	SecurityService serviceSrv;
+	SecurityService objectSrv;
 	
 	@RequestMapping(path = "VerifyChangePasswordCode", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse Verify(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final VerifyCode code) throws Exception {
@@ -35,7 +35,7 @@ public class VerifyChangePasswordCode extends ApiController {
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
-		response.setData(serviceSrv.verifyChangePasswordCode(code));
+		response.setData(objectSrv.verifyChangePasswordCode(code));
 		return response;
 	}
 

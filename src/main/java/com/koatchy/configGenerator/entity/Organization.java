@@ -18,7 +18,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="ctOrganizations")
+@Table(name="ctorganizations")
 public class Organization implements Serializable {
 	
 	/**

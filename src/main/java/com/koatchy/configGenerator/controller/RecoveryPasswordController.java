@@ -22,7 +22,7 @@ import com.koatchy.configGenerator.service.UserService;
 public class RecoveryPasswordController extends ApiController {
 	
 	@Autowired
-	UserService serviceSrv;
+	UserService objectSrv;
 	
 	@RequestMapping(path = "recoveryPassword", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse recoveryPassword(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {
@@ -33,7 +33,7 @@ public class RecoveryPasswordController extends ApiController {
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
-		response.setData(serviceSrv.recoveryPassword(param));
+		response.setData(objectSrv.recoveryPassword(param));
 		return response;
 	}
 	

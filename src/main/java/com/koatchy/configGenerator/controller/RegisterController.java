@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koatchy.configGenerator.model.GeneralResponse;
-import com.koatchy.configGenerator.model.KeyValue;
-import com.koatchy.configGenerator.model.Login;
-import com.koatchy.configGenerator.service.SecurityService;
+import com.koatchy.configGenerator.model.Register;
+import com.koatchy.configGenerator.service.RegisterService;
 
 /**
  * @author alfredo.barrios
@@ -24,10 +23,10 @@ import com.koatchy.configGenerator.service.SecurityService;
 public class RegisterController extends ApiController {
 
 	@Autowired
-	SecurityService securitySrv;
+	RegisterService objectSrv;
 	
 	@RequestMapping(path = "register", method = RequestMethod.POST, produces = "application/JSON")
-	public GeneralResponse register(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {
+	public GeneralResponse register(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Register param) throws Exception {
 	    /* The lines, below, get the origin of the called */
 		//String origin = URI.create(request.getRequestURL().toString()).getHost();
 	    //System.out.println(" Origin:" + origin);
@@ -35,7 +34,7 @@ public class RegisterController extends ApiController {
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
-		response.setData(new KeyValue("token", securitySrv.validateCredentials(param)));		
+		response.setData(objectSrv.add(param));		
 		return response;
 	}
 

@@ -33,6 +33,7 @@ var registerUser = {
 			$("#lengthWronghMsg").html(lg_form.lengthWronghMsg);		
 			$("#confirmDoesNotMatchMsg").html(lg_form.confirmDoesNotMatchMsg);
 			$("#unexpectedErrorMsg").html(lg_form.unexpectedErrorMsg);
+			$("#emailAlreadyExistMsg").html(lg_form.emailAlreadyExistMsg);
 			$("#successMsg").html(lg_form.successMsg);
 			$("#btnSubmit").val(lg_form.btnSubmit);
 			$("#inputFirstName").attr("placeholder", lg_form.phinputFirstName);
@@ -71,12 +72,13 @@ var registerUser = {
 			$("#inputConfirmPassword").focusin(function() {
 				registerUser.CleanMsg();
 			});
-			registerUser.GetAreaList();
+			registerUser.GetLists();
 		} catch (error) {
 			alert(error);			
 		}
 	},
 	CleanMsg:function(){
+		$("#emailAlreadyExistMsg").hide();
 		$("#needAllTheFieldmMsg").hide();
 		$("#fiilPasswordAndConfirmMsg").hide();
 		$("#confirmDoesNotMatchMsg").hide();
@@ -84,22 +86,34 @@ var registerUser = {
 		$("#unexpectedErrorMsg").hide();
 		$("#successMsg").hide();
 	},
-	GetAreaList:function(){
-		var params = {};
-		var data = _Communication.GetRemoteDataPost(urlGetAllAreas, params);
-
-		if(data.code=200){
-			var areaList = data.data;
-			var areaArray = [];
-			for(var iIdx=0;iIdx<data.data.length;iIdx++){
-				areaArray.push(data.data[iIdx].name);
+	GetLists:function(){
+		try {
+			var params = {};
+			var dataAreas = _Communication.GetRemoteDataPost(urlGetAllAreas, params);
+			var dataOrgs = _Communication.GetRemoteDataPost(urlGetAllOrganizations, params);
+			if( dataAreas.code==200 && dataOrgs.code==200){
+				var areasArray = [];
+				for(var iIdx=0;iIdx<dataAreas.data.length;iIdx++){
+					areasArray.push(dataAreas.data[iIdx].name);
+				}
+				areasArray.sort();
+				var orgsArray = [];
+				for(var iIdx=0;iIdx<dataOrgs.data.length;iIdx++){
+					orgsArray.push(dataOrgs.data[iIdx].name);
+				}
+				orgsArray.sort();
+				$("#inputArea").autocomplete({
+					source: areasArray
+				});
+				$("#inputOrganization").autocomplete({
+					source: orgsArray
+				});
+			  return false;
+			}else{
+				$("#unexpectedErrorMsg").show();
+				$("#btnSubmit").hide();
 			}
-			areaArray.sort();
-			$("#inputArea").select2({
-				data: areaArray
-			  });
-		  return false;
-		}else{
+		} catch (error) {
 			$("#unexpectedErrorMsg").show();
 			$("#btnSubmit").hide();
 		}
@@ -111,19 +125,26 @@ var registerUser = {
 				return false;
 			}
 
-			var code = _CommonFunctions.GetUrlParameter("code");
-			var params = {"code": code , "newpassword": $("#inputPassword").val().trim(), "confirmpassword": $("#inputConfirmPassword").val().trim()};
-			var data = _Communication.GetRemoteDataPost(urlSetNewPassword, params);
+			var params = {"id": 0, 
+			"platform": "web" 
+			,"name": $("#inputFirstName").val().trim()
+			,"lastname": $("#inputLastName").val().trim()
+			,"organization": $("#inputOrganization").val().trim()
+			,"area": $("#inputArea").val().trim()
+			,"email": $("#inputEmailAddress").val().trim()
+			,"password": $("#inputPassword").val().trim()
+			};
+			var dataRegister = _Communication.GetRemoteDataPost(urlRegister, params);
 	
-			if(data.code!=200){
-				_MessageBox.Show("Error: " + data.code + "- " + data.message);
+			if(dataRegister.code!=200){
+				_MessageBox.Show("Error: " + dataRegister.code + "- " + dataRegister.message);
 				return false;
 			}
-			if(data.data.result==true){
+			if(dataRegister.data.result==true){
 				$("#btnSubmit").hide();
 				$("#successMsg").show();
 			}else{
-				$("#emailDoesNotExistMsg").show();
+				$("#emailAlreadyExistMsg").show();
 			}
 			
 		} catch (error) {

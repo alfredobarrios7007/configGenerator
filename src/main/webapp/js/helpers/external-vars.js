@@ -13,8 +13,9 @@ var ulrRecoveryPassword = ulrDomain + "security/recoveryPassword";
 var ulrSetPassword = ulrDomain + "security/setPassword";
 var urlVerifyChangePasswordCode = ulrDomain + "security/VerifyChangePasswordCode";
 var urlSetNewPassword = ulrDomain + "security/SetNewPassword";
-var urlRegister = ulrDomain + "security/regiter";
+var urlRegister = ulrDomain + "security/register";
 var urlGetAllAreas = ulrDomain + "catlogs/getAllAreas";
+var urlGetAllOrganizations = ulrDomain + "catlogs/getAllOrganizations";
 // Global labels
 var splg_global = {
 	"lblTitle":"K&ouml;atchy"
@@ -120,7 +121,7 @@ var splg_RegUser = {
 	,"lblinputFirstName":"Nombre&nbsp;<font color='red'>*</font>"
 	,"lblinputLastName":"Apellidos"
 	,"lblinputEmailAddress":"Correo electr&oacute;nico&nbsp;<font color='red'><b>*</b></font>"
-	,"lblinputOrganization":"Compañia&nbsp;<font color='red'><b>*</b></font>"
+	,"lblinputOrganization":"Organizaci&oacute;n&nbsp;<font color='red'><b>*</b></font>"
 	,"lblinputArea":"&Aacute;rea&nbsp;<font color='red'><b>*</b></font>"
 	,"lblinputPassword":"Contrase&ntilde;a&nbsp;<font color='red'><b>*</b></font>"
 	,"lblinputConfirmPassword":"Confirma tu Contrase&ntilde;a&nbsp;<font color='red'><b>*</b></font>"
@@ -138,6 +139,7 @@ var splg_RegUser = {
 	,"needAllTheFieldmMsg":"Por favor llene todos los campos marcados con&nbsp;<font color='red'>*</font>."
 	,"unexpectedErrorMsg":"Ocurrio un error inesperado, por favor, vuelve a intentar más tarde."
 	,"lengthWronghMsg":"La contraseña por lo menos debe tener al menos 7 carateres"
+	,"emailAlreadyExistMsg":"La cuenta de correo electr&oacute;nico ya existe, <a href='password.html'>¿necesitas recuperar tu contrase&ntilde;a? Da clic aquí</a>"
 	,"successMsg":"La contraseña se estableci&oacute; con &eacute;xito, por favor <a href='login.html'>proporcione sus credenciales</a>."
 };
 var enlg_RegUser = {
@@ -146,7 +148,7 @@ var enlg_RegUser = {
 	,"lblinputFirstName":"Name&nbsp;<font color='red'><b>*</b></font>"
 	,"lblinputLastName":"Last name"
 	,"lblinputEmailAddress":"E-mail&nbsp;<font color='red'><b>*</b></font>"
-	,"lblinputOrganization":"Company&nbsp;<font color='red'><b>*</b></font>"
+	,"lblinputOrganization":"Organization&nbsp;<font color='red'><b>*</b></font>"
 	,"lblinputArea":"Area&nbsp;<font color='red'><b>*</b></font>"
 	,"lblinputPassword":"Password&nbsp;<font color='red'><b>*</b></font>"
 	,"lblinputConfirmPassword":"Confirm your Password&nbsp;<font color='red'><b>*</b></font>"
@@ -164,5 +166,6 @@ var enlg_RegUser = {
 	,"needAllTheFieldmMsg":"Please type all the fields  todos los campos signed with&nbsp;<font color='red'>*</font>."
 	,"unexpectedErrorMsg":"Ups! we are very sorry, an unexpected error happens, please, try again later."
 	,"lengthWronghMsg":"The password must to have 7 characters at least."
+	,"emailAlreadyExistMsg":"The e-mail account already exists, <a href='password.html'>do you need to recover your password? Click here</a>"
 	,"successMsg":"The password was settled successfuly, please, <a href='login.html'>set your credentials</a>."
 };

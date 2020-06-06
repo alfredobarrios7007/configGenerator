@@ -9,6 +9,8 @@
         <title>Recuperación de Contraseña - Alfredo "K&ouml;atchy" Barrios</title>
         <!-- Font Awesome icons (free version)-->
         <script src="js/fontawesome/all.js" crossorigin="anonymous"></script>
+        <!-- Jquery UI-->
+        <link href="assets/css/jquery-ui.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="assets/css/styles.css" rel="stylesheet" />
         <!-- Searcher JS-->
@@ -46,7 +48,7 @@
                                                     <div class="form-group"><label class="small mb-1" for="inputOrganization" id="lblinputOrganization">Organization</label><input class="form-control py-4" id="inputOrganization" type="text" maxlength="250" placeholder="Enter the company name" /></div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="form-group"><label class="small mb-1" for="inputArea" id="lblinputArea">Area</label><select class="form-control py-4" id="inputArea" type="text" maxlength="50" placeholder="Enter your area in the company"></select></div>
+                                                    <div class="form-group"><label class="small mb-1" for="inputArea" id="lblinputArea">Area</label><input class="form-control py-4" id="inputArea" type="text" maxlength="50" placeholder="Enter your area in the company" /></div>
                                                 </div>
                                             </div>
                                             <div class="form-group"><label class="small mb-1" for="inputEmailAddress" id="lblinputEmailAddress">Email</label><input class="form-control py-4" id="inputEmailAddress" maxlength="150" type="email" aria-describedby="emailHelp" placeholder="Enter email address" /></div>
@@ -67,6 +69,9 @@
                                             <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
                                         </div>
                                         <div class="alert alert-danger collapse" role="alert" id="confirmDoesNotMatchMsg">
+                                            <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+                                        </div>
+                                        <div class="alert alert-danger collapse" role="alert" id="emailAlreadyExistMsg">
                                             <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
                                         </div>
                                         <div class="alert alert-danger collapse" role="alert" id="lengthWronghMsg">
@@ -103,8 +108,10 @@
                 </footer>
             </div>
         </div>
-        <!-- Bootstrap core JS-->
+        <!-- Jquery JS-->
         <script src="js/jquery/jquery-3.5.1.js"></script>
+        <script src="js/jquery/jquery-ui.js"></script>
+        <!-- Bootstrap core JS-->
         <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
         <script src="js/scripts.js"></script>
         <!-- Variables JS-->
