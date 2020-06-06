@@ -32,10 +32,10 @@ var registerUser = {
 			$("#lblinputPassword").html(lg_form.lblinputPassword);
 			$("#lblinputConfirmPassword").html(lg_form.lblinputConfirmPassword);
 			$("#lnkGotoLogin").html(lg_form.lnkGotoLogin);
-			$("#codeDoesNotExistMsg").html(lg_form.codeDoesNotExistMsg);
+			$("#needAllTheFieldmMsg").html(lg_form.needAllTheFieldmMsg);
 			$("#fiilPasswordAndConfirmMsg").html(lg_form.fiilPasswordAndConfirmMsg);
-			$("#confirmDoesNotMatchMsg").html(lg_form.confirmDoesNotMatchMsg);
 			$("#lengthWronghMsg").html(lg_form.lengthWronghMsg);		
+			$("#confirmDoesNotMatchMsg").html(lg_form.confirmDoesNotMatchMsg);
 			$("#unexpectedErrorMsg").html(lg_form.unexpectedErrorMsg);
 			$("#successMsg").html(lg_form.successMsg);
 			$("#btnSubmit").val(lg_form.btnSubmit);
@@ -50,11 +50,26 @@ var registerUser = {
 				 registerUser.CleanMsg();
 				return  registerUser.SubmitForm();
 			});
-			$("#inputCompany").focusin(function() {
-
+			$("#inputFirstName").focusin(function() {
+				registerUser.CleanMsg();
+			});
+			$("#inputLastName").focusin(function() {
+				registerUser.CleanMsg();
+			});
+			$("#inputEmailAddress").focusin(function() {
+				registerUser.CleanMsg();
+			});
+			$("#inputOrganization").focusin(function() {
+				registerUser.CleanMsg();
 			});
 			$("#inputArea").focusin(function() {
-
+				registerUser.CleanMsg();
+			});
+			$("#inputPassword").focusin(function() {
+				registerUser.CleanMsg();
+			});
+			$("#inputConfirmPassword").focusin(function() {
+				registerUser.CleanMsg();
 			});
 			 registerUser.CheckCode();
 		} catch (error) {
@@ -62,11 +77,12 @@ var registerUser = {
 		}
 	},
 	CleanMsg:function(){
-		$("#codeDoesNotExistMsg").hide();
+		$("#needAllTheFieldmMsg").hide();
 		$("#fiilPasswordAndConfirmMsg").hide();
 		$("#confirmDoesNotMatchMsg").hide();
-		$("#unexpectedErrorMsg").hide();
 		$("#lengthWronghMsg").hide();
+		$("#unexpectedErrorMsg").hide();
+		$("#successMsg").hide();
 	},
 	CheckCode:function(){
 		var code = _CommonFunctions.GetUrlParameter("code");
@@ -116,7 +132,7 @@ var registerUser = {
 		alert('ResetForm');
 	},
 	Validation: function(){
-		if($("#inputFirstName").val().trim()==""||$("#inputCompany").val().trim()==""||$("#inputArea").val().trim()==""||$("#inputEmailAddress").val().trim()==""){
+		if($("#inputFirstName").val().trim()==""||$("#inputOrganization").val().trim()==""||$("#inputArea").val().trim()==""||$("#inputEmailAddress").val().trim()==""){
 			$("#needAllTheFieldmMsg").show();
 			return false;
 		}
