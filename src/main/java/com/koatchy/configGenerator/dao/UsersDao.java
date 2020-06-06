@@ -22,12 +22,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsersDao extends JpaRepository<User, Long>{
 	@Query(
-			value = "SELECT IdUser, IdUserArea, Unavaibled, Password, Name, Email, Superuser FROM ctusers  WHERE Unavaibled='N' AND Email = :username and Password = :password", 
+			value = "SELECT IdUser, IdUserArea, IdCompany, Unavaibled, Password, Name, Firstname, Email, Superuser FROM ctusers  WHERE Unavaibled='N' AND Email = :username and Password = :password", 
 			nativeQuery = true)
 	Optional<User> findUserByNameAndPassword(@Param("username")String username, @Param("password") String password);
 
 	@Query(
-			value = "SELECT IdUser, IdUserArea, Unavaibled, Password, Name, Email, Superuser FROM ctusers  WHERE Unavaibled='N' AND Email = :email", 
+			value = "SELECT IdUser, IdUserArea, IdCompany, Unavaibled, Password, Name, Firstname, Email, Superuser FROM ctusers  WHERE Unavaibled='N' AND Email = :email", 
 			nativeQuery = true)
 	Optional<User> findUserByEmail(@Param("email")String email);
 	

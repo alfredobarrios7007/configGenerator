@@ -44,6 +44,49 @@ INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) 
 
 
 -- -----------------------------------------------------
+-- Table `bds_consola_universal`.`ctCountries`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`ctCountries` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctCountries` (
+  `IdCountry` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(50) NOT NULL,
+  `Shortname` VARCHAR(5) NOT NULL,
+  `Capital` VARCHAR(50) NOT NULL,
+  `Currency` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`IdCountry`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+INSERT INTO `bds_consola_universal`.`ctCountries` (`Name`, `Shortname`, `Capital`, `Currency`) VALUES ('México', 'MX', 'CDMX', '$');
+
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`ctOrganizationRoles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`ctOrganizationRoles` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctOrganizationRoles` (
+  `IdOrganizationRol` INT(11) NOT NULL AUTO_INCREMENT,
+  `NameES` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`IdOrganizationRol`)
+  )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+INSERT INTO `bds_consola_universal`.`ctOrganizationRoles` (`namees`) VALUES ('Director');
+INSERT INTO `bds_consola_universal`.`ctOrganizationRoles` (`namees`) VALUES ('Gerente');
+INSERT INTO `bds_consola_universal`.`ctOrganizationRoles` (`namees`) VALUES ('Ejecutivo de ventas');
+INSERT INTO `bds_consola_universal`.`ctOrganizationRoles` (`namees`) VALUES ('Ejecutivo de compras');
+INSERT INTO `bds_consola_universal`.`ctOrganizationRoles` (`namees`) VALUES ('Contador');
+INSERT INTO `bds_consola_universal`.`ctOrganizationRoles` (`namees`) VALUES ('Ingeniero');
+INSERT INTO `bds_consola_universal`.`ctOrganizationRoles` (`namees`) VALUES ('Desarrollador de software');
+INSERT INTO `bds_consola_universal`.`ctOrganizationRoles` (`namees`) VALUES ('Arquitecto');
+
+-- -----------------------------------------------------
 -- Table `bds_consola_universal`.`ctUserAreas`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `bds_consola_universal`.`ctUserAreas` ;
@@ -64,8 +107,7 @@ INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('De
 INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('Desarrollo Apps', 'Y');
 INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('QA', 'Y');
 INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('Soporte', 'Y');
-INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('Líder', 'Y');
-
+INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES ('Proyectos', 'Y');
 
 -- -----------------------------------------------------
 -- Table `bds_consola_universal`.`ctUsers`
@@ -75,28 +117,101 @@ DROP TABLE IF EXISTS `bds_consola_universal`.`ctUsers` ;
 CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctUsers` (
   `IdUser` INT(11) NOT NULL AUTO_INCREMENT,
   `IdUserArea` INT(11) NOT NULL,
+  `IdOrganization` INT(11) NOT NULL,
+  `IdOrganizationRol` INT(11) NOT NULL,
   `Password` VARCHAR(150) NOT NULL,
   `Name` VARCHAR(50) NOT NULL,
+  `Firstame` VARCHAR(50) NULL,
   `Email` VARCHAR(150) NOT NULL,
   `Superuser` CHAR(1) NOT NULL,
+  `Confirmed` CHAR(1) NOT NULL,
   `Unavaibled` CHAR(1) NOT NULL,
+  `Created_Datetime` DATETIME NOT NULL,
+  `Created_Platform` VARCHAR(10) NOT NULL,
+  `Updated_Datetime` DATETIME NULL,
+  `Updated_Platform` VARCHAR(10) NULL,
   PRIMARY KEY (`IdUser`),
   CONSTRAINT `FK_User_Area`
     FOREIGN KEY (`IdUserArea`)
-    REFERENCES `bds_consola_universal`.`ctUserAreas` (`IdUserArea`))
+    REFERENCES `bds_consola_universal`.`ctUserAreas` (`IdUserArea`),
+  CONSTRAINT `FK_User_Rol`
+    FOREIGN KEY (`IdOrganizationRol`)
+    REFERENCES `bds_consola_universal`.`ctOrganizationRoles` (`IdOrganizationRol`)
+    )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
-INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (1, 'admin', 'N', 'Alfredo Barrios', 'alfredo.barrios@speedymovil.com', 'Y');
-INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (1, 'chicharron', 'N', 'Javier Hernández', 'javier.hernandez@speedymovil.com', 'Y');
-INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (2, '12345', 'N', 'Ana Karen Suárez', 'ana.suarez@speedymovil.com', 'Y');
-INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (3, '12345', 'N', 'Magdalena Rodríguez', 'magdalena.rodriguez@speedymovil.com', 'Y');
-INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (4, '12345', 'N', 'Luis Regalado', 'luis.regalado@speedymovil.com', 'Y');
-INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (5, '12345', 'N', 'Karen López', 'qasupervision@speedymovil.com', 'Y');
-INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (6, '12345', 'N', 'Soporte', 'soporte@speedymovil.com', 'Y');
-INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaible`, `Name`, `Email`, `Superuser`) VALUES (7, '12345', 'N', 'Diego Mota', 'diego.mota@speedymovil.com', 'Y');
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `Firstame`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `IdOrganizationRol`, `Created_Platform`, `Created_Datetime`) VALUES (1, 'admin', 'N', 'Alfredo', 'Barrios', 'alfredo.barrios@speedymovil.com', 'Y', 'Y', 1, 1, 'INIT_ROW', SYSDATE());
+
+
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`ctOrganizations`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`ctOrganizations` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctOrganizations` (
+  `IdOrganization` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(250) NOT NULL,
+  `IconUrl` VARCHAR(250) NULL,
+  `BadgeUrl` VARCHAR(250) NULL,
+  `IdUserOnCharge` INT(11) NULL,
+  `Created_Datetime` DATETIME NOT NULL,
+  `Created_Platform` VARCHAR(10) NOT NULL,
+  `Updated_Datetime` DATETIME NULL,
+  `Updated_Platform` VARCHAR(10) NULL,
+  PRIMARY KEY (`IdOrganization`),
+  CONSTRAINT `FK_Company_UserOnCharge`
+    FOREIGN KEY (`IdUserOnCharge`)
+    REFERENCES `bds_consola_universal`.`ctUsers` (`IdUser`)
+  )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+INSERT INTO `bds_consola_universal`.`ctOrganizations` (`Name`, `IdUserOnCharge`, `Created_Platform`, `Created_Datetime`) VALUES ('Ninguna', 1, 'INIT_ROW', SYSDATE());
+INSERT INTO `bds_consola_universal`.`ctOrganizations` (`Name`, `IdUserOnCharge`, `Created_Platform`, `Created_Datetime`) VALUES ('Köatchy', 1, 'INIT_ROW', SYSDATE());
+
+
+ALTER TABLE `bds_consola_universal`.`ctUsers` ADD CONSTRAINT `FK_User_Company`
+    FOREIGN KEY (`IdOrganization`)
+    REFERENCES `bds_consola_universal`.`ctOrganizations` (`IdOrganization`);
+
+
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`ctAddresses`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`ctAddresses` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctAddresses` (
+  `IdAddress` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdCompany` INT(11) NOT NULL,
+  `PhoneNum1` VARCHAR(20) NOT NULL,
+  `PhoneNum2` VARCHAR(20) NOT NULL,
+  `FaxNum` VARCHAR(20) NOT NULL,
+  `Street` VARCHAR(250) NOT NULL,
+  `InteriorNum` VARCHAR(10) NULL,
+  `ExteriorNum` VARCHAR(10) NOT NULL,
+  `Neighborhood` VARCHAR(250) NULL,
+  `City` VARCHAR(250) NOT NULL,
+  `State` VARCHAR(250) NOT NULL,
+  `ZipCode` VARCHAR(10) NOT NULL,
+  `IdCountry` INT(11) NOT NULL,
+  `Created_Datetime` DATETIME NOT NULL,
+  `Created_Platform` VARCHAR(10) NOT NULL,
+  `Updated_Datetime` DATETIME NULL,
+  `Updated_Platform` VARCHAR(10) NULL,
+  PRIMARY KEY (`IdAddress`),
+  CONSTRAINT `FK_Company_Country`
+    FOREIGN KEY (`IdCountry`)
+    REFERENCES `bds_consola_universal`.`ctCountries` (`IdCountry`)
+  )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
 
 
 -- ***************************************************************************************************************************************************************************************

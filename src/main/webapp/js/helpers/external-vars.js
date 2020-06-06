@@ -6,11 +6,14 @@
 */
 
 var authenticationToken = {"authentication":"wDo3rXrE/"};
-var ulrLoginValidation = "http://localhost:8080/security/login";
-var ulrRecoveryPassword = "http://localhost:8080/security/recoveryPassword";
-var ulrSetPassword = "http://localhost:8080/security/setPassword";
-var urlVerifyChangePasswordCode ="http://localhost:8080/security/VerifyChangePasswordCode";
-var urlSetNewPassword ="http://localhost:8080/security/SetNewPassword";
+var companyName = "Alfredo \"Köatchy\" Barrios";
+var ulrDomain = "http://localhost:8080/";
+var ulrLoginValidation = ulrDomain + "security/login";
+var ulrRecoveryPassword = ulrDomain + "security/recoveryPassword";
+var ulrSetPassword = ulrDomain + "security/setPassword";
+var urlVerifyChangePasswordCode = ulrDomain + "security/VerifyChangePasswordCode";
+var urlSetNewPassword = ulrDomain + "security/SetNewPassword";
+var urlRegister = ulrDomain + "security/regiter";
 // Global labels
 var splg_global = {
 	"lblTitle":"K&ouml;atchy"
@@ -27,7 +30,7 @@ var enlg_global = {
 // Login form labels
 var splg_login = {
 	"lblFormTitle":"Acceder"
-	,"htmlTitle":"Log in - Alfredo \"Köatchy\" Barrios"
+	,"htmlTitle":"Log in - " + companyName
 	,"lblinputEmailAddress":"Correo electr&oacute;nico"
 	,"lblinputPassword":"Contraseña"
 	,"lblrememberPasswordCheck":"Recordar tu contrase&ntilde;a"
@@ -41,7 +44,7 @@ var splg_login = {
 };
 var enlg_login = {
 	"lblFormTitle":"Login"
-	,"htmlTitle":"Log in - Alfredo \"Köatchy\" Barrios"
+	,"htmlTitle":"Log in - " + companyName
 	,"lblinputEmailAddress":"Email"
 	,"lblinputPassword":"Password"
 	,"lblrememberPasswordCheck":"Remember your password"
@@ -56,7 +59,7 @@ var enlg_login = {
 // Recovery Password form labels
 var splg_recovPwd = {
 	"lblFormTitle":"Recuperar contrase&ntilde;a"
-	,"htmlTitle":"Recuperar contraseña - Alfredo \"Köatchy\" Barrios"
+	,"htmlTitle":"Recuperar contraseña - " + companyName
 	,"lblinputEmailAddress":"Correo electr&oacute;nico"
 	,"lblEnterEmail":"Escribe tu correo electr&oacute;nico y te enviaremos una liga para reestablecer tu contrase&ntilde;a."
 	,"btnSubmit":"Enviar"
@@ -69,7 +72,7 @@ var splg_recovPwd = {
 };
 var enlg_recovPwd = {
 	"lblFormTitle":"Rocover Password"
-	,"htmlTitle":"Recover your password - Alfredo \"Köatchy\" Barrios"
+	,"htmlTitle":"Recover your password - " + companyName
 	,"lblinputEmailAddress":"E-mail"
 	,"lblEnterEmail":"Enter your email address and we will send you a link to reset your password."
 	,"btnSubmit":"Send"
@@ -82,7 +85,7 @@ var enlg_recovPwd = {
 };
 // Set New Password form labels
 var splg_SetPwd = {
-	"htmlTitle":"Establece tu nueva contraseña - Alfredo \"Köatchy\" Barrios"
+	"htmlTitle":"Establece tu nueva contraseña - " + companyName
 	,"lblFormTitle":"Establecer contrase&ntilde;a"
 	,"lblEnterPassword":"Escribe y confirma tu nueva contrase&ntilde;a"
 	,"lblinputPassword":"Nueva Contrase&ntilde;a"
@@ -96,7 +99,7 @@ var splg_SetPwd = {
 	,"successMsg":"La contraseña se estableci&oacute; con &eacute;xito, por favor <a href='login.html'>proporcione sus credenciales</a>."
 };
 var enlg_SetPwd = {
-	"htmlTitle":"Set Your New Password - Alfredo \"Köatchy\" Barrios"
+	"htmlTitle":"Set Your New Password - " + companyName
 	,"lblFormTitle":"Set Your New Password"
 	,"lblEnterPassword":"Type and confirm your new password"
 	,"lblinputPassword":"New Password"
@@ -105,6 +108,61 @@ var enlg_SetPwd = {
 	,"codeDoesNotExistMsg":"The code does not exist."
 	,"fiilPasswordAndConfirmMsg":"Please set the field New Password and Confirm New Password."
 	,"confirmDoesNotMatchMsg":"The password and the confirmation do not match."
+	,"unexpectedErrorMsg":"Ups! we are very sorry, an unexpected error happens, please, try again later."
+	,"lengthWronghMsg":"The password must to have 7 characters at least."
+	,"successMsg":"The password was settled successfuly, please, <a href='login.html'>set your credentials</a>."
+};
+// Register New User form labels
+var splg_RegUser = {
+	"htmlTitle":"Crea tu cuenta - " + companyName
+	,"lblFormTitle":"Crea tu cuenta "
+	,"lblinputFirstName":"Nombre&nbsp;<font color='red'>*</font>"
+	,"lblinputLastName":"Apellidos"
+	,"lblinputEmailAddress":"Correo electr&oacute;nico&nbsp;<font color='red'><b>*</b></font>"
+	,"lblinputOrganization":"Compañia&nbsp;<font color='red'><b>*</b></font>"
+	,"lblinputArea":"&Aacute;rea&nbsp;<font color='red'><b>*</b></font>"
+	,"lblinputPassword":"Contrase&ntilde;a&nbsp;<font color='red'><b>*</b></font>"
+	,"lblinputConfirmPassword":"Confirma tu Contrase&ntilde;a&nbsp;<font color='red'><b>*</b></font>"
+	,"phinputFirstName":"Escribe tu nombre"
+	,"phinputLastName":"Escribe tus apellidos"
+	,"phinputEmailAddress":"Escribe tu correo electrónico"
+	,"phinputOrganization":"Escribe el nombre de tu organización"
+	,"phinputArea":"Escribe tu área "
+	,"phinputPassword":"Escribe tu contraseña"
+	,"phinputConfirmPassword":"Confirma tu Contraseña"
+	,"btnSubmit":"Crear"
+	,"lnkGotoLogin":"¿Ya tienes una cuenta? Ve a Login"
+	,"codeDoesNotExistMsg":"El c&oacute;digo no existe."
+	,"fiilPasswordAndConfirmMsg":"Por favor llena el campo Nueva Contrase&ntilde;a y confirma la contrase&ntilde;a."
+	,"confirmDoesNotMatchMsg":"La contrase&ntilde;a y la confirmación no coinciden."
+	,"needAllTheFieldmMsg":"Por favor llene todos los campos marcados con&nbsp;<font color='red'>*</font>."
+	,"unexpectedErrorMsg":"Ocurrio un error inesperado, por favor, vuelve a intentar más tarde."
+	,"lengthWronghMsg":"La contraseña por lo menos debe tener al menos 7 carateres"
+	,"successMsg":"La contraseña se estableci&oacute; con &eacute;xito, por favor <a href='login.html'>proporcione sus credenciales</a>."
+};
+var enlg_RegUser = {
+	"htmlTitle":"Create Account - " + companyName
+	,"lblFormTitle":"Create Account"
+	,"lblinputFirstName":"Name&nbsp;<font color='red'><b>*</b></font>"
+	,"lblinputLastName":"Last name"
+	,"lblinputEmailAddress":"E-mail&nbsp;<font color='red'><b>*</b></font>"
+	,"lblinputOrganization":"Company&nbsp;<font color='red'><b>*</b></font>"
+	,"lblinputArea":"Area&nbsp;<font color='red'><b>*</b></font>"
+	,"lblinputPassword":"Password&nbsp;<font color='red'><b>*</b></font>"
+	,"lblinputConfirmPassword":"Confirm your Password&nbsp;<font color='red'><b>*</b></font>"
+	,"phinputFirstName":"Enter first name"
+	,"phinputLastName":"Enter last name"
+	,"phinputEmailAddress":"Enter e-mail address"
+	,"phinputOrganization":"Enter your organization"
+	,"phinputArea":"Enter your area"
+	,"phinputPassword":"Enter password"
+	,"phinputConfirmPassword":"Confirm password"
+	,"btnSubmit":"Create Account"
+	,"codeDoesNotExistMsg":"The code does not exist."
+	,"lnkGotoLogin":"Have an account? Go to login"
+	,"fiilPasswordAndConfirmMsg":"Please set the field New Password and Confirm New Password."
+	,"confirmDoesNotMatchMsg":"The password and the confirmation do not match."
+	,"needAllTheFieldmMsg":"Please type all the fields  todos los campos signed with&nbsp;<font color='red'>*</font>."
 	,"unexpectedErrorMsg":"Ups! we are very sorry, an unexpected error happens, please, try again later."
 	,"lengthWronghMsg":"The password must to have 7 characters at least."
 	,"successMsg":"The password was settled successfuly, please, <a href='login.html'>set your credentials</a>."
