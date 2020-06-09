@@ -2,18 +2,25 @@
 <body style="font-size:18px;">
 <pre>
 <b>GIT</b>
-Merge:
+<li>Merge</li>
 git checkout master
 git pull origin master
 git merge &lt;branch&gt;
 git push origin master
 
-Create Branch:
+<li>Create Branch</li>
 git checkout -b &lt;branch&gt;
 
-<b>Comandos para Servidores Triara</b>
-Agregar acceso a internet
 
+<li>Delete branch locally</li>
+git branch -d localBranchName
+
+<li>Delete branch remotely</li>
+git push origin --delete remoteBranchName
+
+
+<b>Comandos para Servidores Triara</b>
+<li>Agregar acceso a internet / agregar el gateway a una vm de Triara</li>
  - sudo route add -net 0.0.0.0 gw 172.26.126.126 dev ens192
 
 Instalar JAVA

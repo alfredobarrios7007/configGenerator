@@ -5,6 +5,15 @@
  */
 var _CommonFunctions = {
 
+	InitValues:function(){
+		var  divLoading = document.createElement("div");
+		divLoading.id = "divLoading";
+		divLoading.className = "loading";
+		divLoading.style.zIndex = 99999;
+		document.body.appendChild(divLoading);
+		_CommonFunctions.GetLanguage();
+	},
+
 	SetCookie:function(varName, value){
 		$.cookie(varName, value);		
 	},
@@ -23,6 +32,14 @@ var _CommonFunctions = {
 		var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
 		var results = regex.exec(location.search);
 		return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+	},
+
+	ShowProgressBar:function(){
+		$("#divLoading").fadeIn();
+	},
+
+	HideProgressBar:function(){
+		$("#divLoading").fadeOut(500);
 	},
 	
 	SetDatePickerNavigationFuncsById: function (dateControlId) {
@@ -365,4 +382,4 @@ var _CommonFunctions = {
 	}
 
 };
-_CommonFunctions.GetLanguage();
+_CommonFunctions.InitValues();
