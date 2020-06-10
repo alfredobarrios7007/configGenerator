@@ -125,6 +125,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctUsers` (
   `Email` VARCHAR(150) NOT NULL,
   `Superuser` CHAR(1) NOT NULL,
   `Confirmed` CHAR(1) NOT NULL,
+  `Photo` VARCHAR(50) NULL,
   `Unavaibled` CHAR(1) NOT NULL,
   `Created_Datetime` DATETIME NOT NULL,
   `Created_Platform` VARCHAR(10) NOT NULL,
