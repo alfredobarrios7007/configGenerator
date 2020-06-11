@@ -21,6 +21,7 @@ public class RegisterServiceImpl implements RegisterService {
 	public Register add(Register user) throws RegisterException {
 		// TODO Auto-generated method stub
 		System.out.print(user.toString());
+		user.setId(1L);
 		return user;
 	}
 

@@ -4,6 +4,7 @@
  * June 4, 2020
  * 
 */
+var thereIsUserImage = false;
 var registerUser = {
 	ShowForm:function(){
 		try {
@@ -23,6 +24,7 @@ var registerUser = {
 			$("#lblinputFirstName").html(lg_form.lblinputFirstName);
 			$("#lblinputLastName").html(lg_form.lblinputLastName);
 			$("#lblinputEmailAddress").html(lg_form.lblinputEmailAddress);
+			$("#lblinputPhoto").html(lg_form.lblinputPhoto);
 			$("#lblinputOrganization").html(lg_form.lblinputOrganization);
 			$("#lblinputArea").html(lg_form.lblinputArea);
 			$("#lblinputPassword").html(lg_form.lblinputPassword);
@@ -39,6 +41,7 @@ var registerUser = {
 			$("#inputFirstName").attr("placeholder", lg_form.phinputFirstName);
 			$("#inputLastName").attr("placeholder", lg_form.phinputLastName);
 			$("#inputEmailAddress").attr("placeholder", lg_form.phinputEmailAddress);
+			$("#inputPhoto").attr("placeholder", lg_form.phinputPhoto);
 			$("#inputOrganization").attr("placeholder", lg_form.phinputOrganization);
 			$("#inputArea").attr("placeholder", lg_form.phinputArea);
 			$("#inputPassword").attr("placeholder", lg_form.phinputPassword);
@@ -62,9 +65,10 @@ var registerUser = {
 			$("#inputArea").focusin(function() {
 				registerUser.CleanMsg();
 			});
-			$("#inputArea").on("keyup",function(event) {
-				//console.log("asd");
-				//$("#inputArea").off("keyup");
+			$('#inputPhoto').change( function(event) {
+				var tmppath = URL.createObjectURL(event.target.files[0]);
+				$("#imgPhoto").fadeIn("1000").attr('src',URL.createObjectURL(event.target.files[0]));
+				thereIsUserImage=true;
 			});
 			$("#inputPassword").focusin(function() {
 				registerUser.CleanMsg();
@@ -119,13 +123,15 @@ var registerUser = {
 		}
 	},
 	SubmitForm:function(){
+		//stop submit the form, we will post it manually.
+        event.preventDefault();
 		try {
 			if(! registerUser.Validation())
 			{
 				return false;
 			}
 
-			var params = {"id": 0, 
+			var userParams = {"id": 0, 
 			"platform": "web" 
 			,"name": $("#inputFirstName").val().trim()
 			,"lastname": $("#inputLastName").val().trim()
@@ -134,18 +140,44 @@ var registerUser = {
 			,"email": $("#inputEmailAddress").val().trim()
 			,"password": $("#inputPassword").val().trim()
 			};
-			var dataRegister = _Communication.GetRemoteDataPost(urlRegister, params);
+			var dataRegister = _Communication.GetRemoteDataPost(urlRegister, userParams);
 	
 			if(dataRegister.code!=200){
-				_MessageBox.Show("Error: " + dataRegister.code + "- " + dataRegister.message);
+				_MessageBox.Show("SubmitForm Error: " + dataRegister.code + "- " + dataRegister.message);
 				return false;
 			}
-			if(dataRegister.data.result==true){
+
+			alert("SubmitForm: " + dataRegister.data.id);
+
+			//if(dataRegister.data.result==true){
+				alert("SubmitForm: A " + thereIsUserImage);
+				if(thereIsUserImage){
+					alert("SubmitForm: B");
+					// Get form
+					var form = document.getElementById('inputPhoto');
+					alert("SubmitForm: C");
+	
+					// Create an FormData object
+					var paramPhoto = new FormData(form);
+					alert("SubmitForm: D");
+
+					// If you want to add an extra field for the FormData
+					paramPhoto.append("iduser", dataRegister.data.id);
+					alert("SubmitForm: E");
+	
+					var dataUpload = _Communication.PostMutiPartForm(urlUploadUserPhoto, paramPhoto);
+	
+					if(dataUpload.code!=200){
+						//TO DO
+						alert("UploadPhoto Error: " + dataUpload.code + "- " + dataUpload.message);
+					}
+					alert("UploadPhoto: " + dataUpload.code);
+				}
 				$("#btnSubmit").hide();
 				$("#successMsg").show();
-			}else{
-				$("#emailAlreadyExistMsg").show();
-			}
+			//}else{
+			//	$("#emailAlreadyExistMsg").show();
+			//}
 			
 		} catch (error) {
 			alert('SubmitForm error: ' + error);			

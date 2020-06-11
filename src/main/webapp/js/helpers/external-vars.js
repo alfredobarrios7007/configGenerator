@@ -16,6 +16,7 @@ var urlSetNewPassword = ulrDomain + "security/SetNewPassword";
 var urlRegister = ulrDomain + "security/register";
 var urlGetAllAreas = ulrDomain + "catlogs/getAllAreas";
 var urlGetAllOrganizations = ulrDomain + "catlogs/getAllOrganizations";
+var urlUploadUserPhoto = ulrDomain + "security/uploadUserPhoto";
 // Global labels
 var splg_global = {
 	"lblTitle":"K&ouml;atchy"
@@ -121,6 +122,7 @@ var splg_RegUser = {
 	,"lblinputFirstName":"Nombre&nbsp;<font color='red'>*</font>"
 	,"lblinputLastName":"Apellidos"
 	,"lblinputEmailAddress":"Correo electr&oacute;nico&nbsp;<font color='red'><b>*</b></font>"
+	,"lblinputPhoto":"Foto"
 	,"lblinputOrganization":"Organizaci&oacute;n&nbsp;<font color='red'><b>*</b></font>"
 	,"lblinputArea":"&Aacute;rea&nbsp;<font color='red'><b>*</b></font>"
 	,"lblinputPassword":"Contrase&ntilde;a&nbsp;<font color='red'><b>*</b></font>"
@@ -128,6 +130,7 @@ var splg_RegUser = {
 	,"phinputFirstName":"Escribe tu nombre"
 	,"phinputLastName":"Escribe tus apellidos"
 	,"phinputEmailAddress":"Escribe tu correo electrónico"
+	,"phinputPhoto":"Agrega tu foto"
 	,"phinputOrganization":"Escribe el nombre de tu organización"
 	,"phinputArea":"Escribe tu área "
 	,"phinputPassword":"Escribe tu contraseña"
@@ -147,6 +150,7 @@ var enlg_RegUser = {
 	,"lblFormTitle":"Create Account"
 	,"lblinputFirstName":"Name&nbsp;<font color='red'><b>*</b></font>"
 	,"lblinputLastName":"Last name"
+	,"lblinputPhoto":"Photo"
 	,"lblinputEmailAddress":"E-mail&nbsp;<font color='red'><b>*</b></font>"
 	,"lblinputOrganization":"Organization&nbsp;<font color='red'><b>*</b></font>"
 	,"lblinputArea":"Area&nbsp;<font color='red'><b>*</b></font>"
@@ -155,6 +159,7 @@ var enlg_RegUser = {
 	,"phinputFirstName":"Enter first name"
 	,"phinputLastName":"Enter last name"
 	,"phinputEmailAddress":"Enter e-mail address"
+	,"phinputPhoto":"Add your photo"
 	,"phinputOrganization":"Enter your organization"
 	,"phinputArea":"Enter your area"
 	,"phinputPassword":"Enter password"

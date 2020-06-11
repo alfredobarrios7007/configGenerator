@@ -34,9 +34,10 @@ var _Communication = {
                     _CommonFunctions.HideProgressBar();
     			}, 
                 error: function (xhr, ajaxOptions, thrownError) {
+                    _CommonFunctions.HideProgressBar();
                     _CommonFunctions.MessageBox("Error on Remote call " + ActionUrl + " : " + xhr.status + " - " + thrownError);
-    				} 
-    			});        	        
+                } 
+            });        	        
         } catch (e) {
             _CommonFunctions.MessageBox("Error on GetRemoteData: " + e.message);
         }
@@ -70,6 +71,7 @@ var _Communication = {
                     _CommonFunctions.HideProgressBar();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
+                    _CommonFunctions.HideProgressBar();
                     _CommonFunctions.MessageBox("Error on Remote call " + ActionUrl + " : " + xhr.status + " - " + thrownError);
                 }
             });
@@ -77,6 +79,36 @@ var _Communication = {
             _CommonFunctions.MessageBox("Error on GetRemoteData: " + e.message);
         }
         return result;
+    },
+
+    PostMutiPartForm:function(ActionUrl, Arguments){
+        var result;
+        try {
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: ActionUrl,
+                data: Arguments,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                beforeSend: _CommonFunctions.ShowProgressBar(),
+                success: function (data) {
+                    if (data != "") {
+                        result = data;
+                    }
+                    _CommonFunctions.HideProgressBar();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    _CommonFunctions.HideProgressBar();
+                    _CommonFunctions.MessageBox("Error on Remote call " + ActionUrl + " : " + xhr.status + " - " + thrownError);
+                }
+            });
+            return result;
+        } catch (error) {
+            _CommonFunctions.MessageBox("Error on PostMutiPartForm: " + error.message);
+        }
     }
 
 };

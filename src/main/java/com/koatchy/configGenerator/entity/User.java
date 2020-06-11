@@ -57,6 +57,9 @@ public class User implements Serializable {
 	@Column(name="superuser")
 	private String superuser;
 	
+	@Column(name="photo")
+	private String photo;
+
 	@Column(name="unavaibled")
 	private String unavaibled;
 	
@@ -199,6 +202,20 @@ public class User implements Serializable {
 	}
 
 	/**
+	 * @return the photo
+	 */
+	public String getPhoto() {
+		return photo;
+	}
+
+	/**
+	 * @param photo the photo to set
+	 */
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	/**
 	 * @return the unavaibled
 	 */
 	public String getUnavaibled() {
@@ -278,6 +295,7 @@ public class User implements Serializable {
 	 * @param firstName
 	 * @param email
 	 * @param superuser
+	 * @param photo
 	 * @param unavaibled
 	 * @param createdDatetime
 	 * @param createdPlatform
@@ -285,7 +303,7 @@ public class User implements Serializable {
 	 * @param updatedPlatform
 	 */
 	public User(long id, long idUserArea, long idOrganization, long idOrganizationRol, String password, String name,
-			String firstName, String email, String superuser, String unavaibled, String createdDatetime,
+			String firstName, String email, String superuser, String photo, String unavaibled, String createdDatetime,
 			String createdPlatform, String updatedDatetime, String updatedPlatform) {
 		this.id = id;
 		this.idUserArea = idUserArea;
@@ -296,6 +314,7 @@ public class User implements Serializable {
 		this.firstName = firstName;
 		this.email = email;
 		this.superuser = superuser;
+		this.photo = photo;
 		this.unavaibled = unavaibled;
 		this.createdDatetime = createdDatetime;
 		this.createdPlatform = createdPlatform;
@@ -307,9 +326,10 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [id=" + id + ", idUserArea=" + idUserArea + ", idOrganization=" + idOrganization
 				+ ", idOrganizationRol=" + idOrganizationRol + ", password=" + password + ", name=" + name
-				+ ", firstName=" + firstName + ", email=" + email + ", superuser=" + superuser + ", unavaibled="
-				+ unavaibled + ", createdDatetime=" + createdDatetime + ", createdPlatform=" + createdPlatform
-				+ ", updatedDatetime=" + updatedDatetime + ", updatedPlatform=" + updatedPlatform + "]";
+				+ ", firstName=" + firstName + ", email=" + email + ", superuser=" + superuser + ", photo=" + photo
+				+ ", unavaibled=" + unavaibled + ", createdDatetime=" + createdDatetime + ", createdPlatform="
+				+ createdPlatform + ", updatedDatetime=" + updatedDatetime + ", updatedPlatform=" + updatedPlatform
+				+ "]";
 	}
 
 }

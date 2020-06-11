@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.koatchy.configGenerator.model.GeneralResponse;
 import com.koatchy.configGenerator.model.Register;
@@ -38,5 +41,16 @@ public class RegisterController extends ApiController {
 		return response;
 	}
 
-	
+
+	@RequestMapping(path = "uploadUserPhoto", method = RequestMethod.POST, produces = "application/JSON")
+	@ResponseBody 
+    public GeneralResponse uploadUserPhoto(@RequestParam(value = "file_1") MultipartFile photo, @RequestParam("iduser") Integer iduser) {
+        //String fileName = documneStorageService.storeFile(file, UserId, docType);
+		GeneralResponse response = new GeneralResponse();
+		response.setCode(200);
+		response.setMessage("OK");
+		System.out.print("uploadUserPhoto: " + photo.getName());
+		//response.setData(objectSrv.add(param));		
+		return response;
+    }
 }

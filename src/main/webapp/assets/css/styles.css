@@ -5555,13 +5555,14 @@ a.close.disabled {
   }
 }
 .loading {
-  background: url(/assets/images/ajax-loader.gif) no-repeat center center;
+  background: #86cfda url(/assets/images/ajax-loader.gif) no-repeat center center;
   height: 193px;
   width: 192px;
   display: none; /* Hidden by default */
   position: fixed;
   left: 0;
   top: 0;
+  
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
