@@ -116,9 +116,9 @@ DROP TABLE IF EXISTS `bds_consola_universal`.`ctUsers` ;
 
 CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctUsers` (
   `IdUser` INT(11) NOT NULL AUTO_INCREMENT,
-  `IdUserArea` INT(11) NOT NULL,
-  `IdOrganization` INT(11) NOT NULL,
-  `IdOrganizationRol` INT(11) NOT NULL,
+  `IdUserArea` INT(11) NULL,
+  `IdOrganization` INT(11) NULL,
+  `IdOrganizationRol` INT(11) NULL,
   `Password` VARCHAR(150) NOT NULL,
   `Name` VARCHAR(50) NOT NULL,
   `Firstame` VARCHAR(50) NULL,
@@ -555,3 +555,55 @@ COLLATE = utf8_unicode_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+DROP PROCEDURE IF EXISTS `bds_consola_universal`.`CREATE_USER`;
+DELIMITER $$
+CREATE PROCEDURE `bds_consola_universal`.`CREATE_USER` (in p_id INT, 
+in p_platform VARCHAR(10), 
+in p_name VARCHAR(50), 
+in p_lastname VARCHAR(50), 
+in p_organization VARCHAR(250), 
+in p_area VARCHAR(50), 
+in p_email VARCHAR(150), 
+in p_password VARCHAR(15))
+BEGIN
+-- *************************************************************************************************************************
+-- * CREATE_USER
+-- *************************************************************************************************************************
+-- * This procedures adds a new user
+-- * Create by: Alfredo Barrios
+-- * Created at: Jun 11, 2020
+-- *************************************************************************************************************************
+	DECLARE v_IdUser INT;
+	DECLARE v_IdUserArea INT;
+	DECLARE v_IdOrganization INT;
+	DECLARE v_IdOrganizationAdded INT unsigned DEFAULT 0;
+
+    IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`email`) = 0 THEN
+    BEGIN
+		SIGNAL sqlstate '45000'
+        SET MESSAGE_TEXT = 'El e-mail ya existe';
+	END;
+    END IF;
+
+	IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctUserAreas` WHERE p_area=`name`) = 0 THEN
+		INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES (p_area, 'N');
+	END IF;    
+	SELECT `IdUserArea` into v_IdUserArea FROM `bds_consola_universal`.`ctUserAreas` WHERE p_area=`name`;
+	-- ********************************************************************************************************************
+	IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`) = 0 THEN
+		INSERT INTO `bds_consola_universal`.`ctOrganizations` (`Name`, `IdUserOnCharge`, `Created_Platform`, `Created_Datetime`) VALUES (p_organization, 1, p_platform, SYSDATE());
+        SET v_IdOrganizationAdded = 1;
+	END IF;
+	SELECT `IdOrganization` into v_IdOrganization FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`;
+	INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `Firstame`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `Created_Platform`, `Created_Datetime`) VALUES 
+    (v_IdUserArea, p_password, 'N', p_name, p_firstname, p_email, 'N', 'N', v_IdOrganization, p_platform, SYSDATE());
+    SELECT `IdUser` into v_IdUser  FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`Email`;
+	IF v_IdOrganizationAdded=1 THEN
+		UPDATE `bds_consola_universal`.`ctOrganizations` SET `IdUserOnCharge`= v_IdUser WHERE v_IdOrganization=`IdOrganization`;
+    END IF;
+    SELECT `IdUser`, `IdUserArea`, `IdOrganization`, `IdOrganizationRol`, `Password`, `Name`, `Firstame`, `Email`, `Superuser`, `Confirmed`, `Photo`, `Unavaibled`, `Created_Datetime`, `Created_Platform`, `Updated_Datetime`, `Updated_Platform` FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`email`;
+END
+$$
+DELIMITER ;
+

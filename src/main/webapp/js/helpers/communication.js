@@ -92,9 +92,11 @@ var _Communication = {
                 processData: false,
                 contentType: false,
                 cache: false,
+        		async: false, 
                 timeout: 600000,
                 beforeSend: _CommonFunctions.ShowProgressBar(),
                 success: function (data) {
+                    alert(data);
                     if (data != "") {
                         result = data;
                     }

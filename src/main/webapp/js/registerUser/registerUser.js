@@ -147,26 +147,17 @@ var registerUser = {
 				return false;
 			}
 
-			alert("SubmitForm: " + dataRegister.data.id);
+			$("#iduser").val(dataRegister.data.id);
 
 			//if(dataRegister.data.result==true){
-				alert("SubmitForm: A " + thereIsUserImage);
 				if(thereIsUserImage){
-					alert("SubmitForm: B");
 					// Get form
-					var form = document.getElementById('inputPhoto');
-					alert("SubmitForm: C");
+					var form = document.getElementById('fileUploadForm');
 	
 					// Create an FormData object
 					var paramPhoto = new FormData(form);
-					alert("SubmitForm: D");
 
-					// If you want to add an extra field for the FormData
-					paramPhoto.append("iduser", dataRegister.data.id);
-					alert("SubmitForm: E");
-	
 					var dataUpload = _Communication.PostMutiPartForm(urlUploadUserPhoto, paramPhoto);
-	
 					if(dataUpload.code!=200){
 						//TO DO
 						alert("UploadPhoto Error: " + dataUpload.code + "- " + dataUpload.message);

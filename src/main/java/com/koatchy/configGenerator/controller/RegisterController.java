@@ -44,12 +44,12 @@ public class RegisterController extends ApiController {
 
 	@RequestMapping(path = "uploadUserPhoto", method = RequestMethod.POST, produces = "application/JSON")
 	@ResponseBody 
-    public GeneralResponse uploadUserPhoto(@RequestParam(value = "file_1") MultipartFile photo, @RequestParam("iduser") Integer iduser) {
+    public GeneralResponse uploadUserPhoto(@RequestParam(value = "inputPhoto") MultipartFile photo, @RequestParam("iduser") Integer iduser) {
         //String fileName = documneStorageService.storeFile(file, UserId, docType);
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
-		System.out.print("uploadUserPhoto: " + photo.getName());
+		System.out.print("uploadUserPhoto: " + photo.getName() + ", iduser: " + iduser);
 		//response.setData(objectSrv.add(param));		
 		return response;
     }
