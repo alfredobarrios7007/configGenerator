@@ -49,7 +49,7 @@ public class RegisterController extends ApiController {
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
-		System.out.print("uploadUserPhoto: " + photo.getName() + ", iduser: " + iduser);
+		System.out.print("uploadUserPhoto: " + photo.getName() + ", iduser: " + iduser + "\n");
 		//response.setData(objectSrv.add(param));		
 		return response;
     }

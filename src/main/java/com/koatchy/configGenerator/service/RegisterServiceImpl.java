@@ -3,52 +3,41 @@
  */
 package com.koatchy.configGenerator.service;
 
-import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koatchy.configGenerator.exception.RegisterException;
 import com.koatchy.configGenerator.model.Register;
+import com.koatchy.configGenerator.tools.EncryptUtil;
+import com.koatchy.configGenerator.dao.RegisterStoredProcDao;
+import com.koatchy.configGenerator.entity.User;
 
 /**
  * @author alfredo.barrios
- *
+ * It class register user and modify user data
  */
 @Service
 public class RegisterServiceImpl implements RegisterService {
 
+	@Autowired
+	RegisterStoredProcDao registerDao;
+	
 	@Override
 	public Register add(Register user) throws RegisterException {
-		// TODO Auto-generated method stub
-		System.out.print(user.toString());
-		user.setId(1L);
+		System.out.print("RegisterServiceImpl add 1\n");
+		String ePwd = EncryptUtil.encode("~KöAtcHy¬" + user.getEmail(), user.getPassword());
+		System.out.print("RegisterServiceImpl add 2\\n");
+		registerDao.register(user.getPlatform(), user.getName(), user.getLastname(), user.getOrganization(), user.getArea(), user.getEmail(), ePwd);
+		System.out.print("RegisterServiceImpl add 3\\n");
+		UserService usrSrv = new UserServiceImpl();
+		Optional<User> usr = usrSrv.findUserByEmail(user.getEmail());
+		if (usr.isPresent()) {
+			System.out.print("RegisterServiceImpl add 4: " + usr.get().getId() + "\n");
+			user.setId(usr.get().getId());			
+		}
 		return user;
 	}
-
-	@Override
-	public Register modify(Register user) throws RegisterException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean delete(Long idUser) throws RegisterException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Register> getRows() throws RegisterException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Register> getRowsByCompany(Long idCompany) throws RegisterException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 	
 }

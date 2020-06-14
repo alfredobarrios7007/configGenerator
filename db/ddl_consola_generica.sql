@@ -119,9 +119,9 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctUsers` (
   `IdUserArea` INT(11) NULL,
   `IdOrganization` INT(11) NULL,
   `IdOrganizationRol` INT(11) NULL,
-  `Password` VARCHAR(150) NOT NULL,
+  `Password` VARCHAR(250) NOT NULL,
   `Name` VARCHAR(50) NOT NULL,
-  `Firstame` VARCHAR(50) NULL,
+  `Lastname` VARCHAR(50) NULL,
   `Email` VARCHAR(150) NOT NULL,
   `Superuser` CHAR(1) NOT NULL,
   `Confirmed` CHAR(1) NOT NULL,
@@ -144,7 +144,7 @@ AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
-INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `Firstame`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `IdOrganizationRol`, `Created_Platform`, `Created_Datetime`) VALUES (1, 'admin', 'N', 'Alfredo', 'Barrios', 'alfredo.barrios@speedymovil.com', 'Y', 'Y', 1, 1, 'INIT_ROW', SYSDATE());
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `IdOrganizationRol`, `Created_Platform`, `Created_Datetime`) VALUES (1, 'admin', 'N', 'Alfredo', 'Barrios', 'alfredo.barrios@speedymovil.com', 'Y', 'Y', 1, 1, 'INIT_ROW', SYSDATE());
 
 
 -- -----------------------------------------------------
@@ -556,16 +556,16 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-DROP PROCEDURE IF EXISTS `bds_consola_universal`.`CREATE_USER`;
+DROP PROCEDURE IF EXISTS `bds_consola_universal`.`REGISTER`;
 DELIMITER $$
-CREATE PROCEDURE `bds_consola_universal`.`CREATE_USER` (in p_id INT, 
+CREATE PROCEDURE `bds_consola_universal`.`REGISTER` (
 in p_platform VARCHAR(10), 
 in p_name VARCHAR(50), 
 in p_lastname VARCHAR(50), 
 in p_organization VARCHAR(250), 
 in p_area VARCHAR(50), 
 in p_email VARCHAR(150), 
-in p_password VARCHAR(15))
+in p_password VARCHAR(250))
 BEGIN
 -- *************************************************************************************************************************
 -- * CREATE_USER
@@ -579,10 +579,10 @@ BEGIN
 	DECLARE v_IdOrganization INT;
 	DECLARE v_IdOrganizationAdded INT unsigned DEFAULT 0;
 
-    IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`email`) = 0 THEN
+    IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`email`) > 0 THEN
     BEGIN
 		SIGNAL sqlstate '45000'
-        SET MESSAGE_TEXT = 'El e-mail ya existe';
+        SET MESSAGE_TEXT = 'EMAIL_ALREADY_EXISTS';
 	END;
     END IF;
 
@@ -596,13 +596,35 @@ BEGIN
         SET v_IdOrganizationAdded = 1;
 	END IF;
 	SELECT `IdOrganization` into v_IdOrganization FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`;
-	INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `Firstame`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `Created_Platform`, `Created_Datetime`) VALUES 
-    (v_IdUserArea, p_password, 'N', p_name, p_firstname, p_email, 'N', 'N', v_IdOrganization, p_platform, SYSDATE());
+	INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `Lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `Created_Platform`, `Created_Datetime`) VALUES 
+    (v_IdUserArea, p_password, 'N', p_name, p_lastname, p_email, 'N', 'N', v_IdOrganization, p_platform, SYSDATE());
     SELECT `IdUser` into v_IdUser  FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`Email`;
 	IF v_IdOrganizationAdded=1 THEN
 		UPDATE `bds_consola_universal`.`ctOrganizations` SET `IdUserOnCharge`= v_IdUser WHERE v_IdOrganization=`IdOrganization`;
     END IF;
-    SELECT `IdUser`, `IdUserArea`, `IdOrganization`, `IdOrganizationRol`, `Password`, `Name`, `Firstame`, `Email`, `Superuser`, `Confirmed`, `Photo`, `Unavaibled`, `Created_Datetime`, `Created_Platform`, `Updated_Datetime`, `Updated_Platform` FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`email`;
+    SELECT usr.`IdUser`
+    , usr.`IdUserArea`
+    , usra.`name` AS `UserArea`
+    , usr.`IdOrganization`
+    , orgn.`name` AS `Organization`
+    , usr.`IdOrganizationRol`
+    , orgr.`nameES` AS `OrganizationRol`
+    , usr.`Password`
+    , usr.`Name`
+    , usr.`Lastname`
+    , usr.`Email`
+    , usr.`Superuser`
+    , usr.`Confirmed`
+    , usr.`Photo`
+    , usr.`Unavaibled`
+    , usr.`Created_Datetime`
+    , usr.`Created_Platform`
+    , usr.`Updated_Datetime`
+    , usr.`Updated_Platform` 
+    FROM `bds_consola_universal`.`ctUsers` usr INNER JOIN `bds_consola_universal`.`ctUserAreas` usra ON usr.`IdUserArea`= usra.`IdUserArea`
+    INNER JOIN `bds_consola_universal`.`ctOrganizations` orgn ON usr.`IdOrganization`= orgn.`IdOrganization`
+    LEFT OUTER JOIN `bds_consola_universal`.`ctOrganizationRoles` orgr ON orgr.`IdOrganizationRol`=usr.`IdOrganizationRol`
+    WHERE p_email=`email`;
 END
 $$
 DELIMITER ;

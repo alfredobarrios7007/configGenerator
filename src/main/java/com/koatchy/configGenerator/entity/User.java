@@ -48,8 +48,8 @@ public class User implements Serializable {
 	@Column(name="name")
 	private String name;
 	
-	@Column(name="firstname")
-	private String firstName;
+	@Column(name="lastname")
+	private String lastName;
 	
 	@Column(name="email")
 	private String email;
@@ -162,15 +162,15 @@ public class User implements Serializable {
 	/**
 	 * @return the firstName
 	 */
-	public String getFirstName() {
-		return firstName;
+	public String getLastname() {
+		return lastName;
 	}
 
 	/**
 	 * @param firstName the firstName to set
 	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	/**
@@ -292,7 +292,7 @@ public class User implements Serializable {
 	 * @param idOrganizationRol
 	 * @param password
 	 * @param name
-	 * @param firstName
+	 * @param lastName
 	 * @param email
 	 * @param superuser
 	 * @param photo
@@ -303,7 +303,7 @@ public class User implements Serializable {
 	 * @param updatedPlatform
 	 */
 	public User(long id, long idUserArea, long idOrganization, long idOrganizationRol, String password, String name,
-			String firstName, String email, String superuser, String photo, String unavaibled, String createdDatetime,
+			String lastName, String email, String superuser, String photo, String unavaibled, String createdDatetime,
 			String createdPlatform, String updatedDatetime, String updatedPlatform) {
 		this.id = id;
 		this.idUserArea = idUserArea;
@@ -311,7 +311,7 @@ public class User implements Serializable {
 		this.idOrganizationRol = idOrganizationRol;
 		this.password = password;
 		this.name = name;
-		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 		this.superuser = superuser;
 		this.photo = photo;
@@ -326,7 +326,7 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [id=" + id + ", idUserArea=" + idUserArea + ", idOrganization=" + idOrganization
 				+ ", idOrganizationRol=" + idOrganizationRol + ", password=" + password + ", name=" + name
-				+ ", firstName=" + firstName + ", email=" + email + ", superuser=" + superuser + ", photo=" + photo
+				+ ", lastName=" + lastName + ", email=" + email + ", superuser=" + superuser + ", photo=" + photo
 				+ ", unavaibled=" + unavaibled + ", createdDatetime=" + createdDatetime + ", createdPlatform="
 				+ createdPlatform + ", updatedDatetime=" + updatedDatetime + ", updatedPlatform=" + updatedPlatform
 				+ "]";
