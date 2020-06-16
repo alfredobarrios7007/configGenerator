@@ -19,13 +19,16 @@ import com.koatchy.configGenerator.service.UserService;
  */
 @RequestMapping("/security")
 @RestController
-public class RecoveryPasswordController extends ApiController {
+public class RecoveryPasswordController extends ServiceControllerImpl {
 	
 	@Autowired
 	UserService objectSrv;
 	
 	@RequestMapping(path = "recoveryPassword", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse recoveryPassword(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {
+		setApiName("security/recoveryPassword");
+		setPlatform(param.getPlatform());
+		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */
 		//String origin = URI.create(request.getRequestURL().toString()).getHost();
 	    //System.out.println(" Origin:" + origin);
@@ -34,6 +37,7 @@ public class RecoveryPasswordController extends ApiController {
 		response.setCode(200);
 		response.setMessage("OK");
 		response.setData(objectSrv.recoveryPassword(param));
+		logging("success", "");
 		return response;
 	}
 	

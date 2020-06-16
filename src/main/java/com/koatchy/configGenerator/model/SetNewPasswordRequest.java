@@ -1,7 +1,5 @@
 package com.koatchy.configGenerator.model;
 
-import java.io.Serializable;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Component
 @Scope(value="prototype")
-public class SetNewPasswordRequest implements Serializable {
+public class SetNewPasswordRequest extends GeneralRequest  {
 
 	/**
 	 * 
@@ -21,8 +19,10 @@ public class SetNewPasswordRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@JsonProperty("code")
 	String code;
+
 	@JsonProperty("newpassword")
 	String newPassword;
+
 	@JsonProperty("confirmpassword")
 	String confirmPassword;
 	/**
@@ -55,6 +55,7 @@ public class SetNewPasswordRequest implements Serializable {
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
+
 	/**
 	 * @param confirmPassword the confirmPassword to set
 	 */
@@ -64,7 +65,9 @@ public class SetNewPasswordRequest implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "SetNewPassword [code=" + code + ", newPassword=" + newPassword + ", confirmPassword=" + confirmPassword + "]";
+		return "SetNewPassword [code=" + code + ", newPassword=" + newPassword + ", confirmPassword=" + confirmPassword 
+				+ "Platform: " + super.getPlatform() + ", Caller: " + super.getCaller() + "]";
+
 	}
 
 }

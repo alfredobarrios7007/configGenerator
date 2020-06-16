@@ -22,7 +22,7 @@ import com.koatchy.configGenerator.service.SecurityService;
  */
 @RequestMapping("/security")
 @RestController
-public class VerifyChangePasswordCode extends ApiController {
+public class VerifyChangePasswordCode extends ServiceControllerImpl {
 	
 	@Autowired
 	SecurityService objectSrv;

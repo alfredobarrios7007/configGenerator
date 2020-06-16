@@ -23,13 +23,16 @@ import com.koatchy.configGenerator.service.RegisterService;
  */
 @RequestMapping("/security")
 @RestController
-public class RegisterController extends ApiController {
+public class RegisterController extends ServiceControllerImpl {
 
 	@Autowired
 	RegisterService objectSrv;
 	
 	@RequestMapping(path = "register", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse register(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Register param) throws Exception {
+		setApiName("security/register");
+		setPlatform(param.getPlatform());
+		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */
 		//String origin = URI.create(request.getRequestURL().toString()).getHost();
 	    //System.out.println(" Origin:" + origin);
@@ -38,6 +41,7 @@ public class RegisterController extends ApiController {
 		response.setCode(200);
 		response.setMessage("OK");
 		response.setData(objectSrv.add(param));		
+		logging("success", "");
 		return response;
 	}
 

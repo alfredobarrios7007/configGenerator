@@ -17,13 +17,16 @@ import com.koatchy.configGenerator.service.SecurityService;
 
 @RequestMapping("/security")
 @RestController
-public class LoginController extends ApiController {
+public class LoginController extends ServiceControllerImpl {
 
 	@Autowired
 	SecurityService objectSrv;
 	
 	@RequestMapping(path = "login", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse login(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {
+		setApiName("security/login");
+		setPlatform(param.getPlatform());
+		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */
 		//String origin = URI.create(request.getRequestURL().toString()).getHost();
 	    //System.out.println(" Origin:" + origin);
@@ -31,7 +34,8 @@ public class LoginController extends ApiController {
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
-		response.setData(new KeyValue("token", objectSrv.validateCredentials(param)));		
+		response.setData(new KeyValue("token", objectSrv.validateCredentials(param)));
+		logging("success", "");
 		return response;
 	}
 

@@ -92,7 +92,10 @@ var registerUser = {
 	},
 	GetLists:function(){
 		try {
-			var params = {};
+			var params = {
+			"platform": "web" 
+			,"caller": "web" 
+			}
 			var dataAreas = _Communication.GetRemoteDataPost(urlGetAllAreas, params);
 			var dataOrgs = _Communication.GetRemoteDataPost(urlGetAllOrganizations, params);
 			if( dataAreas.code==200 && dataOrgs.code==200){
@@ -131,8 +134,9 @@ var registerUser = {
 				return false;
 			}
 
-			var userParams = {"id": 0, 
-			"platform": "web" 
+			var userParams = {"id": 0 
+			,"platform": "web" 
+			,"caller": "web" 
 			,"name": $("#inputFirstName").val().trim()
 			,"lastname": $("#inputLastName").val().trim()
 			,"organization": $("#inputOrganization").val().trim()
@@ -141,7 +145,7 @@ var registerUser = {
 			,"password": $("#inputPassword").val().trim()
 			};
 			var dataRegister = _Communication.GetRemoteDataPost(urlRegister, userParams);
-	
+
 			if(dataRegister.code!=200){
 				_MessageBox.Show("SubmitForm Error: " + dataRegister.code + "- " + dataRegister.message);
 				return false;

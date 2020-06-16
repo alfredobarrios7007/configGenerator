@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.koatchy.configGenerator.model.GeneralRequest;
 import com.koatchy.configGenerator.model.GeneralResponse;
 import com.koatchy.configGenerator.service.UserAreasService;
 
@@ -19,13 +20,16 @@ import com.koatchy.configGenerator.service.UserAreasService;
  */
 @RequestMapping("/catlogs")
 @RestController
-public class UserAreasController extends ApiController {
+public class UserAreasController extends ServiceControllerImpl {
 
 	@Autowired
 	UserAreasService securitySrv;
 	
 	@RequestMapping(path = "getAllAreas", method = RequestMethod.POST, produces = "application/JSON")
-	public GeneralResponse getAllAreas(HttpServletRequest request, @RequestHeader("authentication") String authentication) throws Exception {
+	public GeneralResponse getAllAreas(HttpServletRequest request, @RequestHeader("authentication") String authentication, GeneralRequest param) throws Exception {
+		setApiName("catlogs/getAllAreas");
+		setPlatform(param.getPlatform());
+		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */
 		//String origin = URI.create(request.getRequestURL().toString()).getHost();
 	    //System.out.println(" Origin:" + origin);
@@ -34,6 +38,7 @@ public class UserAreasController extends ApiController {
 		response.setCode(200);
 		response.setMessage("OK");
 		response.setData(securitySrv.getAllRows());		
+		logging("success", "");
 		return response;
 	}
 

@@ -1,8 +1,5 @@
 package com.koatchy.configGenerator.model;
 
-import java.io.Serializable;
-
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +9,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope(value="prototype")
-public class Register implements Serializable {
+public class Register extends GeneralRequest {
 	
 	/**
 	 * 
@@ -20,7 +17,6 @@ public class Register implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private long id;
-	private String platform;
 	private String name;
 	private String lastname;
 	private String organization;
@@ -40,19 +36,6 @@ public class Register implements Serializable {
 	 */
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	/**
-	 * @return the platform
-	 */
-	public String getPlatform() {
-		return platform;
-	}
-	/**
-	 * @param platform the platform to set
-	 */
-	public void setPlatform(String platform) {
-		this.platform = platform;
 	}
 	/**
 	 * @return the name
@@ -136,22 +119,23 @@ public class Register implements Serializable {
 	 * @param password
 	 */
 	public Register(long id, String platform, String name, String lastname, String organization, String area, String email,
-			String password) {
+			String password, String caller) {
 		this.id = id;
-		this.platform = platform;
 		this.name = name;
 		this.lastname = lastname;
 		this.organization = organization;
 		this.area = area;
 		this.email = email;
 		this.password = password;
+		super.setCaller(caller);
+		super.setPlatform(platform);
 	}
 
 	@Override
 	public String toString() {
-		return "Register [id=" + id + ", platform=" + platform + ", name=" + name + ", lastname=" + lastname
+		return "Register [id=" + id + ", name=" + name + ", lastname=" + lastname
 				+ ", organization=" + organization + ", area=" + area + ", email=" + email + ", password=" + password
-				+ "]";
+				+ "Platform: " + super.getPlatform() + ", Caller: " + super.getCaller() + "]";
 	}	
 
 }

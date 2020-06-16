@@ -12,19 +12,23 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope(value="prototype")
-public class Login {
+public class Login extends GeneralRequest {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private String Username;
 	private String Password;
 	
 	public Login() {}
-	public Login(String username, String password) {
+	
+	public Login(String platform, String caller, String username, String password) {
 		this.Username = username;
 		this.Password = password;
-	}
-	@Override
-	public String toString() {
-		return "Login [Username=" + Username + ", Password=" + Password + "]";
+		super.setCaller(caller);
+		super.setPlatform(platform);
 	}
 	public String getUsername() {
 		return Username;
@@ -38,7 +42,12 @@ public class Login {
 	public void setPassword(String password) {
 		Password = password;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Login [" + (Username != null ? "Username=" + Username + ", " : "")
+				+ (Password != null ? "Password=" + Password + ", " : "") 
+				+ "Platform: " + super.getPlatform() + ", Caller: " + super.getCaller() + "]";
+	}	
 	
 }
