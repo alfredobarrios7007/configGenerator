@@ -6,13 +6,23 @@ package com.koatchy.configGenerator.model;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author alfredo.barrios
  *
  */
 @Component
 @Scope(value="prototype")
-public class VerifyCode {
+public class VerifyCode extends GeneralRequest  {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@JsonProperty("code")
+	private String code;
 
 	public VerifyCode(String code) {
 		super();
@@ -22,8 +32,7 @@ public class VerifyCode {
 	public VerifyCode() {
 	}
 
-	private String code;
-
+	
 	/**
 	 * @return the code
 	 */

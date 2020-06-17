@@ -48,4 +48,11 @@ public class GeneralRequest implements Serializable {
 		this.caller = caller;
 	}
 	
+	@Override
+	public String toString() {
+		return "GeneralRequest [" + (platform != null ? "platform=" + platform + ", " : "")
+				+ (caller != null ? "caller=" + caller : "") + "]";
+	}	
+	
+	
 }

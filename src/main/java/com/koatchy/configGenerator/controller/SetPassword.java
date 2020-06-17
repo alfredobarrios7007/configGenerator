@@ -29,7 +29,7 @@ public class SetPassword extends ServiceControllerImpl {
 
 	@RequestMapping(path = "SetNewPassword", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse SetNewPassword(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final SetNewPasswordRequest param) throws Exception {
-		setApiName("security/SetNewPassword");
+		setApiName("security-SetNewPassword");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */

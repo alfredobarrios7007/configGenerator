@@ -92,10 +92,8 @@ var registerUser = {
 	},
 	GetLists:function(){
 		try {
-			var params = {
-			"platform": "web" 
-			,"caller": "web" 
-			}
+			var params = {"platform":"web","caller": _CommonFunctions.GetCaller()};
+			alert(params.caller);
 			var dataAreas = _Communication.GetRemoteDataPost(urlGetAllAreas, params);
 			var dataOrgs = _Communication.GetRemoteDataPost(urlGetAllOrganizations, params);
 			if( dataAreas.code==200 && dataOrgs.code==200){
@@ -136,7 +134,7 @@ var registerUser = {
 
 			var userParams = {"id": 0 
 			,"platform": "web" 
-			,"caller": "web" 
+			,"caller": _CommonFunctions.GetCaller()
 			,"name": $("#inputFirstName").val().trim()
 			,"lastname": $("#inputLastName").val().trim()
 			,"organization": $("#inputOrganization").val().trim()

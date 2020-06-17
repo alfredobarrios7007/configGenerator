@@ -4,7 +4,9 @@
 package com.koatchy.configGenerator.controller;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,8 +28,8 @@ public class OrganizationsController extends ServiceControllerImpl {
 	OrganizationsService objectSrv;
 	
 	@RequestMapping(path = "getAllOrganizations", method = RequestMethod.POST, produces = "application/JSON")
-	public GeneralResponse getAllOrganizations(HttpServletRequest request, @RequestHeader("authentication") String authentication, GeneralRequest param) throws Exception {
-		setApiName("catlogs/getAllOrganizations");
+	public GeneralResponse getAllOrganizations(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final GeneralRequest param) throws Exception {
+		setApiName("catlogs-getAllOrganizations");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */

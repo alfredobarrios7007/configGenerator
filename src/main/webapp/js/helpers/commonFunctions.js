@@ -14,6 +14,11 @@ var _CommonFunctions = {
 		_CommonFunctions.GetLanguage();
 	},
 
+	GetCaller:function(){
+		//return navigator.appCodeName + " - " + navigator.product + " - " + navigator.appVersion + " - " + navigator.platform + " - " + navigator.onLine + " - " + navigator.language;
+		return navigator.appCodeName + " - " + navigator.product + " - " + navigator.language;
+	},
+
 	SetCookie:function(varName, value){
 		$.cookie(varName, value);		
 	},

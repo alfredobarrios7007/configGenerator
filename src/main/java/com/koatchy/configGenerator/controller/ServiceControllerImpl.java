@@ -3,16 +3,11 @@
  */
 package com.koatchy.configGenerator.controller;
 
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.koatchy.configGenerator.model.GeneralResponse;
-
 import com.koatchy.configGenerator.tools.DateHelper;
+import com.koatchy.configGenerator.logging.*;
 
 /**
  * @author alfredo.barrios
@@ -59,28 +54,17 @@ public class ServiceControllerImpl implements IServiceController {
 	@Override
 	public void logging(String successError, String errorMsg) {
 		DateHelper dateH = new DateHelper();
-		//String pathLog ="c:/cdr/configGenerator/" + apiName + "_" + dateH.getTodayStr() + ".cdr";		
-		String pathLog ="/cdr/configGenerator/" + apiName + "_" + dateH.getTodayStr() + ".cdr";		
+		String logFile = apiName + "_" + dateH.getTodayStr() + ".cdr";		
 		try 
 		{
-			System.out.print("logging 1\n");
-			LogManager lm = LogManager.getLogManager();
-			System.out.print("logging 2\n");
-			Logger logger = Logger.getLogger("BasicLogging");
-			System.out.print("logging 3\n");
-			FileHandler fh = new FileHandler(pathLog);
-			System.out.print("logging 4\n");
-			lm.addLogger(logger);
-			System.out.print("logging 5\n");
-			logger.addHandler(fh);
 			String lineLogged = dateH.getNowStr() +"," + apiName + "," + successError + "," + platform + "," + caller + ", Error: " + errorMsg;
-			System.out.print("logging 6: " + lineLogged + "\n");
-			logger.log(Level.INFO, lineLogged );
-			fh.close();
+			System.out.print("logging 1: " + lineLogged + "\n");
+			ILogging loggging = new LoggingToCvsFile(logFile);
+			loggging.writeLog(lineLogged);
 		}
-		catch (Exception e) {
-			System.err.println("Exception logging thrown: " + e);
-			e.printStackTrace();
+		catch (Exception err) {
+			System.err.println("Exception ServiceController.logging thrown: " + err);
+			//e.printStackTrace();
 		}
 		
 	}

@@ -30,7 +30,7 @@ public class DateHelper {
 	public String getTodayStr() {
 		String result;
         Date date = Calendar.getInstance().getTime();  
-        DateFormat dateFormat = new SimpleDateFormat("yyyymmdd");  
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");  
         result = dateFormat.format(date);  
         return result;
 	}	
@@ -38,7 +38,7 @@ public class DateHelper {
 	public String getNowStr() {
 		String result;
         Date date = Calendar.getInstance().getTime();  
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");  
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
         result = dateFormat.format(date);  
         return result;
 	}	

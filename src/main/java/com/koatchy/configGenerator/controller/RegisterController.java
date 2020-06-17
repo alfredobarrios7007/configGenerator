@@ -30,7 +30,7 @@ public class RegisterController extends ServiceControllerImpl {
 	
 	@RequestMapping(path = "register", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse register(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Register param) throws Exception {
-		setApiName("security/register");
+		setApiName("security-register");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */
