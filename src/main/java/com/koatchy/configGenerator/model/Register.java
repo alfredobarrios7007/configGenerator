@@ -2,6 +2,7 @@ package com.koatchy.configGenerator.model;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author alfredo.barrios
@@ -23,6 +24,7 @@ public class Register extends GeneralRequest {
 	private String area;
 	private String email;
 	private String password;
+	private MultipartFile photo;
 
 	/**
 	 * @return the id
@@ -30,7 +32,6 @@ public class Register extends GeneralRequest {
 	public long getId() {
 		return id;
 	}
-
 	/**
 	 * @param id the id to set
 	 */
@@ -110,16 +111,34 @@ public class Register extends GeneralRequest {
 		this.password = password;
 	}
 	/**
-	 * @param platform
+	 * @return the photo
+	 */
+	public MultipartFile getPhoto() {
+		return photo;
+	}
+	/**
+	 * @param photo the photo to set
+	 */
+	public void setPhoto(MultipartFile photo) {
+		this.photo = photo;
+	}
+
+	public Register() {}
+	
+	/**
+	 * @param id
 	 * @param name
 	 * @param lastname
 	 * @param organization
 	 * @param area
 	 * @param email
 	 * @param password
+	 * @param platform
+	 * @param caller
+	 * @param photo
 	 */
-	public Register(long id, String platform, String name, String lastname, String organization, String area, String email,
-			String password, String caller) {
+	public Register(long id, String name, String lastname, String organization, String area, String email,
+			String password, String platform, String caller, MultipartFile photo) {
 		this.id = id;
 		this.name = name;
 		this.lastname = lastname;
@@ -127,15 +146,21 @@ public class Register extends GeneralRequest {
 		this.area = area;
 		this.email = email;
 		this.password = password;
-		super.setCaller(caller);
 		super.setPlatform(platform);
+		super.setCaller(caller);
+		this.photo = photo;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Register [id=" + id + ", name=" + name + ", lastname=" + lastname
-				+ ", organization=" + organization + ", area=" + area + ", email=" + email + ", password=" + password
-				+ "Platform: " + super.getPlatform() + ", Caller: " + super.getCaller() + "]";
+		return "Register [id=" + id + ", " + (name != null ? "name=" + name + ", " : "")
+				+ (lastname != null ? "lastname=" + lastname + ", " : "")
+				+ (organization != null ? "organization=" + organization + ", " : "")
+				+ (area != null ? "area=" + area + ", " : "") + (email != null ? "email=" + email + ", " : "")
+				+ (password != null ? "password=" + password : "") 
+				+ ", platform=" + super.getPlatform() 
+				+ ", caller=" + super.getCaller() 
+				+ "]";
 	}	
 
 }

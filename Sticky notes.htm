@@ -2,6 +2,13 @@
 <body style="font-size:18px;">
 <pre>
 <b>GIT</b>
+<li>Credentials</li>
+<b>Speedy M&oacute;vil</b>
+git config --global user.name "alfredospeedy"
+git config --global user.password "Speedy!2020"
+<b>Alfredo Barrios</b>
+git config --global user.name "alfredobarrios7007"
+git config --global user.password "35u44G8*z["
 <li>Merge</li>
 git checkout master
 git pull origin master
@@ -17,39 +24,66 @@ git branch -d localBranchName
 
 <li>Delete branch remotely</li>
 git push origin --delete remoteBranchName
+<hr/>
+<b>Test Internet access</b>
+wget https://www.google.com
 
 
-<b>Comandos para Servidores Triara</b>
+<b>Add the temp gateway</b>
+sudo route add -net 0.0.0.0 gw 172.26.126.126 dev ens192
+
+<b>Install text editor</b>
+sudo yum install nano
+
+<b>Edit Network file</b>
+sudo nano /etc/sysconfig/network-scripts/ifcfg-ens192
+
+<b>Paste this line</b>
+
+HWADDR=00:50:56:a4:15:6d
+NAME=ens192
+DEVICE=ens192
+ONBOOT=yes
+USERCTL=no
+<font  color="red"><b>GATEWAY=172.26.126.126</b></font>
+BOOTPROTO=static
+NETMASK=255.255.255.128
+IPADDR=172.26.126.51
+PEERDNS=yes
+
+check_link_down() {
+ return 1;
+}
+<hr/>
+<b>Commands for Triara Servers</b>
 <li>Agregar acceso a internet / agregar el gateway a una vm de Triara</li>
  - sudo route add -net 0.0.0.0 gw 172.26.126.126 dev ens192
 
-Instalar JAVA
+Install JAVA on Centos
 
  - sudo yum -y update
  - sudo yum install -y java-11-openjdk
  - sudo yum install -y java-11-openjdk-devel
 
 
-Instalar VIM
+Install VIM
 
  - sudo yum install vim
 
 
-Instalar nmap(escaneo de puertos)
+Install nmap(port scanner)
 
  - sudo yum install nmap
 
 
-Apagado de Firewall 
+Firewall turn off
 
  - systemctl disable firewalld (deshabilita el firewall)
 
  - systemctl stop firewalld (apaga temporalmente el firewall)
 
  - systemctl status firewalld (verifica el estatus del firewall)
-
-
-
+<hr/>
 <b>Triara</b>
 
 201.161.105.78 - Peer Firewall
@@ -64,38 +98,37 @@ Opción 2,9
 NIP 4580
 
 ID de la cuenta: 1421077
-
-<b>Usuario Administrador Speedy</b>
+<hr/>
+<b>Administrator User for Speedy</b>
 Administrator
 3x3cu70R
-
+<hr/>
 <b>VPN Speedy</b>
 abarrios
 xs2SQPKo0a
-
-
+<hr/>
 <b>Triara Consola</b>
 https://cp.cloud.telmex.com
 adminDipsa13
 Geg69WsrD
 \\192.168.4.240\Infraestructura\ARQ_Repositorio\Cloud\Accesos\CuentasAcceso.xlsx
-
---------------------------------------------------------------------------------------------------------------
-
+<hr/>
+<b>Outlook</b>
+u: alfredo.barrios@speedymovil.com
+p: Sp33dym0v1l.2018
+<hr/>
 <b>Splunk</b>
 Us: Arquitectura
 Pss: 4rqu1Speedy
 http://201.161.105.71:8000/en-US/app/launcher/home
-
+<hr/>
 
 TPD TPH TPM TPS
 Hay que establecer el periodo a un día
 sourcetype=RegistryLogsMiTelcelSMT AND NOT API="AAA" | bucket_time span=1M |  rename_time as Date  | eval Date=strftime(Date,"20%y/%m/%d - %H: %M") | stats count by CODRESPUESTATELCEL METODOTELCEL
 
-<b>Outlook</b>
-u: alfredo.barrios@speedymovil.com
-p: Sp33dym0v1l.2018
 
+<hr/>
 Comodo
 https://secure.comodo.net/products/Management
 
@@ -103,16 +136,12 @@ https://secure.comodo.net/products/Management
 Sectigo -contenido.smapps.mx
 Usuario: ade.gordon@speedymovil.com
 Contraseña: 9N!pWXXPkwAFBKK
-
-
+<hr/>
 Wrike
 u: alfredo.barrios@sppedymovil.com
 p: Sp33dym0v1l.2018
-
-
-
+<hr/>
 <b>Mobile First</b>
-
 http://claro-video-test.tmx-internacional.net/AMX_MF_GATEWAY/ejecutaAdaptador
 GT_AccountManagementAdapter/AssociateAccount
 
@@ -123,11 +152,12 @@ GT_AccountManagementAdapter/AssociateAccount
 }
 Consideraciones.
 === Para que no envie el error    "AcknowledgementDescription": "SESION INVALIDA, Se debe usar el Token obtenido del servicio ValidateCredentials
---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<hr/>
 <b>Roadmaps</b>
 \\192.168.4.240\Subdireccion_Negocios\SM Roadmap Productos\
 wget http://10.119.170.77:8000/provisioning/service/user/lookup?userid=5537227382 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<hr/>
+<b>WIFI Speedy Movil</b>
 SM-GUEST
 2hkBKms1u
 
@@ -151,18 +181,21 @@ SM-DC (Sala1, Sala2 y Direccion)
 
 SM-QA
 Qu4L1tyass
+<hr/>
 
 Test
 https://ecm.firstatlanticcommerce.com/PGService/Services.svc
 
 Production
 https://marlin.firstatlanticcommerce.com/PGService/Services.svc
----------------------------------------------------------------------------------------------
+<hr/>
 Usuario IBM
 u: alfredo_barrios_cruz@hotmail.fr
 p: 7i3/7LxNuC+rsEm
-
-
+<hr/>
+<b>My WIFI</b>
+9FTkA67e9P
+<hr/>
 <b>Herramientas de Desarrollo de Software</b>
 
 1. IDE 

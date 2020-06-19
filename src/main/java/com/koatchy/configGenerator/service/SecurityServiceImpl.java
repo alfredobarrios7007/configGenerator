@@ -17,6 +17,7 @@ import com.koatchy.configGenerator.model.SetNewPasswordRequest;
 import com.koatchy.configGenerator.model.SetNewPassword;
 import com.koatchy.configGenerator.model.VerifyCode;
 import com.koatchy.configGenerator.tools.DateHelper;
+import com.koatchy.configGenerator.tools.EncryptUtil;
 import com.koatchy.configGenerator.tools.Token;
 import com.koatchy.configGenerator.tools.TypeElapsedTime;
 import com.koatchy.configGenerator.exception.SecurityException;
@@ -36,6 +37,10 @@ public class SecurityServiceImpl implements SecurityService {
 		String result="";
 		try {
 			Token token = new Token("configGenerator");
+			System.out.print("validateCredentials 1: " + param.toString());
+			String ePwd = EncryptUtil.encode("~KöAtcHy¬" + param.getUsername(), param.getPassword());
+			param.setPassword(ePwd);
+			System.out.print("validateCredentials 2: " + param.toString());
 			Optional<User> user = serviceObj.getRowByUsernameAndPassword(param);
 			if (user.isPresent())
 				result = token.getToken(param);

@@ -89,6 +89,7 @@ var _Communication = {
                 enctype: 'multipart/form-data',
                 url: ActionUrl,
                 data: Arguments,
+                headers: authenticationToken,
                 processData: false,
                 contentType: false,
                 cache: false,
@@ -96,7 +97,6 @@ var _Communication = {
                 timeout: 600000,
                 beforeSend: _CommonFunctions.ShowProgressBar(),
                 success: function (data) {
-                    alert(data);
                     if (data != "") {
                         result = data;
                     }

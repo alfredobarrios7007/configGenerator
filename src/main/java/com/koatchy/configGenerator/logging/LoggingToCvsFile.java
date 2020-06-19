@@ -27,7 +27,7 @@ public class LoggingToCvsFile implements ILogging{
 		
 	public void writeLog(String line) {
 		String logFilePath = this.unid + ":" + this.directory + "/" + this.logFile;
-		System.out.print("LoggingToCvsFile.writeLog: " + logFilePath + "\n");
+		//System.out.print("LoggingToCvsFile.writeLog: " + logFilePath + "\n");
 		try(FileWriter fw = new FileWriter(logFilePath, true);
 		BufferedWriter bw = new BufferedWriter(fw);
 		PrintWriter out = new PrintWriter(bw))

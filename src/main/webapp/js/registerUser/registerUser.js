@@ -93,7 +93,6 @@ var registerUser = {
 	GetLists:function(){
 		try {
 			var params = {"platform":"web","caller": _CommonFunctions.GetCaller()};
-			alert(params.caller);
 			var dataAreas = _Communication.GetRemoteDataPost(urlGetAllAreas, params);
 			var dataOrgs = _Communication.GetRemoteDataPost(urlGetAllOrganizations, params);
 			if( dataAreas.code==200 && dataOrgs.code==200){
@@ -123,7 +122,7 @@ var registerUser = {
 			$("#btnSubmit").hide();
 		}
 	},
-	SubmitForm:function(){
+	SubmitFormOriginal:function(){
 		//stop submit the form, we will post it manually.
         event.preventDefault();
 		try {
@@ -176,6 +175,48 @@ var registerUser = {
 			alert('SubmitForm error: ' + error);			
 		}
 		return false;
+	},
+	SubmitForm:function(){
+		//stop submit the form, we will post it manually.
+        event.preventDefault();
+		try {
+			if(! registerUser.Validation())
+			{
+				return false;
+			}
+
+			$("#platform").val("web"); 
+			$("#caller").val(_CommonFunctions.GetCaller());
+			$("#name").val($("#inputFirstName").val().trim());
+			$("#lastname").val($("#inputLastName").val().trim());
+			$("#organization").val($("#inputOrganization").val().trim());
+			$("#area").val($("#inputArea").val().trim());
+			$("#email").val($("#inputEmailAddress").val().trim());
+			$("#password").val($("#inputPassword").val().trim());
+
+			// Get form
+			var form = document.getElementById('fileUploadForm');
+
+			// Create an FormData object
+			var paramPhoto = new FormData(form);
+
+			var dataUpload = _Communication.PostMutiPartForm(registerWithPhoto, paramPhoto);
+			if(dataUpload.code!=200){
+				//TO DO
+				alert("UploadPhoto Error: " + dataUpload.code + "- " + dataUpload.message);
+				$("#unexpectedErrorMsg").show();
+				return;
+			}
+			alert("UploadPhoto: " + dataUpload.code);
+			$("#btnSubmit").hide();
+			$("#successMsg").show();
+
+
+
+		} catch (error) {
+			$("#unexpectedErrorMsg").show();
+			$("#btnSubmit").hide();
+		}
 	},
 	ResetForm:function(){
 		//TO DO

@@ -578,30 +578,36 @@ BEGIN
 	DECLARE v_IdUserArea INT;
 	DECLARE v_IdOrganization INT;
 	DECLARE v_IdOrganizationAdded INT unsigned DEFAULT 0;
-
+	-- Handler error
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;  -- rollback any error in the transaction
+    END;
     IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`email`) > 0 THEN
     BEGIN
 		SIGNAL sqlstate '45000'
         SET MESSAGE_TEXT = 'EMAIL_ALREADY_EXISTS';
 	END;
     END IF;
-
-	IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctUserAreas` WHERE p_area=`name`) = 0 THEN
-		INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES (p_area, 'N');
-	END IF;    
-	SELECT `IdUserArea` into v_IdUserArea FROM `bds_consola_universal`.`ctUserAreas` WHERE p_area=`name`;
-	-- ********************************************************************************************************************
-	IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`) = 0 THEN
-		INSERT INTO `bds_consola_universal`.`ctOrganizations` (`Name`, `IdUserOnCharge`, `Created_Platform`, `Created_Datetime`) VALUES (p_organization, 1, p_platform, SYSDATE());
-        SET v_IdOrganizationAdded = 1;
-	END IF;
-	SELECT `IdOrganization` into v_IdOrganization FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`;
-	INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `Lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `Created_Platform`, `Created_Datetime`) VALUES 
-    (v_IdUserArea, p_password, 'N', p_name, p_lastname, p_email, 'N', 'N', v_IdOrganization, p_platform, SYSDATE());
-    SELECT `IdUser` into v_IdUser  FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`Email`;
-	IF v_IdOrganizationAdded=1 THEN
-		UPDATE `bds_consola_universal`.`ctOrganizations` SET `IdUserOnCharge`= v_IdUser WHERE v_IdOrganization=`IdOrganization`;
-    END IF;
+	START TRANSACTION;
+		IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctUserAreas` WHERE p_area=`name`) = 0 THEN
+			INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES (p_area, 'N');
+		END IF;    
+		SELECT `IdUserArea` into v_IdUserArea FROM `bds_consola_universal`.`ctUserAreas` WHERE p_area=`name`;
+		-- ********************************************************************************************************************
+		IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`) = 0 THEN
+			INSERT INTO `bds_consola_universal`.`ctOrganizations` (`Name`, `IdUserOnCharge`, `Created_Platform`, `Created_Datetime`) VALUES (p_organization, 1, p_platform, SYSDATE());
+			SET v_IdOrganizationAdded = 1;
+		END IF;
+		SELECT `IdOrganization` into v_IdOrganization FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`;
+		INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `Lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `Created_Platform`, `Created_Datetime`) VALUES 
+		(v_IdUserArea, p_password, 'N', p_name, p_lastname, p_email, 'N', 'N', v_IdOrganization, p_platform, SYSDATE());
+		SELECT `IdUser` into v_IdUser FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`Email`;
+		IF v_IdOrganizationAdded=1 THEN
+			UPDATE `bds_consola_universal`.`ctOrganizations` SET `IdUserOnCharge`= v_IdUser WHERE v_IdOrganization=`IdOrganization`;
+		END IF;
+    COMMIT;
+    /*
     SELECT usr.`IdUser`
     , usr.`IdUserArea`
     , usra.`name` AS `UserArea`
@@ -624,7 +630,8 @@ BEGIN
     FROM `bds_consola_universal`.`ctUsers` usr INNER JOIN `bds_consola_universal`.`ctUserAreas` usra ON usr.`IdUserArea`= usra.`IdUserArea`
     INNER JOIN `bds_consola_universal`.`ctOrganizations` orgn ON usr.`IdOrganization`= orgn.`IdOrganization`
     LEFT OUTER JOIN `bds_consola_universal`.`ctOrganizationRoles` orgr ON orgr.`IdOrganizationRol`=usr.`IdOrganizationRol`
-    WHERE p_email=`email`;
+    WHERE p_iduser=usr.iduser;
+    */
 END
 $$
 DELIMITER ;

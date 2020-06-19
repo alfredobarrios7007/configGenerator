@@ -46,6 +46,32 @@ public class RegisterController extends ServiceControllerImpl {
 	}
 
 
+	@RequestMapping(path = "registerWithPhoto", method = RequestMethod.POST, produces = "application/JSON")
+	@ResponseBody 
+    public GeneralResponse registerWithPhoto(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestParam(value = "inputPhoto") MultipartFile photo, 
+    		@RequestParam("platform") String platform,
+    		@RequestParam("caller") String caller,
+    		@RequestParam("name") String name,
+    		@RequestParam("lastname") String lastname,
+    		@RequestParam("organization") String organization,
+    		@RequestParam("area") String area,
+    		@RequestParam("email") String email,
+    		@RequestParam("password") String password
+    		)  throws Exception {
+		setApiName("security-register");
+		setPlatform(platform);
+		setCaller(caller);
+	    validateAuthorization(authentication);
+		Register param = new Register(0L, name, lastname, organization, area, email, password, platform, caller, photo);
+		System.out.print("registerWithPhoto: " + param);
+		GeneralResponse response = new GeneralResponse();
+		response.setCode(200);
+		response.setMessage("OK");
+		response.setData(objectSrv.add(param));		
+		logging("success", "");
+		return response;
+    }
+
 	@RequestMapping(path = "uploadUserPhoto", method = RequestMethod.POST, produces = "application/JSON")
 	@ResponseBody 
     public GeneralResponse uploadUserPhoto(@RequestParam(value = "inputPhoto") MultipartFile photo, @RequestParam("iduser") Integer iduser) {

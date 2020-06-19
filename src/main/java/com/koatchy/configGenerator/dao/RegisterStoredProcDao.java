@@ -22,6 +22,6 @@ public interface RegisterStoredProcDao extends JpaRepository<RegisterStoredProce
     		@Param("p_organization") String organization,
     		@Param("p_area") String area,
     		@Param("p_email") String email,
-    		@Param("p_password") String password     		
+    		@Param("p_password") String password
     		);
 }
