@@ -58,7 +58,7 @@ var setPassword = {
 			$("#codeDoesNotExistMsg").show();
 			return false;
 		}
-		var params = {"code": code};
+		var params = {"platform":"web","caller": _CommonFunctions.GetCaller(),"code": code};
 		var data = _Communication.GetRemoteDataPost(urlVerifyChangePasswordCode, params);
 
 		if(data.code!=200){

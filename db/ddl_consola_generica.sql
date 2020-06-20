@@ -29,18 +29,18 @@ DROP TABLE IF EXISTS `bds_consola_universal`.`cfConfigurations` ;
 CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`cfConfigurations` (
   `IdConfiguration` INT(11) NOT NULL AUTO_INCREMENT,
   `Description` VARCHAR(25) NULL DEFAULT NULL,
-  `Value` VARCHAR(500) NULL DEFAULT NULL,
+  `ValueOf` VARCHAR(500) NULL DEFAULT NULL,
   PRIMARY KEY (`IdConfiguration`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = latin1;
 
-INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) VALUES ('CompanyEncryptCode', '~KöAtcHy¬');
-INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) VALUES ('CompanyName', 'Köatchy');
-INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) VALUES ('EmailHost', 'smtp.gmail.com');
-INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) VALUES ('EmailPort', '587');
-INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) VALUES ('EmailFromAccout', 'abarrios7007@gmail.com');
-INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `Value`) VALUES ('AutorizationRequest', 'wDo3rXrE/');
+-- INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('CompanyEncryptCode', '~KöAtcHy¬');
+-- INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('CompanyName', 'Köatchy');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('EmailHost', 'smtp.gmail.com');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('EmailPort', '587');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('EmailFromAccout', 'abarrios7007@gmail.com');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('AutorizationRequest', 'wDo3rXrE/');
 
 
 -- -----------------------------------------------------
@@ -162,10 +162,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctOrganizations` (
   `Created_Platform` VARCHAR(10) NOT NULL,
   `Updated_Datetime` DATETIME NULL,
   `Updated_Platform` VARCHAR(10) NULL,
-  PRIMARY KEY (`IdOrganization`),
-  CONSTRAINT `FK_Company_UserOnCharge`
-    FOREIGN KEY (`IdUserOnCharge`)
-    REFERENCES `bds_consola_universal`.`ctUsers` (`IdUser`)
+  PRIMARY KEY (`IdOrganization`)
   )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
@@ -175,10 +172,6 @@ COLLATE = utf8_unicode_ci;
 INSERT INTO `bds_consola_universal`.`ctOrganizations` (`Name`, `IdUserOnCharge`, `Created_Platform`, `Created_Datetime`) VALUES ('Ninguna', 1, 'INIT_ROW', SYSDATE());
 INSERT INTO `bds_consola_universal`.`ctOrganizations` (`Name`, `IdUserOnCharge`, `Created_Platform`, `Created_Datetime`) VALUES ('Köatchy', 1, 'INIT_ROW', SYSDATE());
 
-
-ALTER TABLE `bds_consola_universal`.`ctUsers` ADD CONSTRAINT `FK_User_Company`
-    FOREIGN KEY (`IdOrganization`)
-    REFERENCES `bds_consola_universal`.`ctOrganizations` (`IdOrganization`);
 
 
 -- -----------------------------------------------------
@@ -556,6 +549,7 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+
 DROP PROCEDURE IF EXISTS `bds_consola_universal`.`REGISTER`;
 DELIMITER $$
 CREATE PROCEDURE `bds_consola_universal`.`REGISTER` (
@@ -607,7 +601,6 @@ BEGIN
 			UPDATE `bds_consola_universal`.`ctOrganizations` SET `IdUserOnCharge`= v_IdUser WHERE v_IdOrganization=`IdOrganization`;
 		END IF;
     COMMIT;
-    /*
     SELECT usr.`IdUser`
     , usr.`IdUserArea`
     , usra.`name` AS `UserArea`
@@ -631,8 +624,6 @@ BEGIN
     INNER JOIN `bds_consola_universal`.`ctOrganizations` orgn ON usr.`IdOrganization`= orgn.`IdOrganization`
     LEFT OUTER JOIN `bds_consola_universal`.`ctOrganizationRoles` orgr ON orgr.`IdOrganizationRol`=usr.`IdOrganizationRol`
     WHERE p_iduser=usr.iduser;
-    */
 END
 $$
 DELIMITER ;
-

@@ -28,7 +28,8 @@ public class VerifyChangePasswordCode extends ServiceControllerImpl {
 	SecurityService objectSrv;
 	
 	@RequestMapping(path = "VerifyChangePasswordCode", method = RequestMethod.POST, produces = "application/JSON")
-	public GeneralResponse Verify(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final VerifyCode param) throws Exception {
+	public GeneralResponse verifyChangePasswordCode(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final VerifyCode param) throws Exception {
+		System.out.print("VerifyChangePasswordCode " + param.toString() + "\n");
 	    /* The lines, below, get the origin of the called */
 		//String origin = URI.create(request.getRequestURL().toString()).getHost();
 		setApiName("catlogs-getAllAreas");

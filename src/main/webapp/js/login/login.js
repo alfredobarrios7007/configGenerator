@@ -60,7 +60,7 @@ var _Login = {
 				return false;
 			}
 
-			var params = {"username": $("#inputEmailAddress").val().trim() , "password": $("#inputPassword").val().trim()};
+			var params = {"platform":"web","caller": _CommonFunctions.GetCaller(),"username": $("#inputEmailAddress").val().trim() , "password": $("#inputPassword").val().trim()};
 			var data = _Communication.GetRemoteDataPost(ulrLoginValidation, params);
 	
 			if(data.code!=200){

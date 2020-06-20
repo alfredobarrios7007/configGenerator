@@ -29,7 +29,7 @@ public class OrganizationsController extends ServiceControllerImpl {
 	
 	@RequestMapping(path = "getAllOrganizations", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse getAllOrganizations(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final GeneralRequest param) throws Exception {
-		setApiName("catlogs-getAllOrganizations");
+		System.out.print("getAllOrganizations" + param.toString() + "\n");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */

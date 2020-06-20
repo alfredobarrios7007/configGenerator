@@ -31,7 +31,7 @@ public class Organization implements Serializable {
 	@Id
 	@Column(name="idorganization")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Column(name="name")
 	private String name;
@@ -60,14 +60,14 @@ public class Organization implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -194,7 +194,7 @@ public class Organization implements Serializable {
 	 * @param updated_datetime
 	 * @param updatedPlatform
 	 */
-	public Organization(long id, String name, String iconurl, String badgeurl, String iduseroncharge,
+	public Organization(Long id, String name, String iconurl, String badgeurl, String iduseroncharge,
 			String createdDatetime, String createdPlatform, String updated_datetime, String updatedPlatform) {
 		this.id = id;
 		this.name = name;

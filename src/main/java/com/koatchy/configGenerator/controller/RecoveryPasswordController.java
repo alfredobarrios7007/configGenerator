@@ -26,6 +26,7 @@ public class RecoveryPasswordController extends ServiceControllerImpl {
 	
 	@RequestMapping(path = "recoveryPassword", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse recoveryPassword(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {
+		System.out.print("recoveryPassword " + param.toString() + "\n");
 		setApiName("security-recoveryPassword");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());

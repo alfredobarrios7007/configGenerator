@@ -45,7 +45,7 @@ public class ServiceControllerImpl implements IServiceController {
 	@Override
 	@ExceptionHandler
 	public GeneralResponse handlerException(Exception e) {
-		System.out.println("handlerException: " + e.getMessage());
+		System.out.println("handlerException: " + e.getMessage() + "\n");
 		logging("error", e.getMessage());
 		return new GeneralResponse(-200, e.getMessage());
 	}

@@ -55,34 +55,57 @@ check_link_down() {
  return 1;
 }
 <hr/>
+<b>Commands for MySQL command line</b>
+
+<b>Open session</b>
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p -h localhost
+
+<b>change to database</b>
+use bds_consola_universal;
+
+<b>Show tables</b>
+show tables;
+
+<b>Show columns</b>
+DESCRIBE [table name];
+
+<b>Execute script</b>
+source C:\src\configGenerator\db\ddl_consola_generica.sql    <font color="red">No Semi colon</font>
+
+
+<hr/>
 <b>Commands for Triara Servers</b>
-<li>Agregar acceso a internet / agregar el gateway a una vm de Triara</li>
+<li>Grant internet access / add the gateway to a vm in Triara</li>
  - sudo route add -net 0.0.0.0 gw 172.26.126.126 dev ens192
 
-Install JAVA on Centos
-
- - sudo yum -y update
- - sudo yum install -y java-11-openjdk
- - sudo yum install -y java-11-openjdk-devel
+<li>Monitoring a log</li>
+tail -f /disco_2/logs/MiTelcelSMT.log* | grep '5537227382'
 
 
-Install VIM
+<li>Install JAVA on Centos</li>
 
- - sudo yum install vim
-
-
-Install nmap(port scanner)
-
- - sudo yum install nmap
+sudo yum -y update
+sudo yum install -y java-11-openjdk
+sudo yum install -y java-11-openjdk-devel
 
 
-Firewall turn off
+<li>Install VIM</li>
 
- - systemctl disable firewalld (deshabilita el firewall)
+sudo yum install vim
 
- - systemctl stop firewalld (apaga temporalmente el firewall)
 
- - systemctl status firewalld (verifica el estatus del firewall)
+<li>Install nmap(port scanner)</li>
+
+ sudo yum install nmap
+
+
+<li>Firewall turn off</li>
+
+systemctl disable firewalld (deshabilita el firewall)
+
+systemctl stop firewalld (apaga temporalmente el firewall)
+
+systemctl status firewalld (verifica el estatus del firewall)
 <hr/>
 <b>Triara</b>
 

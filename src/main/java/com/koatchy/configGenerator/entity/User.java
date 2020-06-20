@@ -31,16 +31,16 @@ public class User implements Serializable {
 	@Id
 	@Column(name="iduser")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
-	@Column(name="iduserarea")
-	private long idUserArea;
+	@Column(name="iduserarea",nullable = true)
+	private Long idUserArea;
 	
-	@Column(name="idorganization")
-	private long idOrganization;
+	@Column(name="idorganization",nullable = true)
+	private Long idOrganization;
 	
-	@Column(name="idorganizationrol")
-	private long idOrganizationRol;
+	@Column(name="idorganizationrol",nullable = true)
+	private Long idOrganizationRol;
 	
 	@Column(name="password")
 	private String password;
@@ -48,7 +48,7 @@ public class User implements Serializable {
 	@Column(name="name")
 	private String name;
 	
-	@Column(name="lastname")
+	@Column(name="lastname",nullable = true)
 	private String lastName;
 	
 	@Column(name="email")
@@ -57,7 +57,10 @@ public class User implements Serializable {
 	@Column(name="superuser")
 	private String superuser;
 	
-	@Column(name="photo")
+	@Column(name="confirmed")
+	private String confirmed;
+	
+	@Column(name="photo",nullable = true)
 	private String photo;
 
 	@Column(name="unavaibled")
@@ -69,10 +72,10 @@ public class User implements Serializable {
 	@Column(name="created_platform")
 	private String createdPlatform;
 	
-	@Column(name="updated_datetime")
+	@Column(name="updated_datetime",nullable = true)
 	private String updatedDatetime;
 	
-	@Column(name="updated_platform")
+	@Column(name="updated_platform",nullable = true)
 	private String updatedPlatform;
 
 	/**
@@ -227,6 +230,20 @@ public class User implements Serializable {
 	 */
 	public void setUnavaibled(String unavaibled) {
 		this.unavaibled = unavaibled;
+	}
+
+	/**
+	 * @return the unavaibled
+	 */
+	public String getConfirmed() {
+		return confirmed;
+	}
+
+	/**
+	 * @param unavaibled the unavaibled to set
+	 */
+	public void setConfirmed(String confirmed) {
+		this.confirmed = confirmed;
 	}
 
 	/**

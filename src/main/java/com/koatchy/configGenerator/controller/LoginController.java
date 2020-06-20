@@ -24,6 +24,7 @@ public class LoginController extends ServiceControllerImpl {
 	
 	@RequestMapping(path = "login", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse login(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {
+		System.out.print("login " + param.toString() + "\n");
 		setApiName("security-login");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());

@@ -34,13 +34,13 @@ public class SecurityServiceImpl implements SecurityService {
 	
 	@Override
 	public String validateCredentials(Login param) throws SecurityException {
+		System.out.print("validateCredentials " + param.toString() + "\n");
 		String result="";
 		try {
 			Token token = new Token("configGenerator");
-			System.out.print("validateCredentials 1: " + param.toString());
 			String ePwd = EncryptUtil.encode("~KöAtcHy¬" + param.getUsername(), param.getPassword());
 			param.setPassword(ePwd);
-			System.out.print("validateCredentials 2: " + param.toString());
+			System.out.print("validateCredentials 2 " + param.toString() + "\n");
 			Optional<User> user = serviceObj.getRowByUsernameAndPassword(param);
 			if (user.isPresent())
 				result = token.getToken(param);
@@ -49,6 +49,7 @@ public class SecurityServiceImpl implements SecurityService {
 				throw new Exception("WRONG_CREDENTIALS");
 			}
 		} catch (Exception e) {
+			System.out.print("Error validateCredentials\n");
 			throw new SecurityException(e.getMessage());
 		}
 		return result;
@@ -56,6 +57,7 @@ public class SecurityServiceImpl implements SecurityService {
 
 	@Override
 	public SecurityResult verifyChangePasswordCode(VerifyCode code) throws SecurityException {
+		System.out.print("verifyChangePasswordCode " + code.toString() + "\n");
 		Token token = new Token("configGenerator");
 		DateHelper dataH = new DateHelper();
 		SecurityResult result = new SecurityResult();
@@ -78,6 +80,7 @@ public class SecurityServiceImpl implements SecurityService {
 			result.setResult(true);
 			result.setMessage("SUCCESS");
 		} catch (Exception e) {
+			System.out.print("Error verifyChangePasswordCode\n");
 			throw new SecurityException(e.getMessage());
 		}
 		return result;
@@ -85,6 +88,7 @@ public class SecurityServiceImpl implements SecurityService {
 
 	@Override
 	public SecurityResult setNewPassword(SetNewPasswordRequest param) throws SecurityException {
+		System.out.print("setNewPassword " + param.toString() + "\n");
 		Token token = new Token("configGenerator");
 		DateHelper dataH = new DateHelper();
 		SecurityResult result = new SecurityResult();
@@ -108,6 +112,7 @@ public class SecurityServiceImpl implements SecurityService {
 			result.setResult(serviceObj.setNewPassword(snp));
 			result.setMessage("SUCCESS");
 		} catch (Exception e) {
+			System.out.print("Error setNewPassword " + e.toString() + "\n");
 			throw new SecurityException(e.getMessage());
 		}
 		return result;

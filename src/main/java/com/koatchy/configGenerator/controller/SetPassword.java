@@ -28,7 +28,8 @@ public class SetPassword extends ServiceControllerImpl {
 	SecurityService objectSrv;
 
 	@RequestMapping(path = "SetNewPassword", method = RequestMethod.POST, produces = "application/JSON")
-	public GeneralResponse SetNewPassword(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final SetNewPasswordRequest param) throws Exception {
+	public GeneralResponse setNewPassword(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final SetNewPasswordRequest param) throws Exception {
+		System.out.print("setNewPassword " + param.toString() + "\n");
 		setApiName("security-SetNewPassword");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());

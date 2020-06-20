@@ -30,6 +30,7 @@ public class RegisterController extends ServiceControllerImpl {
 	
 	@RequestMapping(path = "register", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse register(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Register param) throws Exception {
+		System.out.print("register " + param.toString() + "\n");
 		setApiName("security-register");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());
@@ -58,6 +59,7 @@ public class RegisterController extends ServiceControllerImpl {
     		@RequestParam("email") String email,
     		@RequestParam("password") String password
     		)  throws Exception {
+		System.out.print("registerWithPhoto");
 		setApiName("security-register");
 		setPlatform(platform);
 		setCaller(caller);
@@ -75,6 +77,7 @@ public class RegisterController extends ServiceControllerImpl {
 	@RequestMapping(path = "uploadUserPhoto", method = RequestMethod.POST, produces = "application/JSON")
 	@ResponseBody 
     public GeneralResponse uploadUserPhoto(@RequestParam(value = "inputPhoto") MultipartFile photo, @RequestParam("iduser") Integer iduser) {
+		System.out.print("uploadUserPhoto");
         //String fileName = documneStorageService.storeFile(file, UserId, docType);
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);

@@ -29,22 +29,22 @@ public class Configuration  implements Serializable {
 	
 	public Configuration() {}
 	
-	public Configuration(long id, String description, String value) {
+	public Configuration(Long id, String description, String valueOf) {
 		this.id = id;
 		this.description = description;
-		this.value = value;
+		this.valueOf = valueOf;
 	}
 
 	@Id
 	@Column(name="idconfiguration")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
-	@Column(name="description")
+	@Column(name="description",nullable = true)
 	private String description;
 	
-	@Column(name="value")
-	private String value;
+	@Column(name="valueOf",nullable = true)
+	private String valueOf;
 
 
 	/**
@@ -57,7 +57,7 @@ public class Configuration  implements Serializable {
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -78,20 +78,20 @@ public class Configuration  implements Serializable {
 	/**
 	 * @return the value
 	 */
-	public String getValue() {
-		return value;
+	public String getValueOf() {
+		return valueOf;
 	}
 
 	/**
 	 * @param value the value to set
 	 */
-	public void setValue(String value) {
-		this.value = value;
+	public void setValueOf(String valueOf) {
+		this.valueOf = valueOf;
 	}
 
 	@Override
 	public String toString() {
-		return "Configuration [id=" + id + ", description=" + description + ", value=" + value + "]";
+		return "Configuration [id=" + id + ", description=" + description + ", valueOf=" + valueOf + "]";
 	}
 
 }

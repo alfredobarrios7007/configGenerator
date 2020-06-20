@@ -17,25 +17,26 @@ public class Register extends GeneralRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private long id;
+	private Long id;
 	private String name;
 	private String lastname;
 	private String organization;
 	private String area;
 	private String email;
 	private String password;
+	private String photoPath;
 	private MultipartFile photo;
 
 	/**
 	 * @return the id
 	 */
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	/**
@@ -49,6 +50,18 @@ public class Register extends GeneralRequest {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+	/**
+	 * @return the name
+	 */
+	public String getPhotoPath() {
+		return photoPath;
+	}
+	/**
+	 * @param name the photoPath to set
+	 */
+	public void setPhotoPath(String photoPath) {
+		this.photoPath = photoPath;
 	}
 	/**
 	 * @return the lastname
@@ -137,7 +150,7 @@ public class Register extends GeneralRequest {
 	 * @param caller
 	 * @param photo
 	 */
-	public Register(long id, String name, String lastname, String organization, String area, String email,
+	public Register(Long id, String name, String lastname, String organization, String area, String email,
 			String password, String platform, String caller, MultipartFile photo) {
 		this.id = id;
 		this.name = name;

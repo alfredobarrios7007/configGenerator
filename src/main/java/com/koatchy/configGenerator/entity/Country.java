@@ -32,7 +32,7 @@ public class Country implements Serializable {
 	@Id
 	@Column(name="idcountry")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Column(name="name")
 	private String name;
@@ -50,7 +50,7 @@ public class Country implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -124,7 +124,7 @@ public class Country implements Serializable {
 	 * @param capital
 	 * @param currency
 	 */
-	public Country(long id, String name, String shortname, String capital, String currency) {
+	public Country(Long id, String name, String shortname, String capital, String currency) {
 		this.id = id;
 		this.name = name;
 		this.shortname = shortname;

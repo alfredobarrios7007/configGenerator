@@ -28,7 +28,7 @@ public class UserAreasController extends ServiceControllerImpl {
 	
 	@RequestMapping(path = "getAllAreas", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse getAllAreas(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final GeneralRequest param) throws Exception {
-		setApiName("catlogs-getAllAreas");
+		System.out.print("getAllAreas " + param.toString() + "\n");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */

@@ -29,36 +29,43 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User save(User param) {
+		System.out.print("UserServiceImpl save param: " + param.toString() + "\n");
 		return objectDao.save(param);
 	}
 
 	@Override
 	public User update(User param) {
+		System.out.print("UserServiceImpl update param: " + param.toString() + "\n");
 		return objectDao.saveAndFlush(param);
 	}
 
 	@Override
 	public List<User> getAllRows() {
+		System.out.print("UserServiceImpl getAllRows\n");
 		return objectDao.findAll();
 	}
 
 	@Override
 	public Optional<User> getRow(Long param) {
+		System.out.print("UserServiceImpl getRow param: " + param + "\n");
 		return objectDao.findById(param);
 	}
 	
 	@Override
 	public Optional<User> getRowByUsernameAndPassword(Login param){
-		return objectDao.findUserByNameAndPassword(param.getUsername(), EncryptUtil.encode("~KöAtcHy¬" + param.getUsername(), param.getPassword()));		
+		System.out.print("UserServiceImpl getRowByUsernameAndPassword param: " + param.toString() + "\n");
+		return objectDao.findUserByNameAndPassword(param.getUsername(), param.getPassword());		
 	}
 	
 	@Override
 	public Optional<User> findUserByEmail(String email){
-		return objectDao.findUserByEmail(email);		
+		System.out.print("UserServiceImpl findUserByEmail param: " + email + "\n");
+		return objectDao.findUserByEmail(email);
 	}
 	
 	@Override
 	public Boolean recoveryPassword(Login param) throws RecoveryPasswordException {
+		System.out.print("UserServiceImpl recoveryPassword param: " + param.toString() + "\n");
 		Boolean result = false;
 		
 		if(param.getUsername().trim()=="") {
@@ -83,6 +90,7 @@ public class UserServiceImpl implements UserService {
 				result = false;
 			}
 		} catch (Exception e) {
+			System.out.print("Error recoveryPassword\n");
 			throw new RecoveryPasswordException(e.getMessage());
 		}
 		return result;
@@ -90,6 +98,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Boolean setNewPassword(SetNewPassword param) throws SetNewPasswordException {
+		System.out.print("UserServiceImpl setNewPassword param: " + param.toString() + "\n");
 		Boolean result = true;
 		
 		try {
@@ -104,6 +113,7 @@ public class UserServiceImpl implements UserService {
 			int count = objectDao.setNewPassword(param.getEmail(), ePwd);
 			System.out.print("ePwd: " + ePwd + ", count: " + count);
 		} catch (Exception e) {
+			System.out.print("Error setNewPassword\n");
 			throw new SetNewPasswordException(e.getMessage());
 		}
 		return result;
@@ -111,6 +121,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deleteRow(Long param) {
+		System.out.print("UserServiceImpl deleteRow param: " + param + "\n");
 		objectDao.deleteById(param);
 	}
 

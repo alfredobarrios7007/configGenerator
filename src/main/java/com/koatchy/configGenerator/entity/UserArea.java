@@ -25,7 +25,7 @@ public class UserArea implements Serializable {
 	 * @param name
 	 * @param notify
 	 */
-	public UserArea(long id, String name, String notify) {
+	public UserArea(Long id, String name, String notify) {
 		this.id = id;
 		this.name = name;
 		this.notify = notify;
@@ -34,7 +34,7 @@ public class UserArea implements Serializable {
 	@Id
 	@Column(name="iduserarea")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Column(name="name")
 	private String name;
@@ -45,14 +45,14 @@ public class UserArea implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
