@@ -32,15 +32,16 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`cfConfigurations` (
   `ValueOf` VARCHAR(500) NULL DEFAULT NULL,
   PRIMARY KEY (`IdConfiguration`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;
 
--- INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('CompanyEncryptCode', '~KöAtcHy¬');
--- INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('CompanyName', 'Köatchy');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('CompanyEncryptCode', '~KöAtcHy¬');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('CompanyName', 'Köatchy');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('EmailHost', 'smtp.gmail.com');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('EmailPort', '587');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('EmailFromAccout', 'abarrios7007@gmail.com');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('AutorizationRequest', 'wDo3rXrE/');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('PhotoDirectory', 'C:\\src\\configGenerator\\src\\main\\webapp\\assets\\photos');
 
 
 -- -----------------------------------------------------
@@ -125,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctUsers` (
   `Email` VARCHAR(150) NOT NULL,
   `Superuser` CHAR(1) NOT NULL,
   `Confirmed` CHAR(1) NOT NULL,
-  `Photo` VARCHAR(50) NULL,
+  `Photo` VARCHAR(100) NULL,
   `Unavaibled` CHAR(1) NOT NULL,
   `Created_Datetime` DATETIME NOT NULL,
   `Created_Platform` VARCHAR(10) NOT NULL,
@@ -223,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`cfConfiguraciones` (
   `Valor` VARCHAR(250) NULL DEFAULT NULL,
   PRIMARY KEY (`IdConfiguracion`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -313,7 +314,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctPerfiles` (
     FOREIGN KEY (`idPais`)
     REFERENCES `bds_consola_universal`.`ctPaises` (`idPais`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
@@ -559,7 +560,8 @@ in p_lastname VARCHAR(50),
 in p_organization VARCHAR(250), 
 in p_area VARCHAR(50), 
 in p_email VARCHAR(150), 
-in p_password VARCHAR(250))
+in p_password VARCHAR(100),
+in p_photo VARCHAR(200))
 BEGIN
 -- *************************************************************************************************************************
 -- * CREATE_USER
@@ -594,8 +596,8 @@ BEGIN
 			SET v_IdOrganizationAdded = 1;
 		END IF;
 		SELECT `IdOrganization` into v_IdOrganization FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`;
-		INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `Lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `Created_Platform`, `Created_Datetime`) VALUES 
-		(v_IdUserArea, p_password, 'N', p_name, p_lastname, p_email, 'N', 'N', v_IdOrganization, p_platform, SYSDATE());
+		INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `Lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `photo`, `Created_Platform`, `Created_Datetime`) VALUES 
+		(v_IdUserArea, p_password, 'N', p_name, p_lastname, p_email, 'N', 'N', v_IdOrganization, p_photo, p_platform, SYSDATE());
 		SELECT `IdUser` into v_IdUser FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`Email`;
 		IF v_IdOrganizationAdded=1 THEN
 			UPDATE `bds_consola_universal`.`ctOrganizations` SET `IdUserOnCharge`= v_IdUser WHERE v_IdOrganization=`IdOrganization`;

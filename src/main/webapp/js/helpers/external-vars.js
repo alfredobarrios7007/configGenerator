@@ -144,7 +144,7 @@ var splg_RegUser = {
 	,"unexpectedErrorMsg":"Ocurrio un error inesperado, por favor, vuelve a intentar más tarde."
 	,"lengthWronghMsg":"La contraseña por lo menos debe tener al menos 7 carateres"
 	,"emailAlreadyExistMsg":"La cuenta de correo electr&oacute;nico ya existe, <a href='password.html'>¿necesitas recuperar tu contrase&ntilde;a? Da clic aquí</a>"
-	,"successMsg":"La contraseña se estableci&oacute; con &eacute;xito, por favor <a href='login.html'>proporcione sus credenciales</a>."
+	,"successMsg":"Tu registro se realizó con &eacute;xito, por favor <a href='login.html'>proporcione sus credenciales</a>."
 };
 var enlg_RegUser = {
 	"htmlTitle":"Create Account - " + companyName
@@ -173,5 +173,5 @@ var enlg_RegUser = {
 	,"unexpectedErrorMsg":"Ups! we are very sorry, an unexpected error happens, please, try again later."
 	,"lengthWronghMsg":"The password must to have 7 characters at least."
 	,"emailAlreadyExistMsg":"The e-mail account already exists, <a href='password.html'>do you need to recover your password? Click here</a>"
-	,"successMsg":"The password was settled successfuly, please, <a href='login.html'>set your credentials</a>."
+	,"successMsg":"The registry was successfuly, please, <a href='login.html'>set your credentials</a>."
 };

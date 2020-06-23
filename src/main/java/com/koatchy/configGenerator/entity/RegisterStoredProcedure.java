@@ -36,7 +36,8 @@ import javax.persistence.Table;
 				  @StoredProcedureParameter(name = "p_organization", type = String.class, mode = ParameterMode.IN),
 				  @StoredProcedureParameter(name = "p_area", type = String.class, mode = ParameterMode.IN),
 				  @StoredProcedureParameter(name = "p_email", type = String.class, mode = ParameterMode.IN),
-				  @StoredProcedureParameter(name = "p_password", type = String.class, mode = ParameterMode.IN)
+				  @StoredProcedureParameter(name = "p_password", type = String.class, mode = ParameterMode.IN),
+				  @StoredProcedureParameter(name = "p_photo", type = String.class, mode = ParameterMode.IN)
 				  }
   ) 
   }
@@ -62,4 +63,3 @@ public class RegisterStoredProcedure implements Serializable {
 	
   
 }
-		 

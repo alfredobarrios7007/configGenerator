@@ -6,7 +6,6 @@ import com.koatchy.configGenerator.model.GeneralResponse;
 
 public interface IServiceController {
 
-
 	void setPlatform(String platform);
 
 	void setCaller(String caller); 	

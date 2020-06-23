@@ -4,6 +4,7 @@ package com.koatchy.configGenerator.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class RegisterController extends ServiceControllerImpl {
 
 	@Autowired
 	RegisterService objectSrv;
+	
 	
 	@RequestMapping(path = "register", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse register(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Register param) throws Exception {
@@ -60,7 +62,7 @@ public class RegisterController extends ServiceControllerImpl {
     		@RequestParam("password") String password
     		)  throws Exception {
 		System.out.print("registerWithPhoto");
-		setApiName("security-register");
+		setApiName("security-registerWithPhoto");
 		setPlatform(platform);
 		setCaller(caller);
 	    validateAuthorization(authentication);
@@ -86,4 +88,14 @@ public class RegisterController extends ServiceControllerImpl {
 		//response.setData(objectSrv.add(param));		
 		return response;
     }
+	
+	@Override
+	@ExceptionHandler
+	public GeneralResponse handlerException(Exception e) {
+		System.out.println("handlerException: " + e.getMessage() + "\n");
+		setApiName("security-registerWithPhoto");
+		logging("error", e.getMessage());
+		return new GeneralResponse(-200, e.getMessage());
+	}
+
 }

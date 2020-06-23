@@ -6,6 +6,7 @@ package com.koatchy.configGenerator.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class OrganizationsController extends ServiceControllerImpl {
 		System.out.print("getAllOrganizations" + param.toString() + "\n");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());
+		setApiName("catalogs-getAllOrganizations");
 	    /* The lines, below, get the origin of the called */
 		//String origin = URI.create(request.getRequestURL().toString()).getHost();
 	    //System.out.println(" Origin:" + origin);
@@ -43,6 +45,14 @@ public class OrganizationsController extends ServiceControllerImpl {
 		logging("success", "");
 		return response;
 	}
-
+	
+	@Override
+	@ExceptionHandler
+	public GeneralResponse handlerException(Exception e) {
+		System.out.println("handlerException: " + e.getMessage() + "\n");
+		setApiName("catalogs-getAllOrganizations");
+		logging("error", e.getMessage());
+		return new GeneralResponse(-200, e.getMessage());
+	}
 	
 }

@@ -18,8 +18,6 @@ public class ServiceControllerImpl implements IServiceController {
 	private String apiName;	
 	private String platform;	
 	private String caller;
-
-	
 	
 	@Override
 	public void setPlatform(String platform) {
@@ -49,7 +47,6 @@ public class ServiceControllerImpl implements IServiceController {
 		logging("error", e.getMessage());
 		return new GeneralResponse(-200, e.getMessage());
 	}
-	
 
 	@Override
 	public void logging(String successError, String errorMsg) {

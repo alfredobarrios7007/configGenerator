@@ -4,6 +4,7 @@ package com.koatchy.configGenerator.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,14 @@ public class LoginController extends ServiceControllerImpl {
 		logging("success", "");
 		return response;
 	}
-
+	
+	@Override
+	@ExceptionHandler
+	public GeneralResponse handlerException(Exception e) {
+		System.out.println("handlerException: " + e.getMessage() + "\n");
+		setApiName("security-login");
+		logging("error", e.getMessage());
+		return new GeneralResponse(-200, e.getMessage());
+	}
 	
 }

@@ -43,7 +43,7 @@ public class Configuration  implements Serializable {
 	@Column(name="description",nullable = true)
 	private String description;
 	
-	@Column(name="valueOf",nullable = true)
+	@Column(name="valueof",nullable = true)
 	private String valueOf;
 
 

@@ -39,4 +39,13 @@ public interface UsersDao extends JpaRepository<User, Long>{
 			nativeQuery = true)
 	int setNewPassword(@Param("email")String email, @Param("password") String password);
 
+	
+
+	@Modifying
+    @Transactional
+    @Query(
+			value = "UPDATE ctusers SET Photo=:photo WHERE :id = iduser", 
+			nativeQuery = true)
+	int updatePhoto(@Param("id")Long idUser, @Param("photo") String photo);
+	
 }
