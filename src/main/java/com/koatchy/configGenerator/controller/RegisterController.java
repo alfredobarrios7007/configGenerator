@@ -24,7 +24,7 @@ import com.koatchy.configGenerator.service.RegisterService;
  */
 @RequestMapping("/security")
 @RestController
-public class RegisterController extends ServiceControllerImpl {
+public class RegisterController extends ServiceControllerImpl implements IServiceController {
 
 	@Autowired
 	RegisterService objectSrv;

@@ -22,7 +22,7 @@ import com.koatchy.configGenerator.service.UserAreasService;
  */
 @RequestMapping("/catlogs")
 @RestController
-public class UserAreasController extends ServiceControllerImpl {
+public class UserAreasController extends ServiceControllerImpl implements IServiceController {
 
 	@Autowired
 	UserAreasService securitySrv;

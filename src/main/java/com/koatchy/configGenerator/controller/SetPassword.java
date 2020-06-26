@@ -23,7 +23,7 @@ import com.koatchy.configGenerator.service.SecurityService;
  */
 @RequestMapping("/security")
 @RestController
-public class SetPassword extends ServiceControllerImpl {
+public class SetPassword extends ServiceControllerImpl implements IServiceController {
 	
 	@Autowired
 	SecurityService objectSrv;

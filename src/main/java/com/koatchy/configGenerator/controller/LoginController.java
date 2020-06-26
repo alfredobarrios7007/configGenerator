@@ -16,9 +16,13 @@ import com.koatchy.configGenerator.model.KeyValue;
 import com.koatchy.configGenerator.model.Login;
 import com.koatchy.configGenerator.service.SecurityService;
 
+/**
+ * @author alfredo.barrios
+ *
+ */
 @RequestMapping("/security")
 @RestController
-public class LoginController extends ServiceControllerImpl {
+public class LoginController extends ServiceControllerImpl implements IServiceController {
 
 	@Autowired
 	SecurityService objectSrv;

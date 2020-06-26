@@ -4,6 +4,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.koatchy.configGenerator.model.GeneralResponse;
 
+/**
+ * @author alfredo.barrios
+ *
+ */
 public interface IServiceController {
 
 	void setPlatform(String platform);

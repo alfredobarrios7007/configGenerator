@@ -23,7 +23,7 @@ import com.koatchy.configGenerator.service.OrganizationsService;
  */
 @RequestMapping("/catlogs")
 @RestController
-public class OrganizationsController extends ServiceControllerImpl {
+public class OrganizationsController extends ServiceControllerImpl implements IServiceController {
 
 	@Autowired
 	OrganizationsService objectSrv;
