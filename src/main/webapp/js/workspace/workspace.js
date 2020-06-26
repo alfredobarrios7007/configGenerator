@@ -3,7 +3,7 @@
 * 
 * Alfredo Barrios
 */
-var mainPage = {
+var workspace = {
 	ShowForm:function(){
 		var lg_global = null;
 		var lg_form = null;
