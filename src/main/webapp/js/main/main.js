@@ -1,9 +1,9 @@
 /*
-* Recovery password functions
+* Functions for main.html
 * 
 * Alfredo Barrios
 */
-var recoveryPassword = {
+var mainPage = {
 	ShowForm:function(){
 		var lg_global = null;
 		var lg_form = null;
@@ -32,11 +32,11 @@ var recoveryPassword = {
 		$("#fillTheEmailMsg").html(lg_form.fillTheEmailMsg);
 		$("#unexpectedErrorMsg").html(lg_form.unexpectedErrorMsg);
 		$("#btnSubmit").click(function(){ 
-			recoveryPassword.CleanMsg();
-			return recoveryPassword.SubmitForm();
+			main.CleanMsg();
+			return main.SubmitForm();
 		 });
 		$("#inputEmailAddress").focusin(function() {
-			recoveryPassword.CleanMsg();
+			main.CleanMsg();
 		});
 	},
 	CleanMsg:function(){
@@ -46,13 +46,13 @@ var recoveryPassword = {
 	},
 	SubmitForm:function(){
 		try {
-			if(!recoveryPassword.Validation())
+			if(!main.Validation())
 			{
 				return false;
 			}
 
 			var params = {"platform":"web","caller": _CommonFunctions.GetCaller(),"username": $("#inputEmailAddress").val().trim() };
-			var data = _Communication.GetRemoteDataPost(ulrRecoveryPassword, params);
+			var data = _Communication.GetRemoteDataPost(ulrmain, params);
 	
 			if(data.code!=200){
 				$("#emailDoesNotExistMsg").show();
@@ -84,9 +84,9 @@ var recoveryPassword = {
 		return true;
 	},
 	Mock:function(){
-		alert('recoveryPassword Mock');
+		alert('main Mock');
 	}
 
 }
 
-recoveryPassword.ShowForm();
+main.ShowForm();

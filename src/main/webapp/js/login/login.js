@@ -72,10 +72,11 @@ var _Login = {
 				}
 				return false;
 			}
-			$("#successMsg").show();
 			if($("#rememberPasswordCheck").prop("checked")==true){
 				_CommonFunctions.SetCookie("token", data.data.value);
 			}
+			$("#successMsg").show();
+			window.location.href = "main.html";
 		} catch (error) {
 			$("#unExpectedErrorMsg").show();
 		}
