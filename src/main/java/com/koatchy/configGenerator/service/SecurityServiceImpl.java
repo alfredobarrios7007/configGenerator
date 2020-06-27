@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koatchy.configGenerator.entity.User;
-import com.koatchy.configGenerator.model.Login;
+import com.koatchy.configGenerator.model.LoginRequest;
 import com.koatchy.configGenerator.model.SecurityResult;
 import com.koatchy.configGenerator.model.SetNewPasswordRequest;
+import com.koatchy.configGenerator.model.TokenRequest;
+import com.koatchy.configGenerator.model.TokenResponse;
 import com.koatchy.configGenerator.model.SetNewPassword;
-import com.koatchy.configGenerator.model.VerifyCode;
+import com.koatchy.configGenerator.model.VerifyCodeRequest;
 import com.koatchy.configGenerator.tools.DateHelper;
 import com.koatchy.configGenerator.tools.EncryptUtil;
 import com.koatchy.configGenerator.tools.Token;
@@ -33,7 +35,23 @@ public class SecurityServiceImpl implements SecurityService {
 	private UserService serviceObj;
 	
 	@Override
-	public String validateCredentials(Login param) throws SecurityException {
+	public TokenResponse checkSessionToken(TokenRequest param) throws SecurityException {
+		System.out.print("checkSessionToken " + param.toString() + "\n");
+		Token token = new Token("configGenerator");
+		TokenResponse result;
+		try {
+			result = token.validateToken(param);
+			
+			
+		} catch (Exception e) {
+			System.out.print("Error validateCredentials\n");
+			throw new SecurityException(e.getMessage());
+		}
+		return result;
+	}
+	
+	@Override
+	public String validateCredentials(LoginRequest param) throws SecurityException {
 		System.out.print("validateCredentials " + param.toString() + "\n");
 		String result="";
 		try {
@@ -56,7 +74,7 @@ public class SecurityServiceImpl implements SecurityService {
 	}
 
 	@Override
-	public SecurityResult verifyChangePasswordCode(VerifyCode code) throws SecurityException {
+	public SecurityResult verifyChangePasswordCode(VerifyCodeRequest code) throws SecurityException {
 		System.out.print("verifyChangePasswordCode " + code.toString() + "\n");
 		Token token = new Token("configGenerator");
 		DateHelper dataH = new DateHelper();
@@ -93,7 +111,7 @@ public class SecurityServiceImpl implements SecurityService {
 		DateHelper dataH = new DateHelper();
 		SecurityResult result = new SecurityResult();
 		try {			
-			String decode = token.verifyChangePasswordCode(new VerifyCode(param.getCode()));
+			String decode = token.verifyChangePasswordCode(new VerifyCodeRequest(param.getCode()));
 			//List<String> stringList = Pattern.compile("|").splitAsStream(decode).collect(Collectors.toList());
 			String stringList[] = decode.split("\\|");
 			String email = stringList[0];//stringList.get(0);

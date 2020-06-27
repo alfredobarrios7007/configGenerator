@@ -3,6 +3,8 @@
  */
 package com.koatchy.configGenerator.model;
 
+import java.io.Serializable;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Component
 @Scope(value="prototype")
-public class VerifyCode extends GeneralRequest  {
+public class VerifyCodeRequest extends GeneralRequest implements Serializable  {
 
 	/**
 	 * 
@@ -24,12 +26,12 @@ public class VerifyCode extends GeneralRequest  {
 	@JsonProperty("code")
 	private String code;
 
-	public VerifyCode(String code) {
+	public VerifyCodeRequest(String code) {
 		super();
 		this.code = code;
 	}
 
-	public VerifyCode() {
+	public VerifyCodeRequest() {
 	}
 
 	

@@ -4,7 +4,6 @@ package com.koatchy.configGenerator.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.koatchy.configGenerator.model.GeneralResponse;
 import com.koatchy.configGenerator.model.KeyValue;
-import com.koatchy.configGenerator.model.Login;
+import com.koatchy.configGenerator.model.LoginRequest;
 import com.koatchy.configGenerator.service.SecurityService;
 
 /**
@@ -27,10 +26,14 @@ public class LoginController extends ServiceControllerImpl implements IServiceCo
 	@Autowired
 	SecurityService objectSrv;
 	
-	@RequestMapping(path = "login", method = RequestMethod.POST, produces = "application/JSON")
-	public GeneralResponse login(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final Login param) throws Exception {
-		System.out.print("login " + param.toString() + "\n");
+	public LoginController() {
+		super();
 		setApiName("security-login");
+	}
+	
+	@RequestMapping(path = "login", method = RequestMethod.POST, produces = "application/JSON")
+	public GeneralResponse login(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final LoginRequest param) throws Exception {
+		System.out.print("login " + param.toString() + "\n");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */
@@ -43,15 +46,6 @@ public class LoginController extends ServiceControllerImpl implements IServiceCo
 		response.setData(new KeyValue("token", objectSrv.validateCredentials(param)));
 		logging("success", "");
 		return response;
-	}
-	
-	@Override
-	@ExceptionHandler
-	public GeneralResponse handlerException(Exception e) {
-		System.out.println("handlerException: " + e.getMessage() + "\n");
-		setApiName("security-login");
-		logging("error", e.getMessage());
-		return new GeneralResponse(-200, e.getMessage());
 	}
 	
 }

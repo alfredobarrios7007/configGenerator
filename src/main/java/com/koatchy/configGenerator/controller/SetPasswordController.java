@@ -12,41 +12,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.koatchy.configGenerator.model.GeneralRequest;
 import com.koatchy.configGenerator.model.GeneralResponse;
-import com.koatchy.configGenerator.service.OrganizationsService;
+import com.koatchy.configGenerator.model.SetNewPasswordRequest;
+import com.koatchy.configGenerator.service.SecurityService;
 
 /**
  * @author alfredo.barrios
  *
  */
-@RequestMapping("/catlogs")
+@RequestMapping("/security")
 @RestController
-public class OrganizationsController extends ServiceControllerImpl implements IServiceController {
-
+public class SetPasswordController extends ServiceControllerImpl implements IServiceController {
+	
 	@Autowired
-	OrganizationsService objectSrv;
+	SecurityService objectSrv;
 	
-	public OrganizationsController() {
+	public SetPasswordController() {
 		super();
-		setApiName("catalogs-getAllOrganizations");
+		setApiName("security-SetNewPassword");
 	}
-	
-	@RequestMapping(path = "getAllOrganizations", method = RequestMethod.POST, produces = "application/JSON")
-	public GeneralResponse getAllOrganizations(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final GeneralRequest param) throws Exception {
-		System.out.print("getAllOrganizations" + param.toString() + "\n");
+
+	@RequestMapping(path = "SetNewPassword", method = RequestMethod.POST, produces = "application/JSON")
+	public GeneralResponse setNewPassword(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final SetNewPasswordRequest param) throws Exception {
+		System.out.print("setNewPassword " + param.toString() + "\n");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */
 		//String origin = URI.create(request.getRequestURL().toString()).getHost();
-	    //System.out.println(" Origin:" + origin);
 	    validateAuthorization(authentication);
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
-		response.setData(objectSrv.getAllRows());		
+		response.setData(objectSrv.setNewPassword(param));
 		logging("success", "");
 		return response;
 	}
-	
+
 }

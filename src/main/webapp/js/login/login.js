@@ -9,7 +9,7 @@ var _Login = {
 	ShowForm:function(){
 		try {
 			var lg_global = null;
-			var lg_login = null;
+			var lg_form = null;
 			if(lang=="es"){
 				lg_global = splg_global;
 				lg_form = splg_login;
@@ -59,7 +59,6 @@ var _Login = {
 			{
 				return false;
 			}
-
 			var params = {"platform":"web","caller": _CommonFunctions.GetCaller(),"username": $("#inputEmailAddress").val().trim() , "password": $("#inputPassword").val().trim()};
 			var data = _Communication.GetRemoteDataPost(ulrLoginValidation, params);
 	
@@ -76,7 +75,7 @@ var _Login = {
 				_CommonFunctions.SetCookie("token", data.data.value);
 			}
 			$("#successMsg").show();
-			window.location.href = "main.html";
+			window.location.href = "workspace.html";
 		} catch (error) {
 			$("#unExpectedErrorMsg").show();
 		}

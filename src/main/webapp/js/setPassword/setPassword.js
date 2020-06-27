@@ -8,7 +8,7 @@
 var setPassword = {
 	ShowForm:function(){
 		var lg_global = null;
-		var lg_login = null;
+		var lg_form = null;
 		if(lang=="es"){
 			lg_global = splg_global;
 			lg_form = splg_SetPwd;

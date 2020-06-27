@@ -5,7 +5,7 @@ import com.koatchy.configGenerator.entity.*;
 import com.koatchy.configGenerator.exception.RecoveryPasswordException;
 import com.koatchy.configGenerator.exception.SetNewPasswordException;
 import com.koatchy.configGenerator.model.EmailTemplate;
-import com.koatchy.configGenerator.model.Login;
+import com.koatchy.configGenerator.model.LoginRequest;
 import com.koatchy.configGenerator.model.SetNewPassword;
 import com.koatchy.configGenerator.tools.EncryptUtil;
 import com.koatchy.configGenerator.tools.Token;
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public Optional<User> getRowByUsernameAndPassword(Login param){
+	public Optional<User> getRowByUsernameAndPassword(LoginRequest param){
 		System.out.print("UserServiceImpl getRowByUsernameAndPassword param: " + param.toString() + "\n");
 		return objectDao.findUserByNameAndPassword(param.getUsername(), param.getPassword());		
 	}
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public Boolean recoveryPassword(Login param) throws RecoveryPasswordException {
+	public Boolean recoveryPassword(LoginRequest param) throws RecoveryPasswordException {
 		System.out.print("UserServiceImpl recoveryPassword param: " + param.toString() + "\n");
 		Boolean result = false;
 		

@@ -1,5 +1,5 @@
 /*
-* Functions for main.html
+* Functions for workspace.html
 * 
 * Alfredo Barrios
 */
@@ -14,6 +14,11 @@ var workspace = {
 			lg_global = enlg_global;
 			lg_form = enlg_recovPwd;
 		}
+        if(!workspace.SessionValidation()){
+			window.document.href = "login.html";
+		}
+
+
 		document.title = lg_form.htmlTitle;
 		$("#lblTitle").html(lg_global.lblTitle);
 		$("#lblGotoPrivacyPol").html(lg_global.lblGotoPrivacyPol);
@@ -32,12 +37,21 @@ var workspace = {
 		$("#fillTheEmailMsg").html(lg_form.fillTheEmailMsg);
 		$("#unexpectedErrorMsg").html(lg_form.unexpectedErrorMsg);
 		$("#btnSubmit").click(function(){ 
-			main.CleanMsg();
-			return main.SubmitForm();
+			workspace.CleanMsg();
+			return workspace.SubmitForm();
 		 });
 		$("#inputEmailAddress").focusin(function() {
-			main.CleanMsg();
+			workspace.CleanMsg();
 		});
+	},
+	SessionValidation:function(){
+		var token = _CommonFunctions.GetCookie("token");
+		if(token==undefined||""==$.trim(token)) return false;
+		var params = {"platform":"web","caller": _CommonFunctions.GetCaller(),"token": $.trim(token) };
+		var data = _Communication.GetRemoteDataPost(ulrmain, params);
+
+		//"Sin login":"Con login: " + _CommonFunctions.GetCookie("token"));
+
 	},
 	CleanMsg:function(){
 		$("#fillTheEmailMsg").hide();
@@ -46,7 +60,7 @@ var workspace = {
 	},
 	SubmitForm:function(){
 		try {
-			if(!main.Validation())
+			if(!workspace.Validation())
 			{
 				return false;
 			}
@@ -88,5 +102,4 @@ var workspace = {
 	}
 
 }
-
-main.ShowForm();
+workspace.ShowForm();

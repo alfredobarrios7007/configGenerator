@@ -3,7 +3,7 @@ package com.koatchy.configGenerator.service;
 import com.koatchy.configGenerator.entity.User;
 import com.koatchy.configGenerator.exception.RecoveryPasswordException;
 import com.koatchy.configGenerator.exception.SetNewPasswordException;
-import com.koatchy.configGenerator.model.Login;
+import com.koatchy.configGenerator.model.LoginRequest;
 import com.koatchy.configGenerator.model.SetNewPassword;
 
 import java.util.List;
@@ -28,9 +28,9 @@ public interface UserService {
 	
 	Optional<User> findUserByEmail(String email);
 	
-	Optional<User> getRowByUsernameAndPassword(Login param);
+	Optional<User> getRowByUsernameAndPassword(LoginRequest param);
 	
-	Boolean recoveryPassword(Login param) throws RecoveryPasswordException; 
+	Boolean recoveryPassword(LoginRequest param) throws RecoveryPasswordException; 
 	
 	void deleteRow(Long param);
 	
