@@ -47,13 +47,14 @@ public class SecurityServiceImpl implements SecurityService {
 	 */
 	@Override
 	public TokenResponse checkSessionToken(TokenRequest param) throws SecurityException {
-		System.out.print("checkSessionToken " + param.toString() + "\n");
+		System.out.print("SecurityServiceImpl.checkSessionToken " + param.toString() + "\n");
 		Token token = new Token("configGenerator");
 		TokenResponse result = new TokenResponse();
 		try {
 			String[] decryptedTkn = token.getDeryptedToken(param);	
 			Optional<User> user = serviceObj.getRowByUsernameAndPassword(new LoginRequest(param.getPlatform(), param.getCaller(), decryptedTkn[3], decryptedTkn[4]));
 			if (user.isPresent()){
+				System.out.print(user.get().getName());
 				result.setName(user.get().getName());
 				result.setLastname(user.get().getLastname());
 				result.setSuperuser(user.get().getSuperuser());
@@ -72,11 +73,11 @@ public class SecurityServiceImpl implements SecurityService {
 					}
 				}
 			}else {
-				System.out.print("WRONG_CREDENTIALS");
+				System.out.print("CREDENTIALS_NO_LONGER_VALID");
 				throw new Exception("CREDENTIALS_NO_LONGER_VALID");
 			}
 		} catch (Exception e) {
-			System.out.print("Error validateCredentials\n");
+			System.out.print("Error validateCredentials: " + e.getMessage() + "\n");
 			throw new SecurityException(e.getMessage());
 		}
 		return result;

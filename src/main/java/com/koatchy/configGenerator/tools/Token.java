@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 import com.koatchy.configGenerator.model.LoginRequest;
 import com.koatchy.configGenerator.model.TokenRequest;
-import com.koatchy.configGenerator.model.TokenResponse;
 import com.koatchy.configGenerator.model.VerifyCodeRequest;
 
 public class Token {
@@ -48,20 +47,26 @@ public class Token {
 	}
 	
 	public String[] getDeryptedToken(TokenRequest param) throws Exception {
+		System.out.print("Token.getDeryptedToken: " + param.toString() + " \n");
 		String[] result = {};
 		try {
 			if(param.getToken().trim()=="") 
 				throw new Exception("NO_VALID_SESSION");
+			System.out.print("Token.getDeryptedToken: 1 \n");
 
 			String tokenDecrypted = EncryptUtil.decode("~KöAtcHy¬", param.getToken());
+			System.out.print("Token.getDeryptedToken: " + tokenDecrypted + " \n");
 			if(tokenDecrypted.trim()=="") 
 				throw new Exception("NO_VALID_SESSION");
 			
-			result = tokenDecrypted.split("|");
-			if(result[0]!=product||result[2]!="5TH") 
+			result = tokenDecrypted.split("\\|");
+			System.out.print("Token.getDeryptedToken: 2 " + product + ", " + result[0] + ", " + result[1] + ", " + result[2] + ", " + result[3] + ", " + result[4] + " \n");
+			if(!result[0].equals(product)||!result[2].equals("5TH")) 
 				throw new Exception("NO_VALID_SESSION");
+			System.out.print("Token.getDeryptedToken: 3 \n");
 			
 		} catch (Exception e) {
+			System.out.print("Error validateCredentials: " + e.getMessage() + "\n");
 			throw new Exception("NO_VALID_SESSION");
 		}
 		return result;

@@ -14,8 +14,8 @@ var workspace = {
 			lg_global = enlg_global;
 			lg_form = enlg_recovPwd;
 		}
-        if(!workspace.SessionValidation()){
-			window.document.href = "login.html";
+        if(workspace.SessionValidation()==false){
+			window.location.href = "login.html";
 		}
 
 		document.title = lg_form.htmlTitle;
@@ -48,12 +48,15 @@ var workspace = {
 	},
 	SessionValidation:function(){
 		var token = _CommonFunctions.GetCookie("token");
-		alert(token==undefined||""==$.trim(token)?"Sin login":"Con login: " + token);
-		$("#searcher").val(token);
+		alert(token==undefined||""==$.trim(token)?"Sin login: " + token:"Con login: " + token);
 		if(token==undefined||""==$.trim(token)) return false;
+		$("#searcher").val(token);
 		var params = {"platform":"web","caller": _CommonFunctions.GetCaller(),"token": $.trim(token) };
 		var data = _Communication.GetRemoteDataPost(urlCheckSessionToken, params);
-		alert(data);
+		alert(data.code);
+		if(data.code!=200){
+			return false;
+		}
 
 	},
 	CleanMsg:function(){

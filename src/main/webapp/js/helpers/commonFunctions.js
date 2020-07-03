@@ -12,7 +12,7 @@ var _CommonFunctions = {
 		divLoading.style.zIndex = 99999;
 		document.body.appendChild(divLoading);
 		_CommonFunctions.GetLanguage();
-		alert("InitValues " + $("#divLoading").val());
+//		alert("InitValues " + $("#divLoading").val());
 	},
 
 	GetCaller:function(){
