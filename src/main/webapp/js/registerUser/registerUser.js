@@ -200,7 +200,7 @@ var registerUser = {
 			// Create an FormData object
 			var paramPhoto = new FormData(form);
 
-			var dataUpload = _Communication.PostMutiPartForm(registerWithPhoto, paramPhoto);
+			var dataUpload = _Communication.PostMutiPartForm(urlRegister, paramPhoto);
 			if(dataUpload.code!=200){
 				//TO DO
 				alert("UploadPhoto Error: " + dataUpload.code + "- " + dataUpload.message);

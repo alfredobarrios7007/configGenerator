@@ -17,8 +17,8 @@ var urlRegister = ulrDomain + "security/register";
 var urlGetAllAreas = ulrDomain + "catlogs/getAllAreas";
 var urlGetAllOrganizations = ulrDomain + "catlogs/getAllOrganizations";
 var urlUploadUserPhoto = ulrDomain + "security/uploadUserPhoto";
-var registerWithPhoto = ulrDomain + "security/registerWithPhoto";
-var checkSessionToken = ulrDomain + "security/checkSessionToken";
+var urlRegister = ulrDomain + "security/registerWithPhoto";
+var urlCheckSessionToken = ulrDomain + "security/checkSessionToken";
 // Global labels
 var splg_global = {
 	"lblTitle":"K&ouml;atchy"

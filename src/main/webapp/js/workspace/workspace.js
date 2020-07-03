@@ -18,8 +18,9 @@ var workspace = {
 			window.document.href = "login.html";
 		}
 
-
 		document.title = lg_form.htmlTitle;
+
+		/*
 		$("#lblTitle").html(lg_global.lblTitle);
 		$("#lblGotoPrivacyPol").html(lg_global.lblGotoPrivacyPol);
 		$("#lblCopyright").html(lg_global.lblCopyright);
@@ -43,14 +44,16 @@ var workspace = {
 		$("#inputEmailAddress").focusin(function() {
 			workspace.CleanMsg();
 		});
+		*/
 	},
 	SessionValidation:function(){
 		var token = _CommonFunctions.GetCookie("token");
+		alert(token==undefined||""==$.trim(token)?"Sin login":"Con login: " + token);
+		$("#searcher").val(token);
 		if(token==undefined||""==$.trim(token)) return false;
 		var params = {"platform":"web","caller": _CommonFunctions.GetCaller(),"token": $.trim(token) };
-		var data = _Communication.GetRemoteDataPost(ulrmain, params);
-
-		//"Sin login":"Con login: " + _CommonFunctions.GetCookie("token"));
+		var data = _Communication.GetRemoteDataPost(urlCheckSessionToken, params);
+		alert(data);
 
 	},
 	CleanMsg:function(){

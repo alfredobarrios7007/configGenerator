@@ -32,7 +32,7 @@ public class CheckSessionTokenController extends ServiceControllerImpl implement
 	
 	@RequestMapping(path = "checkSessionToken", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse checkSessionToken(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final TokenRequest param) throws Exception {
-		System.out.print("login " + param.toString() + "\n");
+		System.out.print("checkSessionToken " + param.toString() + "\n");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */

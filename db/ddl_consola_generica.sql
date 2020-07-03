@@ -145,7 +145,7 @@ AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
-INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `IdOrganizationRol`, `Created_Platform`, `Created_Datetime`) VALUES (1, 'admin', 'N', 'Alfredo', 'Barrios', 'alfredo.barrios@speedymovil.com', 'Y', 'Y', 1, 1, 'INIT_ROW', SYSDATE());
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `IdOrganizationRol`, `Created_Platform`, `Created_Datetime`) VALUES (1, 'admin', 'N', 'Alfredo', 'Barrios', 'alfredo.barrios@speedymovil.com', 'Y', 'Y', 2, 1, 'INIT_ROW', SYSDATE());
 
 
 -- -----------------------------------------------------

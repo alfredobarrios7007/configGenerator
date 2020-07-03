@@ -47,10 +47,20 @@ public class Token {
 		return result;
 	}
 	
-	public TokenResponse validateToken(TokenRequest param) throws Exception {
-		TokenResponse result = new TokenResponse();
+	public String[] getDeryptedToken(TokenRequest param) throws Exception {
+		String[] result = {};
 		try {
-			//TODO: Login to validate token
+			if(param.getToken().trim()=="") 
+				throw new Exception("NO_VALID_SESSION");
+
+			String tokenDecrypted = EncryptUtil.decode("~KöAtcHy¬", param.getToken());
+			if(tokenDecrypted.trim()=="") 
+				throw new Exception("NO_VALID_SESSION");
+			
+			result = tokenDecrypted.split("|");
+			if(result[0]!=product||result[2]!="5TH") 
+				throw new Exception("NO_VALID_SESSION");
+			
 		} catch (Exception e) {
 			throw new Exception("NO_VALID_SESSION");
 		}
@@ -59,9 +69,7 @@ public class Token {
 	} 
 	
 	private String generateTokenString(LoginRequest param) {
-		String result = product + "|" + getCurrentDate() + "|5TH|" + param.getUsername() + "|" + param.getPassword() ;
-
-		
+		String result = product + "|" + getCurrentDate() + "|5TH|" + param.getUsername() + "|" + param.getPassword() ;		
 		return result;
 	}
 	

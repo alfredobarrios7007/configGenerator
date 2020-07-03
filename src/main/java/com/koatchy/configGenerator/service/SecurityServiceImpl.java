@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koatchy.configGenerator.entity.User;
+import com.koatchy.configGenerator.entity.UserArea;
+import com.koatchy.configGenerator.entity.Organization;
 import com.koatchy.configGenerator.model.LoginRequest;
 import com.koatchy.configGenerator.model.SecurityResult;
 import com.koatchy.configGenerator.model.SetNewPasswordRequest;
@@ -34,15 +36,45 @@ public class SecurityServiceImpl implements SecurityService {
 	@Autowired
 	private UserService serviceObj;
 	
+	@Autowired
+	private UserAreasService userAreaSrvObj;
+	
+	@Autowired
+	private OrganizationsService orgsSrvObj;
+
+	/**
+	 * Check session and return user common values
+	 */
 	@Override
 	public TokenResponse checkSessionToken(TokenRequest param) throws SecurityException {
 		System.out.print("checkSessionToken " + param.toString() + "\n");
 		Token token = new Token("configGenerator");
-		TokenResponse result;
+		TokenResponse result = new TokenResponse();
 		try {
-			result = token.validateToken(param);
-			
-			
+			String[] decryptedTkn = token.getDeryptedToken(param);	
+			Optional<User> user = serviceObj.getRowByUsernameAndPassword(new LoginRequest(param.getPlatform(), param.getCaller(), decryptedTkn[3], decryptedTkn[4]));
+			if (user.isPresent()){
+				result.setName(user.get().getName());
+				result.setLastname(user.get().getLastname());
+				result.setSuperuser(user.get().getSuperuser());
+				// Set user area
+				if(user.get().getIdUserArea()!=null) {
+					Optional<UserArea> userArea = userAreaSrvObj.getRow(user.get().getIdUserArea());
+					if(userArea.isPresent()) {
+						result.setAreaname(userArea.get().getName());					
+					}
+				}
+				// Set organization
+				if(user.get().getIdUserArea()!=null) {
+					Optional<Organization> orgz = orgsSrvObj.getRow(user.get().getIdUserArea());
+					if(orgz.isPresent()) {
+						result.setOrganizationName(orgz.get().getName());					
+					}
+				}
+			}else {
+				System.out.print("WRONG_CREDENTIALS");
+				throw new Exception("CREDENTIALS_NO_LONGER_VALID");
+			}
 		} catch (Exception e) {
 			System.out.print("Error validateCredentials\n");
 			throw new SecurityException(e.getMessage());

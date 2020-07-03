@@ -12,6 +12,7 @@ var _CommonFunctions = {
 		divLoading.style.zIndex = 99999;
 		document.body.appendChild(divLoading);
 		_CommonFunctions.GetLanguage();
+		alert("InitValues " + $("#divLoading").val());
 	},
 
 	GetCaller:function(){
@@ -40,7 +41,7 @@ var _CommonFunctions = {
 	},
 
 	ShowProgressBar:function(){
-		$("#divLoading").fadeIn();
+		$("#divLoading").fadeIn();			
 	},
 
 	HideProgressBar:function(){
