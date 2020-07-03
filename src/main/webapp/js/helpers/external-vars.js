@@ -176,3 +176,14 @@ var enlg_RegUser = {
 	,"emailAlreadyExistMsg":"The e-mail account already exists, <a href='password.html'>do you need to recover your password? Click here</a>"
 	,"successMsg":"The registry was successfuly, please, <a href='login.html'>set your credentials</a>."
 };
+// Workspace 1 
+var splg_ws1 = {
+	"htmlTitle":"Tu espacio, bienvenido - " + companyName
+	,"noValidSessionMsg":"Por favor, accede usando tus credenciales."
+	,"successMsg":"Tu registro se realizó con &eacute;xito, por favor <a href='login.html'>proporcione sus credenciales</a>."
+};
+var enlg_ws1 = {
+	"htmlTitle":"Your space, welcome! - " + companyName
+	,"noValidSessionMsg":"Please, log in."
+	,"successMsg":"The registry was successfuly, please, <a href='login.html'>set your credentials</a>."
+};

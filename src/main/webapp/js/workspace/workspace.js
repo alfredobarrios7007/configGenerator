@@ -9,19 +9,20 @@ var workspace = {
 		var lg_form = null;
 		if(lang=="es"){
 			lg_global = splg_global;
-			lg_form = splg_recovPwd;
+			lg_form = splg_ws1;
 		}else{
 			lg_global = enlg_global;
-			lg_form = enlg_recovPwd;
+			lg_form = enlg_ws1;
 		}
         if(workspace.SessionValidation()==false){
+			alert(lg_form.noValidSessionMsg);
 			window.location.href = "login.html";
 		}
 
 		document.title = lg_form.htmlTitle;
 
-		/*
 		$("#lblTitle").html(lg_global.lblTitle);
+		/*
 		$("#lblGotoPrivacyPol").html(lg_global.lblGotoPrivacyPol);
 		$("#lblCopyright").html(lg_global.lblCopyright);
 		$("#lblGotoTermsCondit").html(lg_global.lblGotoTermsCondit);
@@ -48,16 +49,15 @@ var workspace = {
 	},
 	SessionValidation:function(){
 		var token = _CommonFunctions.GetCookie("token");
-		alert(token==undefined||""==$.trim(token)?"Sin login: " + token:"Con login: " + token);
+		//alert(token==undefined||""==$.trim(token)?"Sin login: " + token:"Con login: " + token);
 		if(token==undefined||""==$.trim(token)) return false;
 		$("#searcher").val(token);
 		var params = {"platform":"web","caller": _CommonFunctions.GetCaller(),"token": $.trim(token) };
 		var data = _Communication.GetRemoteDataPost(urlCheckSessionToken, params);
-		alert(data.code);
 		if(data.code!=200){
 			return false;
 		}
-
+		return true;
 	},
 	CleanMsg:function(){
 		$("#fillTheEmailMsg").hide();
