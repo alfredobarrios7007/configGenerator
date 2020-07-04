@@ -209,9 +209,80 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
--- ***************************************************************************************************************************************************************************************
--- ***************************************************************************************************************************************************************************************
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`cfProjects`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`ctProjects` ;
 
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctProjects` (
+  `IdProject` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(50) NOT NULL,
+  `Description` VARCHAR(250) NULL DEFAULT NULL,
+  `IconUrl` VARCHAR(250) NULL DEFAULT NULL,
+  `BadgeUrl` VARCHAR(250) NULL DEFAULT NULL,
+  `Created_Datetime` DATETIME NOT NULL,
+  `Created_Platform` VARCHAR(10) NOT NULL,
+  `Updated_Datetime` DATETIME NULL,
+  `Updated_Platform` VARCHAR(10) NULL,
+  PRIMARY KEY (`IdProject`)
+  )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
+/*
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`rrUsersProjects`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`rrUsersProjects` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`rrUsersProjects` (
+  `IdUserProject` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdProject` INT(11) NOT NULL ,
+  `IdUser` INT(11) NOT NULL ,
+  `Unavaibled` CHAR(1) NOT NULL,
+  `Datestart` DATETIME NOT NULL,
+  `Datefinish` DATETIME NOT NULL,
+  PRIMARY KEY (`IdUserProject`),
+  CONSTRAINT `FK_UsersProjects_ctUsers`
+    FOREIGN KEY (`IdUser`)
+    REFERENCES `bds_consola_universal`.`ctUsers` (`IdUser`),
+  CONSTRAINT `FK_rUsersProjects_ctProjects`
+    FOREIGN KEY (`IdProject`)
+    REFERENCES `bds_consola_universal`.`ctProjects` (`IdProject`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
+*/
+
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`rrCompaniesProjects`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`rrCompaniesProjects` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`rrCompaniesProjects` (
+  `IdCompanyProject` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdProject` INT(11) NOT NULL ,
+  `IdCompany` INT(11) NOT NULL ,
+  `Unavaibled` CHAR(1) NOT NULL,
+  `Datestart` DATETIME NOT NULL,
+  `Datefinish` DATETIME NOT NULL,
+  PRIMARY KEY (`IdCompanyProject`),
+  CONSTRAINT `FK_CompaniesProjects_ctCompanies`
+    FOREIGN KEY (`IdCompany`)
+    REFERENCES `bds_consola_universal`.`ctComanies` (`IdCompany`),
+  CONSTRAINT `FK_CompaniesProjects_ctProjects`
+    FOREIGN KEY (`IdProject`)
+    REFERENCES `bds_consola_universal`.`ctProjects` (`IdProject`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
+
+
+
+
+-- ***************************************************************************************************************************************************************************************
+-- ***************************************************************************************************************************************************************************************
+/*
 
 -- -----------------------------------------------------
 -- Table `bds_consola_universal`.`cfConfiguraciones`
@@ -544,7 +615,7 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 14935
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
-
+*/
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

@@ -72,6 +72,7 @@ public class SecurityServiceImpl implements SecurityService {
 						result.setOrganizationName(orgz.get().getName());					
 					}
 				}
+				
 			}else {
 				System.out.print("CREDENTIALS_NO_LONGER_VALID");
 				throw new Exception("CREDENTIALS_NO_LONGER_VALID");
