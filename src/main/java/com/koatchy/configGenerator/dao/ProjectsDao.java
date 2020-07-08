@@ -30,11 +30,12 @@ public interface ProjectsDao extends JpaRepository<Project, Long>{
 	Optional<User> findProjectsByUser(@Param("id")Long id);
 	
 	@Query(
-			value = "SELECT " +
-					" iduser,iduserarea,idorganization,idorganizationrol,password,name,lastname,email,superuser,confirmed,photo,unavaibled,created_datetime,created_platform,updated_datetime,updated_platform " +
-					" FROM ctusers " + 
-					" WHERE Unavaibled='N' AND :email = email AND :password = password ", 
-			nativeQuery = true)
+	value = "SELECT " +
+			" prjs.idproject,prjs.name,prjs.description,prjs.iconurl,prjs.badgeurl,prjs.created_datetime,prjs.created_platform,prjs.updated_datetime,prjs.updated_datetime,prjs.updated_platform  " +
+			" FROM ctProjects prjs " + 
+			" INNER JOIN rrCompaniesProjects rrcp ON prjs.idproject=rrcp.idproject AND rrcp.Unavaibled='N' " + 
+			" WHERE :id = rrcp.IdOrganization ", 
+	nativeQuery = true)
 	Optional<User> findProjectsByOrganization(@Param("id")Long id);
 
 }
