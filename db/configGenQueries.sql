@@ -10,10 +10,12 @@ DELETE FROM `bds_consola_universal`.`ctUsers` WHERE 'karen@speedy.com' = Email ;
 SELECT * FROM `bds_consola_universal`.`ctUsers` ;
 SELECT * FROM `bds_consola_universal`.`ctOrganizations` ;
 
-SELECT idproject,name,description,iconurl,badgeurl,created_datetime,created_platform,updated_datetime,updated_datetime,updated_platform FROM
+SELECT prjs.idproject,prjs.name,prjs.description,prjs.iconurl,prjs.badgeurl,prjs.created_datetime,prjs.created_platform,prjs.updated_datetime,prjs.updated_datetime,prjs.updated_platform 
+FROM
 ctProjects prjs
 INNER JOIN rrCompaniesProjects rrcp ON prjs.idproject=rrcp.idproject AND rrcp.Unavaibled='N'
-;
+INNER JOIN ctUsers usrs ON rrcp.IdCompany=usrs.IdUser
+WHERE usrs.IdUser=1;
 
 
 CALL FIND_USER_BY_ID(2);
