@@ -3,6 +3,8 @@ package com.koatchy.configGenerator;
 //import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.koatchy.configGenerator.logging.LoggingToCvsFile;
 //import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
 //import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 //import org.springframework.context.annotation.Bean;
@@ -11,7 +13,9 @@ public class ConfigGeneratorApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ConfigGeneratorApplication.class, args);
+		LoggingToCvsFile.LoadConfigValues();
 	}
+	
 
 	 //Tomcat large file upload connection reset
     //http://www.mkyong.com/spring/spring-file-upload-and-connection-reset-issue/

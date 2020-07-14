@@ -4,10 +4,12 @@
 package com.koatchy.configGenerator.service;
 
 import com.koatchy.configGenerator.exception.SecurityException;
-import com.koatchy.configGenerator.model.Login;
+import com.koatchy.configGenerator.model.LoginRequest;
 import com.koatchy.configGenerator.model.SecurityResult;
 import com.koatchy.configGenerator.model.SetNewPasswordRequest;
-import com.koatchy.configGenerator.model.VerifyCode;
+import com.koatchy.configGenerator.model.TokenRequest;
+import com.koatchy.configGenerator.model.TokenResponse;
+import com.koatchy.configGenerator.model.VerifyCodeRequest;
 
 /**
  * @author alfredo.barrios
@@ -15,9 +17,11 @@ import com.koatchy.configGenerator.model.VerifyCode;
  */
 public interface SecurityService {
 	
-	String validateCredentials(Login param) throws SecurityException;
+	TokenResponse checkSessionToken(TokenRequest param) throws SecurityException;
+	
+	String validateCredentials(LoginRequest param) throws SecurityException;
 
-	SecurityResult verifyChangePasswordCode(VerifyCode code) throws SecurityException; 
+	SecurityResult verifyChangePasswordCode(VerifyCodeRequest code) throws SecurityException; 
 	
 	SecurityResult setNewPassword(SetNewPasswordRequest param) throws SecurityException; 
 	

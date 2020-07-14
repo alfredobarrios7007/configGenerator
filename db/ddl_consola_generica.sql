@@ -145,7 +145,7 @@ AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
-INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `IdOrganizationRol`, `Created_Platform`, `Created_Datetime`) VALUES (1, 'admin', 'N', 'Alfredo', 'Barrios', 'alfredo.barrios@speedymovil.com', 'Y', 'Y', 1, 1, 'INIT_ROW', SYSDATE());
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `IdOrganizationRol`, `Created_Platform`, `Created_Datetime`) VALUES (1, 'admin', 'N', 'Alfredo', 'Barrios', 'alfredo.barrios@speedymovil.com', 'Y', 'Y', 2, 1, 'INIT_ROW', SYSDATE());
 
 
 -- -----------------------------------------------------
@@ -209,38 +209,164 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
--- ***************************************************************************************************************************************************************************************
--- ***************************************************************************************************************************************************************************************
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`cfProjects`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`ctProjects` ;
 
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctProjects` (
+  `IdProject` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(50) NOT NULL,
+  `Description` VARCHAR(250) NULL DEFAULT NULL,
+  `IconUrl` VARCHAR(250) NULL DEFAULT NULL,
+  `BadgeUrl` VARCHAR(250) NULL DEFAULT NULL,
+  `Created_Datetime` DATETIME NOT NULL,
+  `Created_Platform` VARCHAR(10) NOT NULL,
+  `Updated_Datetime` DATETIME NULL DEFAULT NULL,
+  `Updated_Platform` VARCHAR(10) NULL DEFAULT NULL,
+  PRIMARY KEY (`IdProject`)
+  )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
+
+INSERT INTO `bds_consola_universal`.`ctProjects` (`Name`, `Description`, `IconUrl`, `BadgeUrl`, `Created_Platform`, `Created_Datetime`) VALUES ('ConfGen', 'Generate and manage the configuration of your apps.', null, null, 'INIT_ROW', SYSDATE());
 
 -- -----------------------------------------------------
--- Table `bds_consola_universal`.`cfConfiguraciones`
+-- Table `bds_consola_universal`.`rrUsersProjects`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `bds_consola_universal`.`cfConfiguraciones` ;
+DROP TABLE IF EXISTS `bds_consola_universal`.`rrUsersProjects` ;
 
-CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`cfConfiguraciones` (
-  `IdConfiguracion` INT(11) NOT NULL AUTO_INCREMENT,
-  `Descripcion` VARCHAR(250) NULL DEFAULT NULL,
-  `Valor` VARCHAR(250) NULL DEFAULT NULL,
-  PRIMARY KEY (`IdConfiguracion`))
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`rrUsersProjects` (
+  `IdUserProject` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdProject` INT(11) NOT NULL ,
+  `IdUser` INT(11) NOT NULL ,
+  `Unavaibled` CHAR(1) NOT NULL,
+  `Datestart` DATETIME NOT NULL,
+  `Datefinish` DATETIME NOT NULL,
+  PRIMARY KEY (`IdUserProject`),
+  CONSTRAINT `FK_UsersProjects_ctUsers`
+    FOREIGN KEY (`IdUser`)
+    REFERENCES `bds_consola_universal`.`ctUsers` (`IdUser`),
+  CONSTRAINT `FK_rUsersProjects_ctProjects`
+    FOREIGN KEY (`IdProject`)
+    REFERENCES `bds_consola_universal`.`ctProjects` (`IdProject`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
+
+INSERT INTO `bds_consola_universal`.`rrUsersProjects` (`IdProject`, `IdUser`, `Unavaibled`, `Datestart`, `Datefinish`) VALUES  (1, 1, 'N', SYSDATE(), DATE_ADD(SYSDATE(), INTERVAL 1 YEAR));
+
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`subscritionsOffers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`subscritionsOffers` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`subscritionsOffers` (
+  `IdOffer` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdProject` INT(11) NOT NULL ,
+  `Description` VARCHAR(250) NOT NULL,
+  `MaximumUsers` TINYINT NOT NULL,
+  `MaximumApplications` TINYINT NOT NULL,
+  `MaximumProfiles` TINYINT NOT NULL,
+  `MaximumVersionByApp` TINYINT NOT NULL,
+  `Unavaibled` CHAR(1) NOT NULL,
+  `Show` CHAR(1) NOT NULL,
+  `Datestart` DATETIME NOT NULL,
+  `Datefinish` DATETIME NOT NULL,
+  `Created_Datetime` DATETIME NOT NULL,
+  `Created_Platform` VARCHAR(10) NOT NULL,
+  `Updated_Datetime` DATETIME NULL DEFAULT NULL,
+  `Updated_Platform` VARCHAR(10) NULL DEFAULT NULL,
+  PRIMARY KEY (`IdOffer`),
+  CONSTRAINT `FK_Offers_ctProjects`
+    FOREIGN KEY (`IdProject`)
+    REFERENCES `bds_consola_universal`.`ctProjects` (`IdProject`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `bds_consola_universal`.`ctAplicaciones`
+-- Table `bds_consola_universal`.`subscritionsOffers`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `bds_consola_universal`.`ctAplicaciones` ;
+DROP TABLE IF EXISTS `bds_consola_universal`.`subscritionsSubscriptions` ;
 
-CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctAplicaciones` (
-  `Eliminar` CHAR(1) NOT NULL,
-  `IdAplicacion` INT(11) NOT NULL AUTO_INCREMENT,
-  `Mostrar` CHAR(1) NOT NULL,
-  `Nombre` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`IdAplicacion`),
-  UNIQUE INDEX `IdAplicacion` (`IdAplicacion` ASC),
-  UNIQUE INDEX `Nombre` (`Nombre` ASC))
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`subscritionsSubscriptions` (
+  `IdSubscription` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdOffer` INT(11) NOT NULL ,
+  `IdBuyer` INT(11) NOT NULL,
+  `Description` VARCHAR(250) NOT NULL,
+  `MaximumUsers` TINYINT NOT NULL,
+  `MaximumApplications` TINYINT NOT NULL,
+  `MaximumProfiles` TINYINT NOT NULL,
+  `MaximumVersionByApp` TINYINT NOT NULL,
+  `Unavaibled` CHAR(1) NOT NULL,
+  `Show` CHAR(1) NOT NULL,
+  `Datestart` DATETIME NOT NULL,
+  `Datefinish` DATETIME NOT NULL,
+  `Created_Datetime` DATETIME NOT NULL,
+  `Created_Platform` VARCHAR(10) NOT NULL,
+  `Updated_Datetime` DATETIME NULL DEFAULT NULL,
+  `Updated_Platform` VARCHAR(10) NULL DEFAULT NULL,
+  PRIMARY KEY (`IdSubscription`),
+  CONSTRAINT `FK_Subscriptions_Offers`
+    FOREIGN KEY (`IdOffer`)
+    REFERENCES `bds_consola_universal`.`subscritionsOffers` (`IdOffer`),
+  CONSTRAINT `FK_Buyer`
+    FOREIGN KEY (`IdBuyer`)
+    REFERENCES `bds_consola_universal`.`ctUsers` (`IdUser`)
+    )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`rrOfferUsers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`rrSubscUsers` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`rrSubscUsers` (
+  `IdSubscUser` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdSubscription` INT(11) NOT NULL ,
+  `IdUser` INT(11) NOT NULL,
+  `Organizer` CHAR(1) NOT NULL,
+  `Unavaibled` CHAR(1) NOT NULL,
+  `Datestart` DATETIME NOT NULL,
+  `Datefinish` DATETIME NOT NULL,
+  PRIMARY KEY (`IdSubscUser`),
+  CONSTRAINT `FK_SubsUsers_Subscriptions`
+    FOREIGN KEY (`IdSubscription`)
+    REFERENCES `bds_consola_universal`.`subscritionsSubscriptions` (`IdSubscription`),
+  CONSTRAINT `FK_Subscription_Users`
+    FOREIGN KEY (`IdUser`)
+    REFERENCES `bds_consola_universal`.`ctUsers` (`IdUser`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
+
+
+
+
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`confgenApplications`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`confgenApplications` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`confgenApplications` (
+  `IdApplication` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdSubscription` INT(11) NOT NULL ,
+  `Name` VARCHAR(50) NOT NULL,
+  `Show` CHAR(1) NOT NULL,
+  `Unavaibled` CHAR(1) NOT NULL,
+  PRIMARY KEY (`IdApplication`),
+  UNIQUE INDEX `IdApplication` (`IdApplication` ASC),
+  UNIQUE INDEX `Name` (`Name` ASC),
+  CONSTRAINT `FK_Apps_Subscription`
+    FOREIGN KEY (`IdSubscription`)
+    REFERENCES `bds_consola_universal`.`subscritionsSubscriptions` (`IdSubscription`)
+  )
 ENGINE = InnoDB
 AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8
@@ -248,99 +374,128 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `bds_consola_universal`.`ctVersiones`
+-- Table `bds_consola_universal`.`confgenVersions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `bds_consola_universal`.`ctVersiones` ;
+DROP TABLE IF EXISTS `bds_consola_universal`.`confgenVersions` ;
 
-CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctVersiones` (
-  `Eliminar` CHAR(1) NOT NULL,
-  `IdAplicacion` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`confgenVersions` (
   `IdVersion` INT(11) NOT NULL AUTO_INCREMENT,
-  `Mostrar` CHAR(1) NOT NULL,
-  `Nombre` VARCHAR(50) NOT NULL,
-  `version_base` INT(11) NULL DEFAULT NULL,
+  `IdApplication` INT(11) NOT NULL,
+  `Name` VARCHAR(50) NOT NULL,
+  `Show` CHAR(1) NOT NULL,
+  `Unavaibled` CHAR(1) NOT NULL,
   PRIMARY KEY (`IdVersion`),
   UNIQUE INDEX `IdVersion` (`IdVersion` ASC),
-  UNIQUE INDEX `Nombre` (`Nombre` ASC),
-  INDEX `IdAplicacion` (`IdAplicacion` ASC),
-  INDEX `FK_version_base_ctVersiones` (`version_base` ASC),
-  CONSTRAINT `FK_ctVersiones_ctAplicaciones`
-    FOREIGN KEY (`IdAplicacion`)
-    REFERENCES `bds_consola_universal`.`ctAplicaciones` (`IdAplicacion`),
-  CONSTRAINT `FK_version_base_ctVersiones`
-    FOREIGN KEY (`version_base`)
-    REFERENCES `bds_consola_universal`.`ctVersiones` (`IdVersion`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `Name` (`Name` ASC),
+  INDEX `IdApplication` (`IdApplication` ASC),
+  CONSTRAINT `FK_Versions_Applications`
+    FOREIGN KEY (`IdApplication`)
+    REFERENCES `bds_consola_universal`.`confgenApplications` (`IdApplication`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 49
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
--- -----------------------------------------------------
--- Table `bds_consola_universal`.`ctPaises`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `bds_consola_universal`.`ctPaises` ;
 
-CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctPaises` (
-  `Codigo` VARCHAR(10) NOT NULL,
-  `Eliminar` CHAR(1) NOT NULL,
-  `idPais` INT(11) NOT NULL AUTO_INCREMENT,
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`confgenProfile`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`confgenProfiles` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`confgenProfiles` (
+  `IdProfile` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdSubscription` INT(11) NOT NULL ,
+  `IdCountry` INT(11) NOT NULL,
   `Nombre` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`idPais`),
-  UNIQUE INDEX `Codigo` (`Codigo` ASC),
-  UNIQUE INDEX `idPais` (`idPais` ASC),
-  UNIQUE INDEX `Nombre` (`Nombre` ASC))
-ENGINE = InnoDB
-AUTO_INCREMENT = 18
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_unicode_ci;
-
-
--- -----------------------------------------------------
--- Table `bds_consola_universal`.`ctPerfiles`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `bds_consola_universal`.`ctPerfiles` ;
-
-CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctPerfiles` (
-  `Eliminar` CHAR(1) NOT NULL,
-  `idPais` INT(11) NOT NULL,
-  `IdPerfil` INT(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`IdPerfil`),
-  INDEX `idPais` (`idPais` ASC),
-  CONSTRAINT `FK_ctPerfiles_ctPaises`
-    FOREIGN KEY (`idPais`)
-    REFERENCES `bds_consola_universal`.`ctPaises` (`idPais`))
+  `Unavaibled` CHAR(1) NOT NULL,
+  PRIMARY KEY (`IdProfile`),
+  INDEX `idPais` (`IdCountry` ASC),
+  CONSTRAINT `FK_Profiles_Countries`
+    FOREIGN KEY (`idCountry`)
+    REFERENCES `bds_consola_universal`.`ctCountries` (`IdCountry`),
+  CONSTRAINT `FK_Porfile_Subscription`
+    FOREIGN KEY (`IdSubscription`)
+    REFERENCES `bds_consola_universal`.`subscritionsSubscriptions` (`IdSubscription`)
+)
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
-
 -- -----------------------------------------------------
--- Table `bds_consola_universal`.`rrAplicacionVersionPais`
+-- Table `bds_consola_universal`.`confgenVersionsByProfile`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `bds_consola_universal`.`rrAplicacionVersionPais` ;
+DROP TABLE IF EXISTS `bds_consola_universal`.`confgenVersionsByProfile` ;
 
-CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`rrAplicacionVersionPais` (
-  `IdPerfil` INT(11) NOT NULL,
-  `IdRelAppPais` INT(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`confgenVersionsByProfile` (
+  `IdRelAppCountry` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdProfile` INT(11) NOT NULL,
   `IdVersion` INT(11) NOT NULL,
-  PRIMARY KEY (`IdRelAppPais`),
+  PRIMARY KEY (`IdRelAppCountry`),
   INDEX `IdVersion` (`IdVersion` ASC),
-  INDEX `IdPerfil` (`IdPerfil` ASC),
+  INDEX `IdProfile` (`IdProfile` ASC),
   CONSTRAINT `FK_rrAplicacionVer_ctVersiones`
     FOREIGN KEY (`IdVersion`)
-    REFERENCES `bds_consola_universal`.`ctVersiones` (`IdVersion`),
-  CONSTRAINT `FK_rrAplicacionVers_ctPerfiles`
-    FOREIGN KEY (`IdPerfil`)
-    REFERENCES `bds_consola_universal`.`ctPerfiles` (`IdPerfil`))
+    REFERENCES `bds_consola_universal`.`confgenVersions` (`IdVersion`),
+  CONSTRAINT `FK_VersionsByProfile_Profiles`
+    FOREIGN KEY (`IdProfile`)
+    REFERENCES `bds_consola_universal`.`confgenProfiles` (`IdProfile`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 253
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
+
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`confgenConfigurations`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`confgenConfigurations` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`confgenConfigurations` (
+  `IdConfiguracion` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdRelAppCountry` INT(11) NOT NULL,
+  `Unavaibled` CHAR(1) NOT NULL,
+  `Show` CHAR(1) NOT NULL,
+  `Configuration` JSON NOT NULL,
+  `Created_Datetime` DATETIME NOT NULL,
+  `Created_Platform` VARCHAR(10) NOT NULL,
+  `Updated_Datetime` DATETIME NULL,
+  `Updated_Platform` VARCHAR(10) NULL,
+  PRIMARY KEY (`IdConfiguracion`),
+  INDEX `IdRelAppCountry` (`IdRelAppCountry` ASC),
+  CONSTRAINT `FK_Configurations_VersionsByProfile`
+    FOREIGN KEY (`IdRelAppCountry`)
+    REFERENCES `bds_consola_universal`.`confgenVersionsByProfile` (`IdRelAppCountry`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 19198
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`confgenConfigurationChanges`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`confgenConfigurationChanges` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`confgenConfigurationChanges` (
+  `IdIConfiguracionChange` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdConfiguracion` INT(11) NOT NULL,
+  `Configuration` JSON NOT NULL,
+  `Created_Datetime` DATETIME NOT NULL,
+  `Created_Platform` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`IdIConfiguracionChange`),
+  CONSTRAINT `FK_Config_Changes`
+    FOREIGN KEY (`IdConfiguracion`)
+    REFERENCES `bds_consola_universal`.`confgenConfigurations` (`IdConfiguracion`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 19198
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- ***************************************************************************************************************************************************************************************
+-- ***************************************************************************************************************************************************************************************
+/*
+
 
 
 -- -----------------------------------------------------
@@ -449,29 +604,6 @@ COLLATE = utf8_unicode_ci;
 -- ***************************************************************************************************************************************************************************************
 
 -- -----------------------------------------------------
--- Table `bds_consola_universal`.`ftItemsConfiguracion`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `bds_consola_universal`.`ftItemsConfiguracion` ;
-
-CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ftItemsConfiguracion` (
-  `IdItemConfiguracion` INT(11) NOT NULL AUTO_INCREMENT,
-  `IdRelAppPais` INT(11) NOT NULL,
-  `LlavePrivada` VARCHAR(200) NULL DEFAULT NULL,
-  `Mostrar` CHAR(1) NOT NULL,
-  `MostrarLlavePrivadaEnJSON` CHAR(1) NOT NULL,
-  PRIMARY KEY (`IdItemConfiguracion`),
-  INDEX `IdRelAppPais` (`IdRelAppPais` ASC),
-  INDEX `IdItemConfiguracion` (`IdItemConfiguracion` ASC),
-  CONSTRAINT `FK_ftItemsConfig_rrAplicacionV`
-    FOREIGN KEY (`IdRelAppPais`)
-    REFERENCES `bds_consola_universal`.`rrAplicacionVersionPais` (`IdRelAppPais`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 19198
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_unicode_ci;
-
-
--- -----------------------------------------------------
 -- Table `bds_consola_universal`.`dtConfigValores`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `bds_consola_universal`.`dtConfigValores` ;
@@ -544,7 +676,7 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 14935
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
-
+*/
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

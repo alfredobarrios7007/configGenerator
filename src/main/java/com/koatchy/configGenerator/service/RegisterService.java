@@ -4,7 +4,7 @@
 package com.koatchy.configGenerator.service;
 
 import com.koatchy.configGenerator.exception.RegisterException;
-import com.koatchy.configGenerator.model.Register;
+import com.koatchy.configGenerator.model.RegisterRequest;
 
 /**
  * @author alfredo.barrios
@@ -12,6 +12,6 @@ import com.koatchy.configGenerator.model.Register;
  */
 public interface RegisterService {
 	
-	Register add(Register user) throws RegisterException;
+	RegisterRequest add(RegisterRequest user) throws RegisterException;
 		
 }

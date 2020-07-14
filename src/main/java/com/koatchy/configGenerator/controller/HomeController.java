@@ -18,7 +18,7 @@ import com.koatchy.configGenerator.tools.EncryptUtil;
  *
  */
 @Controller
-public class HomeController implements PageController {
+public class HomeController implements IPageController {
 
 	@RequestMapping("home")
 	public ModelAndView home(String clave, String cadena) 

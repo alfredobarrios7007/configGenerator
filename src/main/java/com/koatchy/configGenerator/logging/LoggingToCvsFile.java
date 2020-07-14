@@ -12,21 +12,19 @@ import com.koatchy.configGenerator.tools.ReadProperties;
  * Write CDR file
  *
  */
-public class LoggingToCvsFile implements ILogging{
+public class LoggingToCvsFile { 
 
-	String unid;
-	String directory;
-	String logFile;
+	static String unid;
+	static String directory;
 	
-	public LoggingToCvsFile(String logFile){
+	public static void LoadConfigValues(){
 		ReadProperties rProp = new ReadProperties("logging");
-		this.unid = rProp.getValue("servicesLogUnit");
-		this.directory = rProp.getValue("servicesLogDirectory");
-		this.logFile = logFile;
+		unid = rProp.getValue("servicesLogUnit");
+		directory = rProp.getValue("servicesLogDirectory");
 	}
 		
-	public void writeLog(String line) {
-		String logFilePath = this.unid + ":" + this.directory + "/" + this.logFile;
+	public static void writeLog(String logFile, String line) {
+		String logFilePath = unid + ":" + directory + "/" + logFile;
 		//System.out.print("LoggingToCvsFile.writeLog: " + logFilePath + "\n");
 		try(FileWriter fw = new FileWriter(logFilePath, true);
 		BufferedWriter bw = new BufferedWriter(fw);

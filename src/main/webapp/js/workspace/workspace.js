@@ -1,5 +1,5 @@
 /*
-* Functions for main.html
+* Functions for workspace.html
 * 
 * Alfredo Barrios
 */
@@ -9,13 +9,20 @@ var workspace = {
 		var lg_form = null;
 		if(lang=="es"){
 			lg_global = splg_global;
-			lg_form = splg_recovPwd;
+			lg_form = splg_ws1;
 		}else{
 			lg_global = enlg_global;
-			lg_form = enlg_recovPwd;
+			lg_form = enlg_ws1;
 		}
+        if(workspace.SessionValidation()==false){
+			alert(lg_form.noValidSessionMsg);
+			window.location.href = "login.html";
+		}
+
 		document.title = lg_form.htmlTitle;
+
 		$("#lblTitle").html(lg_global.lblTitle);
+		/*
 		$("#lblGotoPrivacyPol").html(lg_global.lblGotoPrivacyPol);
 		$("#lblCopyright").html(lg_global.lblCopyright);
 		$("#lblGotoTermsCondit").html(lg_global.lblGotoTermsCondit);
@@ -32,12 +39,25 @@ var workspace = {
 		$("#fillTheEmailMsg").html(lg_form.fillTheEmailMsg);
 		$("#unexpectedErrorMsg").html(lg_form.unexpectedErrorMsg);
 		$("#btnSubmit").click(function(){ 
-			main.CleanMsg();
-			return main.SubmitForm();
+			workspace.CleanMsg();
+			return workspace.SubmitForm();
 		 });
 		$("#inputEmailAddress").focusin(function() {
-			main.CleanMsg();
+			workspace.CleanMsg();
 		});
+		*/
+	},
+	SessionValidation:function(){
+		var token = _CommonFunctions.GetCookie("token");
+		//alert(token==undefined||""==$.trim(token)?"Sin login: " + token:"Con login: " + token);
+		if(token==undefined||""==$.trim(token)) return false;
+		$("#searcher").val(token);
+		var params = {"platform":"web","caller": _CommonFunctions.GetCaller(),"token": $.trim(token) };
+		var data = _Communication.GetRemoteDataPost(urlCheckSessionToken, params);
+		if(data.code!=200){
+			return false;
+		}
+		return true;
 	},
 	CleanMsg:function(){
 		$("#fillTheEmailMsg").hide();
@@ -46,7 +66,7 @@ var workspace = {
 	},
 	SubmitForm:function(){
 		try {
-			if(!main.Validation())
+			if(!workspace.Validation())
 			{
 				return false;
 			}
@@ -88,5 +108,4 @@ var workspace = {
 	}
 
 }
-
-main.ShowForm();
+workspace.ShowForm();

@@ -17,7 +17,8 @@ var urlRegister = ulrDomain + "security/register";
 var urlGetAllAreas = ulrDomain + "catlogs/getAllAreas";
 var urlGetAllOrganizations = ulrDomain + "catlogs/getAllOrganizations";
 var urlUploadUserPhoto = ulrDomain + "security/uploadUserPhoto";
-var registerWithPhoto = ulrDomain + "security/registerWithPhoto";
+var urlRegister = ulrDomain + "security/registerWithPhoto";
+var urlCheckSessionToken = ulrDomain + "security/checkSessionToken";
 // Global labels
 var splg_global = {
 	"lblTitle":"K&ouml;atchy"
@@ -173,5 +174,16 @@ var enlg_RegUser = {
 	,"unexpectedErrorMsg":"Ups! we are very sorry, an unexpected error happens, please, try again later."
 	,"lengthWronghMsg":"The password must to have 7 characters at least."
 	,"emailAlreadyExistMsg":"The e-mail account already exists, <a href='password.html'>do you need to recover your password? Click here</a>"
+	,"successMsg":"The registry was successfuly, please, <a href='login.html'>set your credentials</a>."
+};
+// Workspace 1 
+var splg_ws1 = {
+	"htmlTitle":"Tu espacio, bienvenido - " + companyName
+	,"noValidSessionMsg":"Por favor, accede usando tus credenciales."
+	,"successMsg":"Tu registro se realizó con &eacute;xito, por favor <a href='login.html'>proporcione sus credenciales</a>."
+};
+var enlg_ws1 = {
+	"htmlTitle":"Your space, welcome! - " + companyName
+	,"noValidSessionMsg":"Please, log in."
 	,"successMsg":"The registry was successfuly, please, <a href='login.html'>set your credentials</a>."
 };

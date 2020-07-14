@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Component
 @Scope(value="prototype")
-public class Register extends GeneralRequest {
+public class RegisterRequest extends GeneralRequest {
 	
 	/**
 	 * 
@@ -136,7 +136,7 @@ public class Register extends GeneralRequest {
 		this.photo = photo;
 	}
 
-	public Register() {}
+	public RegisterRequest() {}
 	
 	/**
 	 * @param id
@@ -150,7 +150,7 @@ public class Register extends GeneralRequest {
 	 * @param caller
 	 * @param photo
 	 */
-	public Register(Long id, String name, String lastname, String organization, String area, String email,
+	public RegisterRequest(Long id, String name, String lastname, String organization, String area, String email,
 			String password, String platform, String caller, MultipartFile photo) {
 		this.id = id;
 		this.name = name;
@@ -166,7 +166,7 @@ public class Register extends GeneralRequest {
 	
 	@Override
 	public String toString() {
-		return "Register [id=" + id + ", " + (name != null ? "name=" + name + ", " : "")
+		return "RegisterRequest [id=" + id + ", " + (name != null ? "name=" + name + ", " : "")
 				+ (lastname != null ? "lastname=" + lastname + ", " : "")
 				+ (organization != null ? "organization=" + organization + ", " : "")
 				+ (area != null ? "area=" + area + ", " : "") + (email != null ? "email=" + email + ", " : "")

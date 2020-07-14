@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.koatchy.configGenerator.exception.RegisterException;
-import com.koatchy.configGenerator.model.Register;
+import com.koatchy.configGenerator.model.RegisterRequest;
 import com.koatchy.configGenerator.tools.EncryptUtil;
 
 import com.koatchy.configGenerator.dao.RegisterStoredProcDao;
@@ -40,7 +40,7 @@ public class RegisterServiceImpl implements RegisterService {
 	
 	
 	@Override
-	public Register add(Register user) throws RegisterException {
+	public RegisterRequest add(RegisterRequest user) throws RegisterException {
 		System.out.print("RegisterServiceImpl add 0\n");
 		try {
 			String ePwd = EncryptUtil.encode("~KöAtcHy¬" + user.getEmail(), user.getPassword());
