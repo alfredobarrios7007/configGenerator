@@ -55,8 +55,7 @@ public class ServiceControllerImpl implements IServiceController {
 		try 
 		{
 			String lineLogged = dateH.getNowStr() +"," + apiName + "," + successError + "," + platform + "," + caller + ", Error: " + errorMsg;
-			ILogging loggging = new LoggingToCvsFile(logFile);
-			loggging.writeLog(lineLogged);
+			LoggingToCvsFile.writeLog(logFile, lineLogged);
 		}
 		catch (Exception err) {
 			System.err.println("Exception ServiceController.logging thrown: " + err);

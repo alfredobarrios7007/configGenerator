@@ -47,4 +47,16 @@ public class ProjectsServiceImpl implements ProjectsService {
 		objectDao.deleteById(param);
 	}
 
+	
+	@Override
+	public Optional<Project> findProjectsByUser(Long id){
+		return objectDao.findProjectsByUser(id);
+	}
+	
+	@Override
+	public Optional<Project> findProjectsByOrganization(Long id){
+		return objectDao.findProjectsByOrganization(id);
+	}
+	
+	
 }

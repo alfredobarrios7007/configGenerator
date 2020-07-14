@@ -4,7 +4,6 @@
 package com.koatchy.configGenerator.dao;
 
 import com.koatchy.configGenerator.entity.Project;
-import com.koatchy.configGenerator.entity.User;
 
 import java.util.Optional;
 
@@ -27,7 +26,7 @@ public interface ProjectsDao extends JpaRepository<Project, Long>{
 					" INNER JOIN ctUsers usrs ON rrcp.IdCompany=usrs.IdUser " + 
 					" WHERE :id = usrs.IdUser ", 
 			nativeQuery = true)
-	Optional<User> findProjectsByUser(@Param("id")Long id);
+	Optional<Project> findProjectsByUser(@Param("id")Long id);
 	
 	@Query(
 	value = "SELECT " +
@@ -36,6 +35,6 @@ public interface ProjectsDao extends JpaRepository<Project, Long>{
 			" INNER JOIN rrCompaniesProjects rrcp ON prjs.idproject=rrcp.idproject AND rrcp.Unavaibled='N' " + 
 			" WHERE :id = rrcp.IdOrganization ", 
 	nativeQuery = true)
-	Optional<User> findProjectsByOrganization(@Param("id")Long id);
+	Optional<Project> findProjectsByOrganization(@Param("id")Long id);
 
 }
