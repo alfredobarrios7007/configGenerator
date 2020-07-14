@@ -294,7 +294,7 @@ DROP TABLE IF EXISTS `bds_consola_universal`.`subscritionsSubscriptions` ;
 
 CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`subscritionsSubscriptions` (
   `IdSubscription` INT(11) NOT NULL AUTO_INCREMENT,
-  `IdOffer` INT(11) NOT NULL ,
+  `IdOffer` INT(11) NOT NULL,
   `IdBuyer` INT(11) NOT NULL,
   `Description` VARCHAR(250) NOT NULL,
   `MaximumUsers` TINYINT NOT NULL,

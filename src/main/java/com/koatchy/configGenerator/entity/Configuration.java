@@ -40,10 +40,10 @@ public class Configuration  implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="description",nullable = true)
+	@Column(name="description",nullable = false)
 	private String description;
 	
-	@Column(name="valueof",nullable = true)
+	@Column(name="valueof",nullable = false)
 	private String valueOf;
 
 
