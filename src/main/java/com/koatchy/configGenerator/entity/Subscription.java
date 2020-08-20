@@ -42,6 +42,9 @@ public class Subscription implements Serializable {
 	@Column(name="description",nullable = false)
 	private String description;
 
+
+	@Column(name="maximumdownloads",nullable = false)
+	private Integer maximumdownloads;
 	@Column(name="maximumusers",nullable = false)
 	private Integer maximumusers;
 
@@ -132,6 +135,20 @@ public class Subscription implements Serializable {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @return the maximumdownloads
+	 */
+	public Integer getMaximumdownloads() {
+		return maximumdownloads;
+	}
+
+	/**
+	 * @param maximumdownloads the maximumdownloads to set
+	 */
+	public void setMaximumdownloads(Integer maximumdownloads) {
+		this.maximumdownloads = maximumdownloads;
 	}
 
 	/**
@@ -307,6 +324,7 @@ public class Subscription implements Serializable {
 	 * @param idoffer
 	 * @param idbuyer
 	 * @param description
+	 * @param maximumdownloads
 	 * @param maximumusers
 	 * @param maximumapplications
 	 * @param maximumprofiles
@@ -320,14 +338,15 @@ public class Subscription implements Serializable {
 	 * @param updatedDatetime
 	 * @param updatedPlatform
 	 */
-	public Subscription(Long id, Long idoffer, Long idbuyer, String description, Integer maximumusers,
-			Integer maximumapplications, Integer maximumprofiles, Integer maximumversionbyapp, String unavaibled,
-			String show, String datestart, String datefinish, String createdDatetime, String createdPlatform,
-			String updatedDatetime, String updatedPlatform) {
+	public Subscription(Long id, Long idoffer, Long idbuyer, String description, Integer maximumdownloads,
+			Integer maximumusers, Integer maximumapplications, Integer maximumprofiles, Integer maximumversionbyapp,
+			String unavaibled, String show, String datestart, String datefinish, String createdDatetime,
+			String createdPlatform, String updatedDatetime, String updatedPlatform) {
 		this.id = id;
 		this.idoffer = idoffer;
 		this.idbuyer = idbuyer;
 		this.description = description;
+		this.maximumdownloads = maximumdownloads;
 		this.maximumusers = maximumusers;
 		this.maximumapplications = maximumapplications;
 		this.maximumprofiles = maximumprofiles;
@@ -348,6 +367,7 @@ public class Subscription implements Serializable {
 				+ (idoffer != null ? "idoffer=" + idoffer + ", " : "")
 				+ (idbuyer != null ? "idbuyer=" + idbuyer + ", " : "")
 				+ (description != null ? "description=" + description + ", " : "")
+				+ (maximumdownloads != null ? "maximumdownloads=" + maximumdownloads + ", " : "")
 				+ (maximumusers != null ? "maximumusers=" + maximumusers + ", " : "")
 				+ (maximumapplications != null ? "maximumapplications=" + maximumapplications + ", " : "")
 				+ (maximumprofiles != null ? "maximumprofiles=" + maximumprofiles + ", " : "")
@@ -362,6 +382,5 @@ public class Subscription implements Serializable {
 				+ (updatedPlatform != null ? "updatedPlatform=" + updatedPlatform : "") + "]";
 	}
 
-	
-	
+
 }

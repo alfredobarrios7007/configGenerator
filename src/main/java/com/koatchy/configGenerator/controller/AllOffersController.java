@@ -14,27 +14,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.koatchy.configGenerator.model.GeneralRequest;
 import com.koatchy.configGenerator.model.GeneralResponse;
-import com.koatchy.configGenerator.service.OrganizationsService;
+import com.koatchy.configGenerator.service.OffersService;
 
 /**
  * @author alfredo.barrios
  *
  */
-@RequestMapping("/catlogs")
+@RequestMapping("/offers")
 @RestController
-public class OrganizationsController extends ServiceControllerImpl implements IServiceController {
-
+public class AllOffersController extends ServiceControllerImpl implements IServiceController {
 	@Autowired
-	OrganizationsService objectSrv;
+	OffersService objectSrv;
 	
-	public OrganizationsController() {
+	public AllOffersController() {
 		super();
-		setApiName("catalogs-getAllOrganizations");
+		setApiName("offers-getAllOffers");
 	}
-	
-	@RequestMapping(path = "getAllOrganizations", method = RequestMethod.POST, produces = "application/JSON")
-	public GeneralResponse getAllOrganizations(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final GeneralRequest param) throws Exception {
-		System.out.print("getAllOrganizations: " + param.toString() + "\n");
+
+	@RequestMapping(path = "getSubscriptionByUser", method = RequestMethod.POST, produces = "application/JSON")
+	public GeneralResponse getAllOffers(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final GeneralRequest param) throws Exception {
+		System.out.print("getAllOffers: " + param.toString() + "\n");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */
@@ -48,5 +47,6 @@ public class OrganizationsController extends ServiceControllerImpl implements IS
 		logging("success", "");
 		return response;
 	}
-	
+
+
 }

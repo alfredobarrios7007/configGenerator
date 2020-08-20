@@ -40,6 +40,9 @@ public class Offer implements Serializable {
 	@Column(name="description",nullable = false)
 	private String description;
 
+	@Column(name="maximumdownloads",nullable = false)
+	private Integer maximumdownloads;
+
 	@Column(name="maximumusers",nullable = false)
 	private Integer maximumusers;
 
@@ -117,6 +120,20 @@ public class Offer implements Serializable {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @return the maximumdownloads
+	 */
+	public Integer getMaximumdownloads() {
+		return maximumdownloads;
+	}
+
+	/**
+	 * @param maximumdownloads the maximumdownloads to set
+	 */
+	public void setMaximumdownloads(Integer maximumdownloads) {
+		this.maximumdownloads = maximumdownloads;
 	}
 
 	/**
@@ -291,6 +308,7 @@ public class Offer implements Serializable {
 	 * @param id
 	 * @param idproject
 	 * @param description
+	 * @param maximumdownloads
 	 * @param maximumusers
 	 * @param maximumapplications
 	 * @param maximumprofiles
@@ -304,13 +322,14 @@ public class Offer implements Serializable {
 	 * @param updatedDatetime
 	 * @param updatedPlatform
 	 */
-	public Offer(Long id, Long idproject, String description, Integer maximumusers, Integer maximumapplications,
-			Integer maximumprofiles, Integer maximumversionbyapp, String unavaibled, String show, String datestart,
-			String datefinish, String createdDatetime, String createdPlatform, String updatedDatetime,
-			String updatedPlatform) {
+	public Offer(Long id, Long idproject, String description, Integer maximumdownloads, Integer maximumusers,
+			Integer maximumapplications, Integer maximumprofiles, Integer maximumversionbyapp, String unavaibled,
+			String show, String datestart, String datefinish, String createdDatetime, String createdPlatform,
+			String updatedDatetime, String updatedPlatform) {
 		this.id = id;
 		this.idproject = idproject;
 		this.description = description;
+		this.maximumdownloads = maximumdownloads;
 		this.maximumusers = maximumusers;
 		this.maximumapplications = maximumapplications;
 		this.maximumprofiles = maximumprofiles;
@@ -330,6 +349,7 @@ public class Offer implements Serializable {
 		return "Offer [" + (id != null ? "id=" + id + ", " : "")
 				+ (idproject != null ? "idproject=" + idproject + ", " : "")
 				+ (description != null ? "description=" + description + ", " : "")
+				+ (maximumdownloads != null ? "maximumdownloads=" + maximumdownloads + ", " : "")
 				+ (maximumusers != null ? "maximumusers=" + maximumusers + ", " : "")
 				+ (maximumapplications != null ? "maximumapplications=" + maximumapplications + ", " : "")
 				+ (maximumprofiles != null ? "maximumprofiles=" + maximumprofiles + ", " : "")

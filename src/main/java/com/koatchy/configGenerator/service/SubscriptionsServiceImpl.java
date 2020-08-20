@@ -4,13 +4,13 @@
 package com.koatchy.configGenerator.service;
 
 
-import com.koatchy.configGenerator.dao.SubscriptionsDao;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.koatchy.configGenerator.dao.SubscriptionsDao;
 import com.koatchy.configGenerator.entity.Subscription;
 
 
