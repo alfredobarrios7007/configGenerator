@@ -266,6 +266,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`subscritionsOffers` (
   `IdOffer` INT(11) NOT NULL AUTO_INCREMENT,
   `IdProject` INT(11) NOT NULL ,
   `Description` VARCHAR(250) NOT NULL,
+  `MaximumDownloads` INT NOT NULL,
   `MaximumUsers` TINYINT NOT NULL,
   `MaximumApplications` TINYINT NOT NULL,
   `MaximumProfiles` TINYINT NOT NULL,
@@ -286,6 +287,9 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;
 
+INSERT INTO subscritionsOffers (`IdProject`, `Description`, `MaximumDownloads`, `MaximumUsers`, `MaximumApplications`, `MaximumProfiles`, `MaximumVersionByApp`, `Unavaibled`, `Show`, `Datestart`, `Datefinish`, `Created_Datetime`, `Created_Platform`, `Updated_Datetime`, `Updated_Platform`) 
+VALUES (1, 'Config Generator is the most powerful tool in this moment to create and release the app configuration, by country, profile and version.', 1000000, 3, 1, 2, 10, 'F', 'Y', SYSDATE(), DATE_ADD(SYSDATE(), INTERVAL 1 YEAR), SYSDATE(), 'INIT_ROW', NULL, NULL);
+
 
 -- -----------------------------------------------------
 -- Table `bds_consola_universal`.`subscritionsOffers`
@@ -294,9 +298,10 @@ DROP TABLE IF EXISTS `bds_consola_universal`.`subscritionsSubscriptions` ;
 
 CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`subscritionsSubscriptions` (
   `IdSubscription` INT(11) NOT NULL AUTO_INCREMENT,
-  `IdOffer` INT(11) NOT NULL ,
+  `IdOffer` INT(11) NOT NULL,
   `IdBuyer` INT(11) NOT NULL,
   `Description` VARCHAR(250) NOT NULL,
+  `MaximumDownloads` INT NOT NULL,
   `MaximumUsers` TINYINT NOT NULL,
   `MaximumApplications` TINYINT NOT NULL,
   `MaximumProfiles` TINYINT NOT NULL,

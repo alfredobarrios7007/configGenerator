@@ -66,10 +66,10 @@ public class User implements Serializable {
 	@Column(name="unavaibled")
 	private String unavaibled;
 	
-	@Column(name="created_datetime")
+	@Column(name="created_datetime",nullable = false)
 	private String createdDatetime;
 	
-	@Column(name="created_platform")
+	@Column(name="created_platform",nullable = false)
 	private String createdPlatform;
 	
 	@Column(name="updated_datetime",nullable = true)

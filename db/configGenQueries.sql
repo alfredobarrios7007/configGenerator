@@ -5,6 +5,13 @@ SELECT iduser,iduserarea,idorganization,idorganizationrol,password,name,lastname
 SELECT iduser,iduserarea,idorganization,idorganizationrol,password,name,lastname,email,superuser,photo,unavaibled,created_datetime,created_platform,updated_datetime,updated_platform FROM ctusers  
 WHERE Unavaibled='N' AND 'karen@speedy.com' = Email AND '+b79ce0jkFUY/I/Yi4Fr3g==' = Password;
 
+
+SELECT * FROM subscritionsOffers;
+
+INSERT INTO subscritionsOffers (`IdProject`, `Description`, `MaximumDownloads`, `MaximumUsers`, `MaximumApplications`, `MaximumProfiles`, `MaximumVersionByApp`, `Unavaibled`, `Show`, `Datestart`, `Datefinish`, `Created_Datetime`, `Created_Platform`, `Updated_Datetime`, `Updated_Platform`)
+VALUES (1, `Config Generator is the most powerful tool in this moment to create and release the app configuration, by country, profile and version.`, 1000000, 3, 1, 2, `10`, `F`, `Y`, SYSDATE(), DATE_ADD(SYSDATE(), INTERVAL 1 YEAR), SYSDATE(), 'INIT_ROW', NULL, NULL);
+
+
 DELETE FROM `bds_consola_universal`.`ctUsers` WHERE 'karen@speedy.com' = Email ;
 
 SELECT * FROM `bds_consola_universal`.`ctUsers` ;

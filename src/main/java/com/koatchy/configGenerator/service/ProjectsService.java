@@ -7,8 +7,6 @@ import com.koatchy.configGenerator.entity.Project;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.repository.query.Param;
-
 
 /**
  * @author alfredo.barrios
