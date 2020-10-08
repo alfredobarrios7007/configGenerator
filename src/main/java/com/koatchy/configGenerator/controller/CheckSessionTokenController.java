@@ -4,6 +4,7 @@ package com.koatchy.configGenerator.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class CheckSessionTokenController extends ServiceControllerImpl implement
 		setApiName("security-checksessiontoken");
 	}
 	
+	@CrossOrigin
 	@RequestMapping(path = "checkSessionToken", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse checkSessionToken(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final TokenRequest param) throws Exception {
 		System.out.print("checkSessionToken " + param.toString() + "\n");

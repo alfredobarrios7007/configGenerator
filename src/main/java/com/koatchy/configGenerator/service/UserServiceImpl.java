@@ -26,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired(required = true)
 	private UsersDao objectDao;	
+
+	@Autowired(required = true)
+	ConfigurationsService configSrv;
 	
 	@Override
 	public User save(User param) {
@@ -63,6 +66,40 @@ public class UserServiceImpl implements UserService {
 		return objectDao.findUserByEmail(email);
 	}
 	
+	private EmailTemplate fillEmailTemplate() {
+		String host = "";
+		Integer port = 0;
+		String from = "";
+		String subject = "";
+		String message = "";
+		System.out.print("fillEmailTemplate 1\n");
+		Optional<Configuration> rowCnf1 = configSrv.findByDescription("RecoveryPwdHost");
+		System.out.print("fillEmailTemplate 2\n");
+		Optional<Configuration> rowCnf2 = configSrv.findByDescription("RecoveryPwdPort");
+		System.out.print("fillEmailTemplate 3\n");
+		Optional<Configuration> rowCnf3 = configSrv.findByDescription("RecoveryPwdFrom");
+		System.out.print("fillEmailTemplate 4\n");
+		Optional<Configuration> rowCnf4 = configSrv.findByDescription("RecoveryPwdSubject");
+		System.out.print("fillEmailTemplate 5\n");
+		Optional<Configuration> rowCnf5 = configSrv.findByDescription("RecoveryPwdMessage");
+		if(rowCnf1.isPresent()) {
+			host = rowCnf1.get().getValueOf();
+		}
+		if(rowCnf2.isPresent()) {
+			port = Integer.parseInt(rowCnf2.get().getValueOf());
+		}
+		if(rowCnf3.isPresent()) {
+			from = rowCnf3.get().getValueOf();
+		}
+		if(rowCnf4.isPresent()) {
+			subject = rowCnf4.get().getValueOf();
+		}
+		if(rowCnf5.isPresent()) {
+			message = rowCnf5.get().getValueOf();
+		}
+		return new EmailTemplate(host,port,from,"",subject,message);
+	}
+	
 	@Override
 	public Boolean recoveryPassword(LoginRequest param) throws RecoveryPasswordException {
 		System.out.print("UserServiceImpl recoveryPassword param: " + param.toString() + "\n");
@@ -76,7 +113,9 @@ public class UserServiceImpl implements UserService {
 			if (user.isPresent()) {
 				result = true;
 				//Send e-mail
-				EmailTemplate emailTemp = new EmailTemplate();
+				System.out.print("UserServiceImpl recoveryPassword 1\n");
+				EmailTemplate emailTemp = fillEmailTemplate();
+				System.out.print("UserServiceImpl recoveryPassword 2\n");
 				emailTemp.setTo(param.getUsername());
 				String msg = emailTemp.getMessage();
 				Token tokn = new Token("~KöAtcHy¬");
@@ -90,8 +129,8 @@ public class UserServiceImpl implements UserService {
 				result = false;
 			}
 		} catch (Exception e) {
-			System.out.print("Error recoveryPassword\n");
-			throw new RecoveryPasswordException(e.getMessage());
+			System.out.print("Error recoveryPassword: " + e + "\n");
+			throw new RecoveryPasswordException("WRONG_ACCOUNT");
 		}
 		return result;
 	}

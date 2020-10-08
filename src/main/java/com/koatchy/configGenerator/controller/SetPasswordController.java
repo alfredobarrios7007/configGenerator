@@ -6,6 +6,7 @@ package com.koatchy.configGenerator.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class SetPasswordController extends ServiceControllerImpl implements ISer
 		setApiName("security-SetNewPassword");
 	}
 
+	@CrossOrigin
 	@RequestMapping(path = "SetNewPassword", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse setNewPassword(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final SetNewPasswordRequest param) throws Exception {
 		System.out.print("setNewPassword " + param.toString() + "\n");

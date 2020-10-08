@@ -65,9 +65,10 @@ public class RegisterServiceImpl implements RegisterService {
 	}
 	
 	private String saveUserPhoto(MultipartFile photo, Long userId) throws IOException {
+		System.out.print("saveUserPhoto 1: " + userId + "\n");
 		String result = "";
 		String photoBasePath = "";
-		Optional<Configuration> rowCnf = configSrv.getRow(5L);
+		Optional<Configuration> rowCnf = configSrv.findByDescription("PhotoDirectory");
 		if(rowCnf.isPresent()) {
 			photoBasePath = rowCnf.get().getValueOf();
 		}
@@ -80,6 +81,7 @@ public class RegisterServiceImpl implements RegisterService {
 			// read and write the file to the selected location-
 			byte[] bytes = photo.getBytes();
 			result = photoBasePath + "\\" + userId + ".jpg";// photo.getOriginalFilename();
+			System.out.print("saveUserPhoto 2: " + photoBasePath + "\n");
 			Path path = Paths.get(result);
 			Files.write(path, bytes);
 

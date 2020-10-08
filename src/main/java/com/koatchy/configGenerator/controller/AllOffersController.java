@@ -6,6 +6,7 @@ package com.koatchy.configGenerator.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ public class AllOffersController extends ServiceControllerImpl implements IServi
 		setApiName("offers-getAllOffers");
 	}
 
+	@CrossOrigin
 	@RequestMapping(path = "getSubscriptionByUser", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse getAllOffers(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final GeneralRequest param) throws Exception {
 		System.out.print("getAllOffers: " + param.toString() + "\n");

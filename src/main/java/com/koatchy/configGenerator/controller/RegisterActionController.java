@@ -6,6 +6,7 @@ package com.koatchy.configGenerator.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class RegisterActionController {
 	@Autowired
 	RegisterActionService objectSrv;
 
+	@CrossOrigin
 	@RequestMapping(path = "RegisterAction", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse register(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final ActionRegistered param) throws Exception {
 		GeneralResponse response = new GeneralResponse();

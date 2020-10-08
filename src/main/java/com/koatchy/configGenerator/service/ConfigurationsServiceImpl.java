@@ -41,6 +41,12 @@ public class ConfigurationsServiceImpl implements ConfigurationsService {
 	public Optional<Configuration> getRow(Long param) {
 		return objectDao.findById(param);
 	}
+	
+	@Override
+	public Optional<Configuration> findByDescription(String param){
+		System.out.print("findByDescription " + param + "\n");
+		return objectDao.findByDescription(param);
+	}
 
 	@Override
 	public void deleteRow(Long param) {

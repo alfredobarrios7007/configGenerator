@@ -81,7 +81,7 @@ DROP TABLE `sandboxscheme`.`Clients`;
 CREATE TABLE IF NOT EXISTS `sandboxscheme`.`Clients` (
   `Id` CHAR(36) NOT NULL ,
   `Name` VARCHAR(100) NOT NULL,
-  `Active` BOOLEAN NOT NULL,
+  `Active` CHAR(1) NOT NULL,
   PRIMARY KEY (`Id`)
   )
 ENGINE = InnoDB

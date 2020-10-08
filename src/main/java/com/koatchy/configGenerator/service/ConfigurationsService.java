@@ -22,6 +22,8 @@ public interface ConfigurationsService {
 	
 	Optional<Configuration> getRow(Long param);
 	
+	Optional<Configuration> findByDescription(String description);
+	
 	void deleteRow(Long param);	
 	
 }

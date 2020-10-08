@@ -4,6 +4,7 @@ package com.koatchy.configGenerator.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ public class RegisterController extends ServiceControllerImpl implements IServic
 	/*
 	 * This is the method implemented
 	 */
+	@CrossOrigin
 	@RequestMapping(path = "registerWithPhoto", method = RequestMethod.POST, produces = "application/JSON")
 	@ResponseBody 
     public GeneralResponse registerWithPhoto(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestParam(value = "inputPhoto") MultipartFile photo, 

@@ -6,6 +6,7 @@ package com.koatchy.configGenerator.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -23,11 +24,12 @@ import com.koatchy.configGenerator.service.SecurityService;
  */
 @RequestMapping("/security")
 @RestController
-public class VerifyChangePasswordCode extends ServiceControllerImpl implements IServiceController {
+public class VerifyChangePasswordCodeController extends ServiceControllerImpl implements IServiceController {
 	
 	@Autowired
 	SecurityService objectSrv;
 	
+	@CrossOrigin
 	@RequestMapping(path = "VerifyChangePasswordCode", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse verifyChangePasswordCode(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final VerifyCodeRequest param) throws Exception {
 		System.out.print("VerifyChangePasswordCode " + param.toString() + "\n");

@@ -6,14 +6,11 @@ public class EmailTemplate {
 	private String from;
 	private String to;
 	private String subject;
-	private String Message;
+	private String message;
+
 
 	public EmailTemplate() {
-		host = "smtp.gmail.com";
-		port = 587;
-		from = "abarrios7007@gmail.com";
-		subject = "Köatchy | Recuperación de contraseña";
-		Message = "Por favor accede a http://localhost:8080/setPassword.html?code=";
+	
 	}
 
 	/**
@@ -90,14 +87,41 @@ public class EmailTemplate {
 	 * @return the message
 	 */
 	public String getMessage() {
-		return Message;
+		return message;
 	}
 
 	/**
 	 * @param message the message to set
 	 */
 	public void setMessage(String message) {
-		Message = message;
+		this.message = message;
 	}
+
+	/**
+	 * @param host
+	 * @param port
+	 * @param from
+	 * @param to
+	 * @param subject
+	 * @param message
+	 */
+	public EmailTemplate(String host, Integer port, String from, String to, String subject, String message) {
+		this.host = host;
+		this.port = port;
+		this.from = from;
+		this.to = to;
+		this.subject = subject;
+		this.message = message;
+	}
+
+	@Override
+	public String toString() {
+		return "EmailTemplate [" + (host != null ? "host=" + host + ", " : "")
+				+ (port != null ? "port=" + port + ", " : "") + (from != null ? "from=" + from + ", " : "")
+				+ (to != null ? "to=" + to + ", " : "") + (subject != null ? "subject=" + subject + ", " : "")
+				+ (message != null ? "message=" + message : "") + "]";
+	}
+	
+	
 	
 }

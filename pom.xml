@@ -86,6 +86,13 @@
 		    <version>1.2</version>
 		</dependency>
 
+		<!-- Apache httpclient -->
+		<dependency>
+		  <groupId>org.apache.httpcomponents</groupId>
+		  <artifactId>httpclient</artifactId>
+		  <scope>test</scope>
+		</dependency>
+
 		<!-- E-mail -->
 		<dependency>
 		   <groupId>org.springframework.boot</groupId>

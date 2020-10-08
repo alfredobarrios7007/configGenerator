@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.koatchy.configGenerator.controller;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,29 +10,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.koatchy.configGenerator.model.GeneralRequest;
 import com.koatchy.configGenerator.model.GeneralResponse;
-import com.koatchy.configGenerator.service.SubscriptionsService;
+import com.koatchy.configGenerator.model.LoginRequest;
+import com.koatchy.configGenerator.service.UserService;
 
 /**
  * @author alfredo.barrios
  *
  */
-@RequestMapping("/subscription")
+@RequestMapping("/project")
 @RestController
-public class SubscriptionByUserController extends ServiceControllerImpl implements IServiceController {
-	@Autowired
-	SubscriptionsService objectSrv;
+public class ProjectController extends ServiceControllerImpl implements IServiceController {
 	
-	public SubscriptionByUserController() {
+	@Autowired
+	UserService objectSrv;
+	
+	public ProjectController() {
 		super();
-		setApiName("subscription-getSubscriptionByUser");
+		setApiName("project");
 	}
-
+	
 	@CrossOrigin
-	@RequestMapping(path = "getSubscriptionByUser", method = RequestMethod.POST, produces = "application/JSON")
-	public GeneralResponse getSubscriptionByUser(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final GeneralRequest param) throws Exception {
-		System.out.print("getSubscriptionByUser: " + param.toString() + "\n");
+	@RequestMapping(path = "add", method = RequestMethod.POST, produces = "application/JSON")
+	public GeneralResponse add(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final LoginRequest param) throws Exception {
+		System.out.print("recoveryPassword " + param.toString() + "\n");
 		setPlatform(param.getPlatform());
 		setCaller(param.getCaller());
 	    /* The lines, below, get the origin of the called */
@@ -45,9 +43,9 @@ public class SubscriptionByUserController extends ServiceControllerImpl implemen
 		GeneralResponse response = new GeneralResponse();
 		response.setCode(200);
 		response.setMessage("OK");
-		response.setData(objectSrv.getAllRows());		
+		response.setData(objectSrv.recoveryPassword(param));
 		logging("success", "");
 		return response;
 	}
-
+	
 }

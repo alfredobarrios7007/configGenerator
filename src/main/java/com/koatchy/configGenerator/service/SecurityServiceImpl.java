@@ -141,23 +141,31 @@ public class SecurityServiceImpl implements SecurityService {
 	@Override
 	public SecurityResult setNewPassword(SetNewPasswordRequest param) throws SecurityException {
 		System.out.print("setNewPassword " + param.toString() + "\n");
+		System.out.print("setNewPassword - A\n");
 		Token token = new Token("configGenerator");
 		DateHelper dataH = new DateHelper();
 		SecurityResult result = new SecurityResult();
 		try {			
+			System.out.print("setNewPassword - B\n");
 			String decode = token.verifyChangePasswordCode(new VerifyCodeRequest(param.getCode()));
-			//List<String> stringList = Pattern.compile("|").splitAsStream(decode).collect(Collectors.toList());
+			System.out.print("setNewPassword - C\n");
 			String stringList[] = decode.split("\\|");
+			System.out.print("setNewPassword - D\n");
 			String email = stringList[0];//stringList.get(0);
+			System.out.print("setNewPassword - E\n");
 			String dateExpire = stringList[1];//stringList.get(1);
+			System.out.print("setNewPassword - F\n");
 			Optional<User> user = serviceObj.findUserByEmail(email);
 			if (!user.isPresent()) {
+				System.out.print("setNewPassword - EMAIL_NOT_FOUND\n");
 				throw new Exception("EMAIL_NOT_FOUND");
 			}
+			System.out.print("setNewPassword - G\n");
 			Date dateFromCode = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(dateExpire);
 			Date now = dataH.now(); 
 			long minutesElpased = dataH.friendlyTimeDiff(TypeElapsedTime.Minute, dateFromCode, now);
 			if(minutesElpased>8) {
+				System.out.print("setNewPassword - ELAPSED_TIME\n");
 				throw new Exception("ELAPSED_TIME");
 			}
 			SetNewPassword snp = new SetNewPassword(email, param.getNewPassword());			

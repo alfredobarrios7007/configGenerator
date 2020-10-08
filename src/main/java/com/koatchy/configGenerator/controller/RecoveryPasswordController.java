@@ -3,6 +3,7 @@ package com.koatchy.configGenerator.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ public class RecoveryPasswordController extends ServiceControllerImpl implements
 		setApiName("security-recoveryPassword");
 	}
 	
+	@CrossOrigin
 	@RequestMapping(path = "recoveryPassword", method = RequestMethod.POST, produces = "application/JSON")
 	public GeneralResponse recoveryPassword(HttpServletRequest request, @RequestHeader("authentication") String authentication, @RequestBody final LoginRequest param) throws Exception {
 		System.out.print("recoveryPassword " + param.toString() + "\n");

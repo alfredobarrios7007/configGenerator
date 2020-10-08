@@ -42,6 +42,11 @@ INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('EmailFromAccout', 'abarrios7007@gmail.com');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('AutorizationRequest', 'wDo3rXrE/');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('PhotoDirectory', 'C:\\src\\configGenerator\\src\\main\\webapp\\assets\\photos');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdHost', 'smtp.gmail.com');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdPort', '587');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdFrom', 'abarrios7007@gmail.com');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdSubject', 'Köatchy | Recuperación de contraseña');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdMessage', 'Por favor accede a http://localhost:3000/setNewPassword?code=');
 
 
 -- -----------------------------------------------------
