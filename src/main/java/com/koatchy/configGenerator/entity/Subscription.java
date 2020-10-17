@@ -57,8 +57,8 @@ public class Subscription implements Serializable {
 	@Column(name="maximumversionbyapp",nullable = false)
 	private Integer maximumversionbyapp;
 
-	@Column(name="unavaibled",nullable = false)
-	private String unavaibled;
+	@Column(name="enabled",nullable = false)
+	private String enabled;
 
 	@Column(name="show",nullable = false)
 	private String show;
@@ -208,17 +208,17 @@ public class Subscription implements Serializable {
 	}
 
 	/**
-	 * @return the unavaibled
+	 * @return the enabled
 	 */
-	public String getUnavaibled() {
-		return unavaibled;
+	public String getEnabled() {
+		return enabled;
 	}
 
 	/**
-	 * @param unavaibled the unavaibled to set
+	 * @param enabled the enabled to set
 	 */
-	public void setUnavaibled(String unavaibled) {
-		this.unavaibled = unavaibled;
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
 	}
 
 	/**
@@ -329,7 +329,7 @@ public class Subscription implements Serializable {
 	 * @param maximumapplications
 	 * @param maximumprofiles
 	 * @param maximumversionbyapp
-	 * @param unavaibled
+	 * @param enabled
 	 * @param show
 	 * @param datestart
 	 * @param datefinish
@@ -340,7 +340,7 @@ public class Subscription implements Serializable {
 	 */
 	public Subscription(Long id, Long idoffer, Long idbuyer, String description, Integer maximumdownloads,
 			Integer maximumusers, Integer maximumapplications, Integer maximumprofiles, Integer maximumversionbyapp,
-			String unavaibled, String show, String datestart, String datefinish, String createdDatetime,
+			String enabled, String show, String datestart, String datefinish, String createdDatetime,
 			String createdPlatform, String updatedDatetime, String updatedPlatform) {
 		this.id = id;
 		this.idoffer = idoffer;
@@ -351,7 +351,7 @@ public class Subscription implements Serializable {
 		this.maximumapplications = maximumapplications;
 		this.maximumprofiles = maximumprofiles;
 		this.maximumversionbyapp = maximumversionbyapp;
-		this.unavaibled = unavaibled;
+		this.enabled = enabled;
 		this.show = show;
 		this.datestart = datestart;
 		this.datefinish = datefinish;
@@ -372,7 +372,7 @@ public class Subscription implements Serializable {
 				+ (maximumapplications != null ? "maximumapplications=" + maximumapplications + ", " : "")
 				+ (maximumprofiles != null ? "maximumprofiles=" + maximumprofiles + ", " : "")
 				+ (maximumversionbyapp != null ? "maximumversionbyapp=" + maximumversionbyapp + ", " : "")
-				+ (unavaibled != null ? "unavaibled=" + unavaibled + ", " : "")
+				+ (enabled != null ? "enabled=" + enabled + ", " : "")
 				+ (show != null ? "show=" + show + ", " : "")
 				+ (datestart != null ? "datestart=" + datestart + ", " : "")
 				+ (datefinish != null ? "datefinish=" + datefinish + ", " : "")

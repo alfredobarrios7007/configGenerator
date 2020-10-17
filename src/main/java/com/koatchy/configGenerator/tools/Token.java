@@ -11,6 +11,26 @@ public class Token {
 	
 	private String product;
 	
+	public String getConfirmRegisterToken(String email) throws Exception {
+		String result = "";
+		try {
+			result = EncryptUtil.encode("~KöAtcHy¬", "RegisterConfirm|" + email + "|" + getCurrentDate()).replace("+", "¬");
+		} catch (Exception e) {
+			throw new Exception("Not possible generate a token in this moment.");
+		}
+		return result;
+	}
+	
+	public String verifyConfirmRegisterToken(VerifyCodeRequest code) throws Exception {
+		String result = "";
+		try {
+			result = EncryptUtil.decode("~KöAtcHy¬", code.getCode().replace("¬","+"));
+		} catch (Exception e) {
+			throw new Exception("Not possible generate a token in this moment.");
+		}
+		return result;
+	}
+
 	public String getRecoveryPasswordToken(String email) throws Exception {
 		String result = "";
 		try {

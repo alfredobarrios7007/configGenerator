@@ -24,6 +24,19 @@ USE `bds_consola_universal` ;
 -- -----------------------------------------------------
 -- Table `bds_consola_universal`.`cfConfigurations`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `bds_consola_universal`.`debugControl` ;
+
+CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`debugControl` (
+  `Text` VARCHAR(500) NULL DEFAULT NULL
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `bds_consola_universal`.`cfConfigurations`
+-- -----------------------------------------------------
 DROP TABLE IF EXISTS `bds_consola_universal`.`cfConfigurations` ;
 
 CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`cfConfigurations` (
@@ -42,11 +55,13 @@ INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('EmailFromAccout', 'abarrios7007@gmail.com');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('AutorizationRequest', 'wDo3rXrE/');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('PhotoDirectory', 'C:\\src\\configGenerator\\src\\main\\webapp\\assets\\photos');
-INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdHost', 'smtp.gmail.com');
-INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdPort', '587');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdFrom', 'abarrios7007@gmail.com');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdSubject', 'Köatchy | Recuperación de contraseña');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdMessage', 'Por favor accede a http://localhost:3000/setNewPassword?code=');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RegisterConfirmFrom', 'abarrios7007@gmail.com');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RegisterConfirmSubject', 'Köatchy | Gracias por registrarte en www.koatchy.com');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RegisterConfirmMessage', 'Por favor accede a http://localhost:3000/registerConfirm?code=');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RegisterWelcomeMessage', ' te damos la bienvenida a Köatchy!');
 
 
 -- -----------------------------------------------------
@@ -74,9 +89,9 @@ INSERT INTO `bds_consola_universal`.`ctCountries` (`Name`, `Shortname`, `Capital
 DROP TABLE IF EXISTS `bds_consola_universal`.`ctOrganizationRoles` ;
 
 CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctOrganizationRoles` (
-  `IdOrganizationRol` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdOrganizationRole` INT(11) NOT NULL AUTO_INCREMENT,
   `NameES` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`IdOrganizationRol`)
+  PRIMARY KEY (`IdOrganizationRole`)
   )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
@@ -124,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctUsers` (
   `IdUser` INT(11) NOT NULL AUTO_INCREMENT,
   `IdUserArea` INT(11) NULL,
   `IdOrganization` INT(11) NULL,
-  `IdOrganizationRol` INT(11) NULL,
+  `IdOrganizationRole` INT(11) NULL,
   `Password` VARCHAR(250) NOT NULL,
   `Name` VARCHAR(50) NOT NULL,
   `Lastname` VARCHAR(50) NULL,
@@ -132,7 +147,8 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctUsers` (
   `Superuser` CHAR(1) NOT NULL,
   `Confirmed` CHAR(1) NOT NULL,
   `Photo` VARCHAR(100) NULL,
-  `Unavaibled` CHAR(1) NOT NULL,
+  `Language` CHAR(2) NULL,
+  `Enabled` CHAR(1) NOT NULL,
   `Created_Datetime` DATETIME NOT NULL,
   `Created_Platform` VARCHAR(10) NOT NULL,
   `Updated_Datetime` DATETIME NULL,
@@ -141,16 +157,19 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`ctUsers` (
   CONSTRAINT `FK_User_Area`
     FOREIGN KEY (`IdUserArea`)
     REFERENCES `bds_consola_universal`.`ctUserAreas` (`IdUserArea`),
+  CONSTRAINT `FK_User_Organization`
+    FOREIGN KEY (`IdOrganization`)
+    REFERENCES `bds_consola_universal`.`ctOrganizations` (`IdOrganization`),
   CONSTRAINT `FK_User_Rol`
-    FOREIGN KEY (`IdOrganizationRol`)
-    REFERENCES `bds_consola_universal`.`ctOrganizationRoles` (`IdOrganizationRol`)
+    FOREIGN KEY (`IdOrganizationRole`)
+    REFERENCES `bds_consola_universal`.`ctOrganizationRoles` (`IdOrganizationRole`)
     )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
-INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `IdOrganizationRol`, `Created_Platform`, `Created_Datetime`) VALUES (1, 'admin', 'N', 'Alfredo', 'Barrios', 'alfredo.barrios@speedymovil.com', 'Y', 'Y', 2, 1, 'INIT_ROW', SYSDATE());
+INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Enabled`, `Name`, `lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `IdOrganizationRole`, `Language`, `Created_Platform`, `Created_Datetime`) VALUES (1, 'admin', 'Y', 'Alfredo', 'Barrios', 'alfredo.barrios@speedymovil.com', 'Y', 'Y', 2, 1, 'ES', 'INIT_ROW', SYSDATE());
 
 
 -- -----------------------------------------------------
@@ -246,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`rrUsersProjects` (
   `IdUserProject` INT(11) NOT NULL AUTO_INCREMENT,
   `IdProject` INT(11) NOT NULL ,
   `IdUser` INT(11) NOT NULL ,
-  `Unavaibled` CHAR(1) NOT NULL,
+  `Enabled` CHAR(1) NOT NULL,
   `Datestart` DATETIME NOT NULL,
   `Datefinish` DATETIME NOT NULL,
   PRIMARY KEY (`IdUserProject`),
@@ -260,7 +279,7 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;
 
-INSERT INTO `bds_consola_universal`.`rrUsersProjects` (`IdProject`, `IdUser`, `Unavaibled`, `Datestart`, `Datefinish`) VALUES  (1, 1, 'N', SYSDATE(), DATE_ADD(SYSDATE(), INTERVAL 1 YEAR));
+INSERT INTO `bds_consola_universal`.`rrUsersProjects` (`IdProject`, `IdUser`, `Enabled`, `Datestart`, `Datefinish`) VALUES  (1, 1, 'Y', SYSDATE(), DATE_ADD(SYSDATE(), INTERVAL 1 YEAR));
 
 -- -----------------------------------------------------
 -- Table `bds_consola_universal`.`subscritionsOffers`
@@ -276,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`subscritionsOffers` (
   `MaximumApplications` TINYINT NOT NULL,
   `MaximumProfiles` TINYINT NOT NULL,
   `MaximumVersionByApp` TINYINT NOT NULL,
-  `Unavaibled` CHAR(1) NOT NULL,
+  `Enabled` CHAR(1) NOT NULL,
   `Show` CHAR(1) NOT NULL,
   `Datestart` DATETIME NOT NULL,
   `Datefinish` DATETIME NOT NULL,
@@ -292,8 +311,8 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;
 
-INSERT INTO subscritionsOffers (`IdProject`, `Description`, `MaximumDownloads`, `MaximumUsers`, `MaximumApplications`, `MaximumProfiles`, `MaximumVersionByApp`, `Unavaibled`, `Show`, `Datestart`, `Datefinish`, `Created_Datetime`, `Created_Platform`, `Updated_Datetime`, `Updated_Platform`) 
-VALUES (1, 'Config Generator is the most powerful tool in this moment to create and release the app configuration, by country, profile and version.', 1000000, 3, 1, 2, 10, 'F', 'Y', SYSDATE(), DATE_ADD(SYSDATE(), INTERVAL 1 YEAR), SYSDATE(), 'INIT_ROW', NULL, NULL);
+INSERT INTO subscritionsOffers (`IdProject`, `Description`, `MaximumDownloads`, `MaximumUsers`, `MaximumApplications`, `MaximumProfiles`, `MaximumVersionByApp`, `Enabled`, `Show`, `Datestart`, `Datefinish`, `Created_Datetime`, `Created_Platform`, `Updated_Datetime`, `Updated_Platform`) 
+VALUES (1, 'Config Generator is the most powerful tool in this moment to create and release the app configuration, by country, profile and version.', 1000000, 3, 1, 2, 10, 'Y', 'Y', SYSDATE(), DATE_ADD(SYSDATE(), INTERVAL 1 YEAR), SYSDATE(), 'INIT_ROW', NULL, NULL);
 
 
 -- -----------------------------------------------------
@@ -311,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`subscritionsSubscriptions` (
   `MaximumApplications` TINYINT NOT NULL,
   `MaximumProfiles` TINYINT NOT NULL,
   `MaximumVersionByApp` TINYINT NOT NULL,
-  `Unavaibled` CHAR(1) NOT NULL,
+  `Enabled` CHAR(1) NOT NULL,
   `Show` CHAR(1) NOT NULL,
   `Datestart` DATETIME NOT NULL,
   `Datefinish` DATETIME NOT NULL,
@@ -342,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`rrSubscUsers` (
   `IdSubscription` INT(11) NOT NULL ,
   `IdUser` INT(11) NOT NULL,
   `Organizer` CHAR(1) NOT NULL,
-  `Unavaibled` CHAR(1) NOT NULL,
+  `Enabled` CHAR(1) NOT NULL,
   `Datestart` DATETIME NOT NULL,
   `Datefinish` DATETIME NOT NULL,
   PRIMARY KEY (`IdSubscUser`),
@@ -369,7 +388,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`confgenApplications` (
   `IdSubscription` INT(11) NOT NULL ,
   `Name` VARCHAR(50) NOT NULL,
   `Show` CHAR(1) NOT NULL,
-  `Unavaibled` CHAR(1) NOT NULL,
+  `Enabled` CHAR(1) NOT NULL,
   PRIMARY KEY (`IdApplication`),
   UNIQUE INDEX `IdApplication` (`IdApplication` ASC),
   UNIQUE INDEX `Name` (`Name` ASC),
@@ -393,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`confgenVersions` (
   `IdApplication` INT(11) NOT NULL,
   `Name` VARCHAR(50) NOT NULL,
   `Show` CHAR(1) NOT NULL,
-  `Unavaibled` CHAR(1) NOT NULL,
+  `Enabled` CHAR(1) NOT NULL,
   PRIMARY KEY (`IdVersion`),
   UNIQUE INDEX `IdVersion` (`IdVersion` ASC),
   UNIQUE INDEX `Name` (`Name` ASC),
@@ -418,7 +437,7 @@ CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`confgenProfiles` (
   `IdSubscription` INT(11) NOT NULL ,
   `IdCountry` INT(11) NOT NULL,
   `Nombre` VARCHAR(50) NOT NULL,
-  `Unavaibled` CHAR(1) NOT NULL,
+  `Enabled` CHAR(1) NOT NULL,
   PRIMARY KEY (`IdProfile`),
   INDEX `idPais` (`IdCountry` ASC),
   CONSTRAINT `FK_Profiles_Countries`
@@ -464,7 +483,7 @@ DROP TABLE IF EXISTS `bds_consola_universal`.`confgenConfigurations` ;
 CREATE TABLE IF NOT EXISTS `bds_consola_universal`.`confgenConfigurations` (
   `IdConfiguracion` INT(11) NOT NULL AUTO_INCREMENT,
   `IdRelAppCountry` INT(11) NOT NULL,
-  `Unavaibled` CHAR(1) NOT NULL,
+  `Enabled` CHAR(1) NOT NULL,
   `Show` CHAR(1) NOT NULL,
   `Configuration` JSON NOT NULL,
   `Created_Datetime` DATETIME NOT NULL,
@@ -688,6 +707,7 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 */
 
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -706,7 +726,7 @@ in p_password VARCHAR(100),
 in p_photo VARCHAR(200))
 BEGIN
 -- *************************************************************************************************************************
--- * CREATE_USER
+-- * REGISTER
 -- *************************************************************************************************************************
 -- * This procedures adds a new user
 -- * Create by: Alfredo Barrios
@@ -738,36 +758,85 @@ BEGIN
 			SET v_IdOrganizationAdded = 1;
 		END IF;
 		SELECT `IdOrganization` into v_IdOrganization FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`;
-		INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `Unavaibled`, `Name`, `Lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `photo`, `Created_Platform`, `Created_Datetime`) VALUES 
+		INSERT INTO `bds_consola_universal`.`ctUsers` (`IdUserArea`, `Password`, `enabled`, `Name`, `Lastname`, `Email`, `Superuser`, `Confirmed`, `IdOrganization`, `photo`, `Created_Platform`, `Created_Datetime`) VALUES 
 		(v_IdUserArea, p_password, 'N', p_name, p_lastname, p_email, 'N', 'N', v_IdOrganization, p_photo, p_platform, SYSDATE());
 		SELECT `IdUser` into v_IdUser FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`Email`;
 		IF v_IdOrganizationAdded=1 THEN
 			UPDATE `bds_consola_universal`.`ctOrganizations` SET `IdUserOnCharge`= v_IdUser WHERE v_IdOrganization=`IdOrganization`;
 		END IF;
     COMMIT;
-    SELECT usr.`IdUser`
-    , usr.`IdUserArea`
-    , usra.`name` AS `UserArea`
-    , usr.`IdOrganization`
-    , orgn.`name` AS `Organization`
-    , usr.`IdOrganizationRol`
-    , orgr.`nameES` AS `OrganizationRol`
-    , usr.`Password`
-    , usr.`Name`
-    , usr.`Lastname`
-    , usr.`Email`
-    , usr.`Superuser`
-    , usr.`Confirmed`
-    , usr.`Photo`
-    , usr.`Unavaibled`
-    , usr.`Created_Datetime`
-    , usr.`Created_Platform`
-    , usr.`Updated_Datetime`
-    , usr.`Updated_Platform` 
-    FROM `bds_consola_universal`.`ctUsers` usr INNER JOIN `bds_consola_universal`.`ctUserAreas` usra ON usr.`IdUserArea`= usra.`IdUserArea`
-    INNER JOIN `bds_consola_universal`.`ctOrganizations` orgn ON usr.`IdOrganization`= orgn.`IdOrganization`
-    LEFT OUTER JOIN `bds_consola_universal`.`ctOrganizationRoles` orgr ON orgr.`IdOrganizationRol`=usr.`IdOrganizationRol`
-    WHERE p_iduser=usr.iduser;
+END
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `bds_consola_universal`.`MODIFYUSERPROFILE`;
+DELIMITER $$
+CREATE PROCEDURE `bds_consola_universal`.`MODIFYUSERPROFILE` (
+in p_iduser INT,
+in p_platform VARCHAR(10), 
+in p_name VARCHAR(50), 
+in p_lastname VARCHAR(50), 
+in p_enabled CHAR(1), 
+in p_organization VARCHAR(250), 
+in p_organizationrole VARCHAR(250), 
+in p_area VARCHAR(50), 
+in p_email VARCHAR(150), 
+in p_superuser CHAR(1))
+BEGIN
+-- *************************************************************************************************************************
+-- * MODIFYUSERPROFILE
+-- *************************************************************************************************************************
+-- * This procedures modifies the user profile
+-- * Create by: Alfredo Barrios
+-- * Created at: oct 9, 2020
+-- *************************************************************************************************************************
+	DECLARE v_IdUserArea INT;
+	DECLARE v_IdOrganization INT;
+	DECLARE v_IdOrganizationRole INT;
+	DECLARE v_IdOrganizationAdded INT unsigned DEFAULT 0;
+	-- Handler error
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;  -- rollback any error in the transaction
+    END;
+    IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`email`) > 0 THEN
+    BEGIN
+		SIGNAL sqlstate '45000'
+        SET MESSAGE_TEXT = 'EMAIL_ALREADY_EXISTS';
+	END;
+    END IF;
+	START TRANSACTION;
+		IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctUserAreas` WHERE p_area=`name`) = 0 THEN
+			INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES (p_area, 'N');
+		END IF;    
+		SELECT `IdUserArea` into v_IdUserArea FROM `bds_consola_universal`.`ctUserAreas` WHERE p_area=`name`;
+		-- ********************************************************************************************************************
+		IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`) = 0 THEN
+			INSERT INTO `bds_consola_universal`.`ctOrganizations` (`Name`, `IdUserOnCharge`, `Created_Platform`, `Created_Datetime`) VALUES (p_organization, 1, p_platform, SYSDATE());
+			SET v_IdOrganizationAdded = 1;
+		END IF;
+		SELECT `IdOrganization` into v_IdOrganization FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`;
+		-- ********************************************************************************************************************
+		IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctOrganizationRoles` WHERE p_organizationrole=`name`) = 0 THEN
+			INSERT INTO `bds_consola_universal`.`ctOrganizationRoles` (`namees`) VALUES (p_organizationrole);
+		END IF;
+		SELECT `IdOrganizationRole` into v_IdOrganizationRole FROM `bds_consola_universal`.`ctOrganizationRoles` WHERE p_organizationrole=`name`;
+		-- ********************************************************************************************************************
+		UPDATE `bds_consola_universal`.`ctUsers` SET
+        `IdUserArea`=v_IdUserArea, 
+        `Password`=p_password, 
+        `Enabled`=p_enabled, 
+        `Name`=p_name, 
+        `Lastname`=p_lastname, 
+        `Email`=p_email, 
+        `Superuser`=p_superuser, 
+        `IdOrganization`=v_IdOrganization, 
+        `IdOrganizationRole`=v_IdOrganizationRole, 
+        `Updated_Platform`=p_platform, 
+        `Updated_Datetime`=SYSDATE()
+        WHERE
+        p_iduser=`iduser`;
+    COMMIT;
 END
 $$
 DELIMITER ;

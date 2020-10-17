@@ -73,9 +73,9 @@ public class UserServiceImpl implements UserService {
 		String subject = "";
 		String message = "";
 		System.out.print("fillEmailTemplate 1\n");
-		Optional<Configuration> rowCnf1 = configSrv.findByDescription("RecoveryPwdHost");
+		Optional<Configuration> rowCnf1 = configSrv.findByDescription("EmailHost");
 		System.out.print("fillEmailTemplate 2\n");
-		Optional<Configuration> rowCnf2 = configSrv.findByDescription("RecoveryPwdPort");
+		Optional<Configuration> rowCnf2 = configSrv.findByDescription("EmailPort");
 		System.out.print("fillEmailTemplate 3\n");
 		Optional<Configuration> rowCnf3 = configSrv.findByDescription("RecoveryPwdFrom");
 		System.out.print("fillEmailTemplate 4\n");
@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService {
 				Token tokn = new Token("~KöAtcHy¬");
 				msg += tokn.getRecoveryPasswordToken(param.getUsername());
 				emailTemp.setMessage(msg);
-				System.out.print(msg);
+				System.out.print("UserServiceImpl recoveryPassword 3 " + msg + "\n");
 				/* NEED UNCOMMENT THE FOLLOW LINES */
 				//EmailHelper emailH = new EmailHelper();
 				//emailH.sendmail(emailTemp);

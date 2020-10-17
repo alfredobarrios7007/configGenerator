@@ -1,11 +1,19 @@
 package com.koatchy.configGenerator.model;
 
+import java.io.Serializable;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
 @Scope(value="prototype")
-public class KeyValue {
+public class KeyValue implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 
 	private String Key;
 	private String Value;

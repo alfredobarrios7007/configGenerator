@@ -22,7 +22,7 @@ public interface ProjectsDao extends JpaRepository<Project, Long>{
 			value = "SELECT " +
 					" prjs.idproject,prjs.name,prjs.description,prjs.iconurl,prjs.badgeurl,prjs.created_datetime,prjs.created_platform,prjs.updated_datetime,prjs.updated_datetime,prjs.updated_platform  " +
 					" FROM ctProjects prjs " + 
-					" INNER JOIN rrCompaniesProjects rrcp ON prjs.idproject=rrcp.idproject AND rrcp.Unavaibled='N' " + 
+					" INNER JOIN rrCompaniesProjects rrcp ON prjs.idproject=rrcp.idproject AND rrcp.Enabled='N' " + 
 					" INNER JOIN ctUsers usrs ON rrcp.IdCompany=usrs.IdUser " + 
 					" WHERE :id = usrs.IdUser ", 
 			nativeQuery = true)
@@ -32,7 +32,7 @@ public interface ProjectsDao extends JpaRepository<Project, Long>{
 	value = "SELECT " +
 			" prjs.idproject,prjs.name,prjs.description,prjs.iconurl,prjs.badgeurl,prjs.created_datetime,prjs.created_platform,prjs.updated_datetime,prjs.updated_datetime,prjs.updated_platform  " +
 			" FROM ctProjects prjs " + 
-			" INNER JOIN rrCompaniesProjects rrcp ON prjs.idproject=rrcp.idproject AND rrcp.Unavaibled='N' " + 
+			" INNER JOIN rrCompaniesProjects rrcp ON prjs.idproject=rrcp.idproject AND rrcp.Enabled='N' " + 
 			" WHERE :id = rrcp.IdOrganization ", 
 	nativeQuery = true)
 	Optional<Project> findProjectsByOrganization(@Param("id")Long id);

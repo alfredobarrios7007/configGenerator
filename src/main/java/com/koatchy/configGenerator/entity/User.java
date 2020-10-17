@@ -39,8 +39,8 @@ public class User implements Serializable {
 	@Column(name="idorganization",nullable = true)
 	private Long idOrganization;
 	
-	@Column(name="idorganizationrol",nullable = true)
-	private Long idOrganizationRol;
+	@Column(name="idorganizationrole",nullable = true)
+	private Long idOrganizationRole;
 	
 	@Column(name="password")
 	private String password;
@@ -63,8 +63,8 @@ public class User implements Serializable {
 	@Column(name="photo",nullable = true)
 	private String photo;
 
-	@Column(name="unavaibled")
-	private String unavaibled;
+	@Column(name="enabled")
+	private String enabled;
 	
 	@Column(name="created_datetime",nullable = false)
 	private String createdDatetime;
@@ -121,17 +121,17 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the idOrganizationRol
+	 * @return the idOrganizationRole
 	 */
-	public long getIdOrganizationRol() {
-		return idOrganizationRol;
+	public long getIdOrganizationRole() {
+		return idOrganizationRole;
 	}
 
 	/**
-	 * @param idOrganizationRol the idOrganizationRol to set
+	 * @param idOrganizationRole the idOrganizationRole to set
 	 */
-	public void setIdOrganizationRol(long idOrganizationRol) {
-		this.idOrganizationRol = idOrganizationRol;
+	public void setIdOrganizationRole(long idOrganizationRole) {
+		this.idOrganizationRole = idOrganizationRole;
 	}
 
 	/**
@@ -219,28 +219,28 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the unavaibled
+	 * @return the enabled
 	 */
-	public String getUnavaibled() {
-		return unavaibled;
+	public String getEnabled() {
+		return enabled;
 	}
 
 	/**
-	 * @param unavaibled the unavaibled to set
+	 * @param enabled the enabledto set
 	 */
-	public void setUnavaibled(String unavaibled) {
-		this.unavaibled = unavaibled;
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
 	}
 
 	/**
-	 * @return the unavaibled
+	 * @return the confirmed
 	 */
 	public String getConfirmed() {
 		return confirmed;
 	}
 
 	/**
-	 * @param unavaibled the unavaibled to set
+	 * @param confirmed the confirmed to set
 	 */
 	public void setConfirmed(String confirmed) {
 		this.confirmed = confirmed;
@@ -306,33 +306,33 @@ public class User implements Serializable {
 	 * @param id
 	 * @param idUserArea
 	 * @param idOrganization
-	 * @param idOrganizationRol
+	 * @param idOrganizationRole
 	 * @param password
 	 * @param name
 	 * @param lastName
 	 * @param email
 	 * @param superuser
 	 * @param photo
-	 * @param unavaibled
+	 * @param enabled
 	 * @param createdDatetime
 	 * @param createdPlatform
 	 * @param updatedDatetime
 	 * @param updatedPlatform
 	 */
-	public User(long id, long idUserArea, long idOrganization, long idOrganizationRol, String password, String name,
-			String lastName, String email, String superuser, String photo, String unavaibled, String createdDatetime,
+	public User(long id, long idUserArea, long idOrganization, long idOrganizationRole, String password, String name,
+			String lastName, String email, String superuser, String photo, String enabled, String createdDatetime,
 			String createdPlatform, String updatedDatetime, String updatedPlatform) {
 		this.id = id;
 		this.idUserArea = idUserArea;
 		this.idOrganization = idOrganization;
-		this.idOrganizationRol = idOrganizationRol;
+		this.idOrganizationRole = idOrganizationRole;
 		this.password = password;
 		this.name = name;
 		this.lastName = lastName;
 		this.email = email;
 		this.superuser = superuser;
 		this.photo = photo;
-		this.unavaibled = unavaibled;
+		this.enabled = enabled;
 		this.createdDatetime = createdDatetime;
 		this.createdPlatform = createdPlatform;
 		this.updatedDatetime = updatedDatetime;
@@ -342,9 +342,9 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", idUserArea=" + idUserArea + ", idOrganization=" + idOrganization
-				+ ", idOrganizationRol=" + idOrganizationRol + ", password=" + password + ", name=" + name
+				+ ", idOrganizationRole=" + idOrganizationRole + ", password=" + password + ", name=" + name
 				+ ", lastName=" + lastName + ", email=" + email + ", superuser=" + superuser + ", photo=" + photo
-				+ ", unavaibled=" + unavaibled + ", createdDatetime=" + createdDatetime + ", createdPlatform="
+				+ ", enabled=" + enabled + ", createdDatetime=" + createdDatetime + ", createdPlatform="
 				+ createdPlatform + ", updatedDatetime=" + updatedDatetime + ", updatedPlatform=" + updatedPlatform
 				+ "]";
 	}

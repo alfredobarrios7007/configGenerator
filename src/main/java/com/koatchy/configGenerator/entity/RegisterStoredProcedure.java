@@ -22,26 +22,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "nothinghill")
-@NamedStoredProcedureQueries(
-		{
-			@NamedStoredProcedureQuery( 
-					name = "register", procedureName = "REGISTER",
-					resultClasses = {  
-							RegisterStoredProcedure.class
-							},
-					parameters = {
-				  @StoredProcedureParameter(name = "p_platform", type = String.class, mode = ParameterMode.IN),
-				  @StoredProcedureParameter(name = "p_name", type = String.class, mode = ParameterMode.IN),
-				  @StoredProcedureParameter(name = "p_lastname", type = String.class, mode = ParameterMode.IN),
-				  @StoredProcedureParameter(name = "p_organization", type = String.class, mode = ParameterMode.IN),
-				  @StoredProcedureParameter(name = "p_area", type = String.class, mode = ParameterMode.IN),
-				  @StoredProcedureParameter(name = "p_email", type = String.class, mode = ParameterMode.IN),
-				  @StoredProcedureParameter(name = "p_password", type = String.class, mode = ParameterMode.IN),
-				  @StoredProcedureParameter(name = "p_photo", type = String.class, mode = ParameterMode.IN)
+@NamedStoredProcedureQuery(name = "register", procedureName = "register",
+		resultClasses = { RegisterStoredProcedure.class },
+		parameters = {
+	  @StoredProcedureParameter(name = "p_platform", type = String.class, mode = ParameterMode.IN),
+	  @StoredProcedureParameter(name = "p_name", type = String.class, mode = ParameterMode.IN),
+	  @StoredProcedureParameter(name = "p_lastname", type = String.class, mode = ParameterMode.IN),
+	  @StoredProcedureParameter(name = "p_organization", type = String.class, mode = ParameterMode.IN),
+	  @StoredProcedureParameter(name = "p_area", type = String.class, mode = ParameterMode.IN),
+	  @StoredProcedureParameter(name = "p_email", type = String.class, mode = ParameterMode.IN),
+	  @StoredProcedureParameter(name = "p_password", type = String.class, mode = ParameterMode.IN),
+	  @StoredProcedureParameter(name = "p_photo", type = String.class, mode = ParameterMode.IN)
 				  }
   ) 
-  }
-) 
 public class RegisterStoredProcedure implements Serializable {
   
 	/**
@@ -59,7 +52,5 @@ public class RegisterStoredProcedure implements Serializable {
 	*/
 	@Id
 	@Column(name = "iduser")
-	private Long id; 
-	
-  
+	private Long id;   
 }

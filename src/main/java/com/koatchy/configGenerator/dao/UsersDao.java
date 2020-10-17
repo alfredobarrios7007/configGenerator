@@ -23,14 +23,14 @@ import org.springframework.stereotype.Repository;
 public interface UsersDao extends JpaRepository<User, Long>{
 	@Query(
 			value = "SELECT " +
-					" iduser,iduserarea,idorganization,idorganizationrol,password,name,lastname,email,superuser,confirmed,photo,unavaibled,created_datetime,created_platform,updated_datetime,updated_platform " +
+					" iduser,iduserarea,idorganization,idorganizationrole,password,name,lastname,email,superuser,confirmed,photo,Enabled,created_datetime,created_platform,updated_datetime,updated_platform " +
 					" FROM ctusers " + 
-					" WHERE Unavaibled='N' AND :email = email AND :password = password ", 
+					" WHERE Enabled='N' AND :email = email AND :password = password ", 
 			nativeQuery = true)
 	Optional<User> findUserByNameAndPassword(@Param("email")String email, @Param("password") String password);
 
 	@Query(
-			value = "SELECT iduser,iduserarea,idorganization,idorganizationrol,password,name,lastname,email,superuser,confirmed,photo,unavaibled,created_datetime,created_platform,updated_datetime,updated_platform FROM ctusers WHERE Unavaibled='N' AND :email = email ", 
+			value = "SELECT iduser,iduserarea,idorganization,idorganizationrole,password,name,lastname,email,superuser,confirmed,photo,Enabled,created_datetime,created_platform,updated_datetime,updated_platform FROM ctusers WHERE Enabled='N' AND :email = email ", 
 			nativeQuery = true)
 	Optional<User> findUserByEmail(@Param("email")String email);
 	
@@ -42,7 +42,12 @@ public interface UsersDao extends JpaRepository<User, Long>{
 			nativeQuery = true)
 	int setNewPassword(@Param("email")String email, @Param("password") String password);
 
-	
+	@Modifying
+    @Transactional
+    @Query(
+			value = "UPDATE ctusers SET Confirmed='Y' WHERE :id = iduser", 
+			nativeQuery = true)
+	int updateConfirm(@Param("id")Long idUser);
 
 	@Modifying
     @Transactional

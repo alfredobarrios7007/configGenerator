@@ -1,42 +1,79 @@
-USE `bds_consola_universal` ;
-
-SELECT iduser,iduserarea,idorganization,idorganizationrol,password,name,lastname,email,superuser,photo,unavaibled,created_datetime,created_platform,updated_datetime,updated_platform FROM ctusers  WHERE Unavaibled='N' AND Email = 'Simone@lamoderna.com' ;
-
-SELECT iduser,iduserarea,idorganization,idorganizationrol,password,name,lastname,email,superuser,photo,unavaibled,created_datetime,created_platform,updated_datetime,updated_platform FROM ctusers  
-WHERE Unavaibled='N' AND 'karen@speedy.com' = Email AND '+b79ce0jkFUY/I/Yi4Fr3g==' = Password;
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
-SELECT * FROM subscritionsOffers;
-
-INSERT INTO subscritionsOffers (`IdProject`, `Description`, `MaximumDownloads`, `MaximumUsers`, `MaximumApplications`, `MaximumProfiles`, `MaximumVersionByApp`, `Unavaibled`, `Show`, `Datestart`, `Datefinish`, `Created_Datetime`, `Created_Platform`, `Updated_Datetime`, `Updated_Platform`)
-VALUES (1, `Config Generator is the most powerful tool in this moment to create and release the app configuration, by country, profile and version.`, 1000000, 3, 1, 2, `10`, `F`, `Y`, SYSDATE(), DATE_ADD(SYSDATE(), INTERVAL 1 YEAR), SYSDATE(), 'INIT_ROW', NULL, NULL);
-
-
-DELETE FROM `bds_consola_universal`.`ctUsers` WHERE 'karen@speedy.com' = Email ;
-
-SELECT * FROM `bds_consola_universal`.`ctUsers` ;
-SELECT * FROM `bds_consola_universal`.`ctOrganizations` ;
-
-SELECT prjs.idproject,prjs.name,prjs.description,prjs.iconurl,prjs.badgeurl,prjs.created_datetime,prjs.created_platform,prjs.updated_datetime,prjs.updated_datetime,prjs.updated_platform 
-FROM
-ctProjects prjs
-INNER JOIN rrCompaniesProjects rrcp ON prjs.idproject=rrcp.idproject AND rrcp.Unavaibled='N'
-INNER JOIN ctUsers usrs ON rrcp.IdCompany=usrs.IdUser
-WHERE usrs.IdUser=1;
-
-
-CALL FIND_USER_BY_ID(2);
-
+DROP PROCEDURE IF EXISTS `bds_consola_universal`.`MODIFYUSERPROFILE`;
 DELIMITER $$
-CREATE PROCEDURE `FIND_USER_BY_ID`(in p_iduser int)
-begin
-	SELECT * FROM `bds_consola_universal`.`ctUsers` WHERE Iduser = p_iduser;
-end
-$$
-DELIMITER ;
-
-
-
+CREATE PROCEDURE `bds_consola_universal`.`MODIFYUSERPROFILE` (
+in P_iduser INT,
+in p_platform VARCHAR(10), 
+in p_name VARCHAR(50), 
+in p_lastname VARCHAR(50), 
+in p_enabled CHAR(1), 
+in p_organization VARCHAR(250), 
+in p_organizationrole VARCHAR(250), 
+in p_area VARCHAR(50), 
+in p_email VARCHAR(150), 
+in p_password VARCHAR(100),
+in p_superuser CHAR(1),
+in p_photo VARCHAR(200))
+BEGIN
+-- *************************************************************************************************************************
+-- * CREATE_USER
+-- *************************************************************************************************************************
+-- * This procedures modifies the user profile
+-- * Create by: Alfredo Barrios
+-- * Created at: oct 9, 2020
+-- *************************************************************************************************************************
+	DECLARE v_IdUserArea INT;
+	DECLARE v_IdOrganization INT;
+	DECLARE v_IdOrganizationRole INT;
+	DECLARE v_IdOrganizationAdded INT unsigned DEFAULT 0;
+	-- Handler error
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;  -- rollback any error in the transaction
+    END;
+    IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctUsers` WHERE p_email=`email`) > 0 THEN
+    BEGIN
+		SIGNAL sqlstate '45000'
+        SET MESSAGE_TEXT = 'EMAIL_ALREADY_EXISTS';
+	END;
+    END IF;
+	START TRANSACTION;
+		IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctUserAreas` WHERE p_area=`name`) = 0 THEN
+			INSERT INTO `bds_consola_universal`.`ctUserAreas` (`name`, `Notify`) VALUES (p_area, 'N');
+		END IF;    
+		SELECT `IdUserArea` into v_IdUserArea FROM `bds_consola_universal`.`ctUserAreas` WHERE p_area=`name`;
+		-- ********************************************************************************************************************
+		IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`) = 0 THEN
+			INSERT INTO `bds_consola_universal`.`ctOrganizations` (`Name`, `IdUserOnCharge`, `Created_Platform`, `Created_Datetime`) VALUES (p_organization, 1, p_platform, SYSDATE());
+			SET v_IdOrganizationAdded = 1;
+		END IF;
+		SELECT `IdOrganization` into v_IdOrganization FROM `bds_consola_universal`.`ctOrganizations` WHERE p_organization=`name`;
+		-- ********************************************************************************************************************
+		IF (SELECT COUNT(*) FROM `bds_consola_universal`.`ctOrganizationRoles` WHERE p_organizationrole=`name`) = 0 THEN
+			INSERT INTO `bds_consola_universal`.`ctOrganizationRoles` (`namees`) VALUES (p_organizationrole);
+		END IF;
+		SELECT `IdOrganizationRole` into v_IdOrganizationRole FROM `bds_consola_universal`.`ctOrganizationRoles` WHERE p_organizationrole=`name`;
+		-- ********************************************************************************************************************
+		UPDATE `bds_consola_universal`.`ctUsers` SET
+        `IdUserArea`=v_IdUserArea, 
+        `Password`=p_password, 
+        `Enabled`=p_enabled, 
+        `Name`=p_name, 
+        `Lastname`=p_lastname, 
+        `Email`=p_email, 
+        `Superuser`=p_superuser, 
+        `IdOrganization`=v_IdOrganization, 
+        `IdOrganizationRole`=v_IdOrganizationRole, 
+        `photo`=p_photo, 
+        `Updated_Platform`=p_platform, 
+        `Updated_Datetime`=SYSDATE()
+        WHERE
+        p_iduser=`iduser`;
+    COMMIT;
     SELECT usr.`IdUser`
     , usr.`IdUserArea`
     , usra.`name` AS `UserArea`
@@ -46,16 +83,20 @@ DELIMITER ;
     , orgr.`nameES` AS `OrganizationRol`
     , usr.`Password`
     , usr.`Name`
-    , usr.`Firstame`
+    , usr.`Lastname`
     , usr.`Email`
     , usr.`Superuser`
     , usr.`Confirmed`
     , usr.`Photo`
-    , usr.`Unavaibled`
+    , usr.`Enabled`
     , usr.`Created_Datetime`
     , usr.`Created_Platform`
     , usr.`Updated_Datetime`
     , usr.`Updated_Platform` 
     FROM `bds_consola_universal`.`ctUsers` usr INNER JOIN `bds_consola_universal`.`ctUserAreas` usra ON usr.`IdUserArea`= usra.`IdUserArea`
     INNER JOIN `bds_consola_universal`.`ctOrganizations` orgn ON usr.`IdOrganization`= orgn.`IdOrganization`
-    LEFT OUTER JOIN `bds_consola_universal`.`ctOrganizationRoles` orgr ON orgr.`IdOrganizationRol`=usr.`IdOrganizationRol`;
+    LEFT OUTER JOIN `bds_consola_universal`.`ctOrganizationRoles` orgr ON orgr.`IdOrganizationRole`=usr.`IdOrganizationRole`
+    WHERE p_iduser = usr.iduser;
+END
+$$
+DELIMITER ;
