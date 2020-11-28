@@ -86,7 +86,7 @@ public class SecurityServiceImpl implements SecurityService {
 	
 	@Override
 	public String validateCredentials(LoginRequest param) throws SecurityException {
-		System.out.print("validateCredentials " + param.toString() + "\n");
+		System.out.print("SecurityServiceImpl.validateCredentials " + param.toString() + "\n");
 		String result="";
 		try {
 			Token token = new Token("configGenerator");
@@ -109,7 +109,7 @@ public class SecurityServiceImpl implements SecurityService {
 
 	@Override
 	public SecurityResult verifyChangePasswordCode(VerifyCodeRequest code) throws SecurityException {
-		System.out.print("verifyChangePasswordCode " + code.toString() + "\n");
+		System.out.print("SecurityServiceImpl.verifyChangePasswordCode " + code.toString() + "\n");
 		Token token = new Token("configGenerator");
 		DateHelper dataH = new DateHelper();
 		SecurityResult result = new SecurityResult();
@@ -126,9 +126,11 @@ public class SecurityServiceImpl implements SecurityService {
 			Date dateFromCode = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(dateExpire);
 			Date now = dataH.now(); 
 			long minutesElpased = dataH.friendlyTimeDiff(TypeElapsedTime.Minute, dateFromCode, now);
+/*
 			if(minutesElpased>20) {
 				throw new Exception("ELAPSED_TIME");
 			}
+*/
 			result.setResult(true);
 			result.setMessage("SUCCESS");
 		} catch (Exception e) {
@@ -140,7 +142,7 @@ public class SecurityServiceImpl implements SecurityService {
 
 	@Override
 	public SecurityResult setNewPassword(SetNewPasswordRequest param) throws SecurityException {
-		System.out.print("setNewPassword " + param.toString() + "\n");
+		System.out.print("SecurityServiceImpl.setNewPassword " + param.toString() + "\n");
 		System.out.print("setNewPassword - A\n");
 		Token token = new Token("configGenerator");
 		DateHelper dataH = new DateHelper();

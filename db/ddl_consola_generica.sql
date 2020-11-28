@@ -57,10 +57,10 @@ INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('PhotoDirectory', 'C:\\src\\configGenerator\\src\\main\\webapp\\assets\\photos');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdFrom', 'abarrios7007@gmail.com');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdSubject', 'Köatchy | Recuperación de contraseña');
-INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdMessage', 'Por favor accede a http://localhost:3000/setNewPassword?code=');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RecoveryPwdMessage', 'Por favor accede a http://localhost:3000/OneSign/setNewPassword?code=');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RegisterConfirmFrom', 'abarrios7007@gmail.com');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RegisterConfirmSubject', 'Köatchy | Gracias por registrarte en www.koatchy.com');
-INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RegisterConfirmMessage', 'Por favor accede a http://localhost:3000/registerConfirm?code=');
+INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RegisterConfirmMessage', 'Por favor accede a http://localhost:3000/OneSign/registerConfirm?code=');
 INSERT INTO `bds_consola_universal`.`cfConfigurations` (`Description`, `ValueOf`) VALUES ('RegisterWelcomeMessage', ' te damos la bienvenida a Köatchy!');
 
 

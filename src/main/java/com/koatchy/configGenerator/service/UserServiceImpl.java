@@ -67,6 +67,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	private EmailTemplate fillEmailTemplate() {
+		System.out.print("UserServiceImpl.fillEmailTemplate\n");
 		String host = "";
 		Integer port = 0;
 		String from = "";
@@ -102,7 +103,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Boolean recoveryPassword(LoginRequest param) throws RecoveryPasswordException {
-		System.out.print("UserServiceImpl recoveryPassword param: " + param.toString() + "\n");
+		System.out.print("UserServiceImpl.recoveryPassword param: " + param.toString() + "\n");
 		Boolean result = false;
 		
 		if(param.getUsername().trim()=="") {
@@ -137,7 +138,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Boolean setNewPassword(SetNewPassword param) throws SetNewPasswordException {
-		System.out.print("UserServiceImpl setNewPassword param: " + param.toString() + "\n");
+		System.out.print("UserServiceImpl.setNewPassword param: " + param.toString() + "\n");
 		Boolean result = true;
 		
 		try {
