@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/koatchy/static/css/main.2ab0e8dc.chunk.css",
+    "main.js": "/koatchy/static/js/main.c1ef9d37.chunk.js",
+    "main.js.map": "/koatchy/static/js/main.c1ef9d37.chunk.js.map",
+    "runtime-main.js": "/koatchy/static/js/runtime-main.747c6264.js",
+    "runtime-main.js.map": "/koatchy/static/js/runtime-main.747c6264.js.map",
+    "static/css/2.c11abba4.chunk.css": "/koatchy/static/css/2.c11abba4.chunk.css",
+    "static/js/2.e89c0c77.chunk.js": "/koatchy/static/js/2.e89c0c77.chunk.js",
+    "static/js/2.e89c0c77.chunk.js.map": "/koatchy/static/js/2.e89c0c77.chunk.js.map",
+    "index.html": "/koatchy/index.html",
+    "precache-manifest.f776407e11ef2160ee68e662ff1180f0.js": "/koatchy/precache-manifest.f776407e11ef2160ee68e662ff1180f0.js",
+    "service-worker.js": "/koatchy/service-worker.js",
+    "static/css/2.c11abba4.chunk.css.map": "/koatchy/static/css/2.c11abba4.chunk.css.map",
+    "static/css/main.2ab0e8dc.chunk.css.map": "/koatchy/static/css/main.2ab0e8dc.chunk.css.map",
+    "static/js/2.e89c0c77.chunk.js.LICENSE.txt": "/koatchy/static/js/2.e89c0c77.chunk.js.LICENSE.txt",
+    "static/media/ajax-loader01.gif": "/koatchy/static/media/ajax-loader01.fef1f20a.gif",
+    "static/media/anonymous.png": "/koatchy/static/media/anonymous.2a00dad6.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.747c6264.js",
+    "static/css/2.c11abba4.chunk.css",
+    "static/js/2.e89c0c77.chunk.js",
+    "static/css/main.2ab0e8dc.chunk.css",
+    "static/js/main.c1ef9d37.chunk.js"
+  ]
+}
